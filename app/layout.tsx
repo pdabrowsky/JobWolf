@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
@@ -16,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={font.className}>{children}</body>
+      <body className={cn(font.className, 'bg-dark')}>{children}</body>
     </html>
   )
 }
