@@ -8,15 +8,15 @@ Follow these steps to get the project up and running locally:
 
 1. **Install Dependencies**:
 
-   \```
+   ```
    pnpm install
-   \```
+   ```
 
 2. **Run Development Server**:
 
-   \```
+   ```
    pnpm dev
-   \```
+   ```
 
 The application should be running at [http://localhost:3000](http://localhost:3000).
 
