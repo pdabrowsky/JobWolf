@@ -7,3 +7,29 @@ datasource db {
   url          = env("DATABASE_URL")
   relationMode = "prisma"
 }
+
+model Candidate {
+  id           String  @id @default(uuid())
+  email        String  @unique
+  password     String
+  firstName    String?
+  lastName     String?
+  phone        String?
+  description  String?
+  githubUrl    String?
+  portfolioUrl String?
+  fileUrl      String?
+}
+
+model Employer {
+  id          String  @id @default(uuid())
+  email       String  @unique
+  password    String
+  name        String?
+  city        String?
+  address     String?
+  description String?
+  phone       String?
+  website     String?
+  logoUrl     String?
+}
