@@ -8,7 +8,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       type={type}
       onClick={onClick}
       className={cn(
-        'w-fit py-2 px-5 rounded-md bg-gold text-dark font-medium',
+        'w-fit py-2 px-5 rounded-md bg-gold text-dark text-[14px] font-medium',
         className
       )}
       ref={ref}

@@ -52,14 +52,25 @@ export const RegisterForm = ({}: RegisterFormProps) => {
 
   return (
     <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
-      <h2 className="text-gold text-[26px] mx-auto pt-6 pb-14 font-medium">
+      <h2 className="text-gold text-[26px] mx-auto pt-6 mb-10 lg:mb-14 font-medium">
         Create account
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
-        <TextField label="Email" errors={errors} {...register('email')} />
-        <TextField label="Password" errors={errors} {...register('password')} />
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <TextField
+          label="Email"
+          placeholder="name@domain.com"
+          errors={errors}
+          {...register('email')}
+        />
+        <TextField
+          label="Password"
+          placeholder="At least 8 characters"
+          errors={errors}
+          {...register('password')}
+        />
         <TextField
           label="Confirm Password"
+          placeholder="Type your password again"
           errors={errors}
           {...register('confirmPassword')}
         />
@@ -68,7 +79,10 @@ export const RegisterForm = ({}: RegisterFormProps) => {
           errors={errors}
           {...register('acceptTerms')}
         />
-        <Button type="submit" className="mx-auto mt-14 font-semibold px-8">
+        <Button
+          type="submit"
+          className="mx-auto mt-10 lg:mt-14 font-semibold px-8"
+        >
           Sign up
         </Button>
       </form>

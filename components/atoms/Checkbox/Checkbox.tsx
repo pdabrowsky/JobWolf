@@ -12,7 +12,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       <div>
         <label
           htmlFor={name}
-          className="text-[12px] checked:bg-gray flex items-center"
+          className="text-[11px] lg:text-[12px] checked:bg-gray flex items-center"
         >
           <input
             type="checkbox"
