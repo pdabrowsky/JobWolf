@@ -37,12 +37,10 @@ export const RegisterForm = ({}: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<FormInput>({
     resolver: zodResolver(RegisterSchema),
   })
-  console.log(watch())
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (data.password !== data.confirmPassword) return
 
@@ -53,8 +51,8 @@ export const RegisterForm = ({}: RegisterFormProps) => {
   const [message, setMessage] = useState('')
 
   return (
-    <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-14">
-      <h2 className="text-gold text-[26px] mx-auto pt-6 pb-10 font-medium">
+    <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
+      <h2 className="text-gold text-[26px] mx-auto pt-6 pb-14 font-medium">
         Create account
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
@@ -70,7 +68,7 @@ export const RegisterForm = ({}: RegisterFormProps) => {
           errors={errors}
           {...register('acceptTerms')}
         />
-        <Button type="submit" className="mx-auto mt-10 font-semibold px-8">
+        <Button type="submit" className="mx-auto mt-14 font-semibold px-8">
           Sign up
         </Button>
       </form>
