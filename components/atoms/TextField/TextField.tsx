@@ -19,6 +19,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             ' bg-darkLight border border-borderMid text-gray px-1.5 py-1.5 text-[16px] rounded-md outline-none placeholder:text-opacity-40 focus:shadow-none focus:ring-0 hover:border-borderLight focus:border-borderLight transition-all'
           )}
           id={name}
+          name={name}
           ref={ref}
           {...rest}
         />
