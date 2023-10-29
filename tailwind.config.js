@@ -34,6 +34,12 @@ module.exports = {
     extend: {
       colors: {
         dark: '#121212',
+        darkLight: '#3A3A3A',
+        gray: '#D9D9D9',
+        darkGray: '#333333',
+        gold: '#FFB81C',
+        borderLight: '#7A7A7A',
+        borderMid: '#5A5A5A',
         white: '#FFFFFF',
         transparent: 'transparent',
         current: 'currentColor',
