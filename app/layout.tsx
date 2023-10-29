@@ -2,9 +2,9 @@ import { cn } from '@/lib/utils'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
-import SessionProvider from '@/components/SessionProvider/SessionProvider'
+import SessionProvider from '@/components/atoms/SessionProvider/SessionProvider'
 import { getServerSession } from 'next-auth'
-import { Navbar } from '@/components/Navbar'
+import { Navbar } from '@/components/molecules/Navbar'
 import { authOptions } from './api/auth/[...nextauth]/route'
 
 const font = Open_Sans({ subsets: ['latin'] })
