@@ -2,11 +2,12 @@
 
 import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
+import { UserRole } from '.'
 
 export const register = async (
   email: string,
   password: string,
-  role: 'candidate' | 'employer'
+  role: UserRole
 ) => {
   if (role === 'candidate') {
     const candidate = await prisma.candidate.findUnique({ where: { email } })
