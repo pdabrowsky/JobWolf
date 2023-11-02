@@ -33,7 +33,7 @@ const RegisterSchema = z
 
 type FormInput = z.infer<typeof RegisterSchema>
 
-export const RegisterForm = ({}: RegisterFormProps) => {
+export const RegisterForm = ({ role }: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
@@ -44,7 +44,7 @@ export const RegisterForm = ({}: RegisterFormProps) => {
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (data.password !== data.confirmPassword) return
 
-    const message = await registerAction(data.email, data.password, 'candidate')
+    const message = await registerAction(data.email, data.password, role)
     setMessage(message)
   }
 
