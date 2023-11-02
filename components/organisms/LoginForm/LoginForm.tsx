@@ -1,0 +1,87 @@
+'use client'
+
+import { useEffect } from 'react'
+import { signIn, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
+import { Card } from '@/components/atoms/Card'
+import { TextField } from '@/components/atoms/TextField'
+import { Button } from '@/components/atoms/Button'
+
+export const LoginForm = () => {
+  const router = useRouter()
+  const { status } = useSession()
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+  } = useForm()
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      const signInResponse = await signIn('credentials', {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      })
+
+      if (!signInResponse || !signInResponse.ok) {
+        console.error('invalid credentials')
+        setError('email', {
+          type: 'manual',
+          message: 'Authentication failed. Please check your credentials.',
+        })
+        setError('password', {
+          type: 'manual',
+          message: 'Authentication failed. Please check your credentials.',
+        })
+      } else {
+        router.refresh()
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.refresh()
+      router.push('/')
+    }
+  }, [router, status])
+
+  return (
+    <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
+      <h2 className="text-gold text-[26px] mx-auto pt-6 mb-10 lg:mb-14 font-medium">
+        Login
+      </h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+        <TextField
+          label="Email"
+          placeholder="name@domain.com"
+          errors={errors}
+          {...register('email', { required: true })}
+        />
+        <TextField
+          label="Password"
+          placeholder="Your password"
+          errors={errors}
+          type="password"
+          {...register('password', { required: true })}
+        />
+        <p className="text-[11px] lg:text-[12px]">Forget password?</p>
+        <Button
+          type="submit"
+          className="mx-auto mt-6 lg:mt-8 font-semibold px-8"
+        >
+          Login
+        </Button>
+        <p className="text-[11px] lg:text-[12px] mt-6 lg:mt-8 mx-auto">
+          Dont have an account? <span className="text-gold">Sign up</span>
+        </p>
+      </form>
+    </Card>
+  )
+}
