@@ -1,5 +1,4 @@
 import { Logout } from '@/components/atoms/Logout'
-import { Navbar } from '@/components/molecules/Navbar'
 
 const logoutPage = () => {
   return (
