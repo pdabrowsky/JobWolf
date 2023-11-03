@@ -8,6 +8,7 @@ import { Card } from '@/components/atoms/Card'
 import { TextField } from '@/components/atoms/TextField'
 import { Button } from '@/components/atoms/Button'
 import { DropdownMenu } from '@/components/atoms/Dropdown'
+import { toast } from 'react-toastify'
 
 const dropdownOptions = [
   { label: 'Candidate', href: '/register/candidate' },
@@ -34,7 +35,6 @@ export const LoginForm = () => {
       })
 
       if (!signInResponse || !signInResponse.ok) {
-        console.error('invalid credentials')
         setError('email', {
           type: 'manual',
           message: 'Authentication failed. Please check your credentials.',
@@ -45,6 +45,8 @@ export const LoginForm = () => {
         })
       } else {
         router.refresh()
+        router.push('/')
+        toast.success('Login successful')
       }
     } catch (error) {
       console.error(error)

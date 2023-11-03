@@ -2,16 +2,16 @@
 
 import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
-import { UserRole } from '.'
+import { RegisterResponse, UserRole } from '.'
 
 export const register = async (
   email: string,
   password: string,
   role: UserRole
-) => {
+): Promise<RegisterResponse> => {
   if (role === 'candidate') {
     const candidate = await prisma.candidate.findUnique({ where: { email } })
-    if (candidate) return 'Candidate already exists'
+    if (candidate) return { type: 'error', msg: 'Candidate already exists' }
 
     const passwordHash = bcrypt.hashSync(password, 10)
 
@@ -23,7 +23,7 @@ export const register = async (
     })
   } else {
     const employer = await prisma.employer.findUnique({ where: { email } })
-    if (employer) return 'Employer already exists'
+    if (employer) return { type: 'error', msg: 'Employer already exists' }
 
     const passwordHash = bcrypt.hashSync(password, 10)
 
@@ -35,5 +35,5 @@ export const register = async (
     })
   }
 
-  return 'Success'
+  return { type: 'success', msg: 'Account created successfully!' }
 }

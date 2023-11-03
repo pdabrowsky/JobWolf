@@ -1,5 +1,5 @@
 'use client'
-import { ToastContainer, toast, ToastClassName } from 'react-toastify'
+import { ToastContainer, toast, ToastClassName, Slide } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const contextClass = {
@@ -18,7 +18,8 @@ const getToastClassName: ToastClassName = (context = {}) => {
 
 export const ToastContainerWrapper = () => (
   <ToastContainer
-    position={toast.POSITION.TOP_RIGHT}
+    transition={Slide}
+    position={toast.POSITION.TOP_CENTER}
     hideProgressBar
     theme="colored"
     autoClose={3500}

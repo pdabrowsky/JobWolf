@@ -1,4 +1,5 @@
 import { UserRole } from '@/app/actions/users'
+import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 import { RegisterForm } from '@/components/organisms/RegisterForm'
 import { notFound } from 'next/navigation'
 
@@ -11,6 +12,7 @@ const RegisterPage = ({ params }: Params) => {
   return (
     <div className="w-full flex justify-center pt-[100px] px-5">
       <RegisterForm role={role as UserRole} />
+      <ToastContainerWrapper />
     </div>
   )
 }

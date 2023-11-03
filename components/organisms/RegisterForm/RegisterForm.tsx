@@ -5,12 +5,12 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RegisterFormProps } from '.'
 import { register as registerAction } from '@/app/actions/users'
-import { useState } from 'react'
 import { Card } from '@/components/atoms/Card/Card'
-import { ErrorMessage } from '@/components/atoms/ErrorMessage'
 import { Button } from '@/components/atoms/Button'
 import { Checkbox } from '@/components/atoms/Checkbox'
 import { TextField } from '@/components/atoms/TextField'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const RegisterSchema = z
   .object({
@@ -34,6 +34,7 @@ const RegisterSchema = z
 type FormInput = z.infer<typeof RegisterSchema>
 
 export const RegisterForm = ({ role }: RegisterFormProps) => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -41,14 +42,19 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
   } = useForm<FormInput>({
     resolver: zodResolver(RegisterSchema),
   })
+
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     if (data.password !== data.confirmPassword) return
 
     const message = await registerAction(data.email, data.password, role)
-    setMessage(message)
-  }
 
-  const [message, setMessage] = useState('')
+    if (message.type === 'success') {
+      toast.success(message.msg)
+      router.push('/')
+    } else {
+      toast.error(message.msg)
+    }
+  }
 
   return (
     <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
@@ -65,11 +71,13 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
         <TextField
           label="Password"
           placeholder="At least 8 characters"
+          type="password"
           errors={errors}
           {...register('password')}
         />
         <TextField
           label="Confirm Password"
+          type="password"
           placeholder="Type your password again"
           errors={errors}
           {...register('confirmPassword')}
@@ -86,7 +94,6 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
           Sign up
         </Button>
       </form>
-      <ErrorMessage errorText={message} />
     </Card>
   )
 }
