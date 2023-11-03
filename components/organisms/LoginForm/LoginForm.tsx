@@ -7,6 +7,12 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form'
 import { Card } from '@/components/atoms/Card'
 import { TextField } from '@/components/atoms/TextField'
 import { Button } from '@/components/atoms/Button'
+import { DropdownMenu } from '@/components/atoms/Dropdown'
+
+const dropdownOptions = [
+  { label: 'Candidate', href: '/register/candidate' },
+  { label: 'Employer', href: '/register/employer' },
+]
 
 export const LoginForm = () => {
   const router = useRouter()
@@ -53,11 +59,14 @@ export const LoginForm = () => {
   }, [router, status])
 
   return (
-    <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
-      <h2 className="text-gold text-[26px] mx-auto pt-6 mb-10 lg:mb-14 font-medium">
+    <Card className="max-w-[600px] w-full flex flex-col py-[90px] px-8 lg:px-24">
+      <h2 className="text-gold text-[26px] mx-auto mb-10 lg:mb-14 font-medium">
         Login
       </h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4 mb-5"
+      >
         <TextField
           label="Email"
           placeholder="name@domain.com"
@@ -78,10 +87,20 @@ export const LoginForm = () => {
         >
           Login
         </Button>
-        <p className="text-[11px] lg:text-[12px] mt-6 lg:mt-8 mx-auto">
-          Dont have an account? <span className="text-gold">Sign up</span>
-        </p>
       </form>
+      <div className="flex items-center mx-auto gap-1.5">
+        <p className="text-[11px] lg:text-[12px] ">
+          Don&apos;t have an account?
+        </p>
+        <DropdownMenu options={dropdownOptions}>
+          <button
+            type="button"
+            className="text-gold text-[11px] lg:text-[12px] flex items-center justify-center"
+          >
+            Sign up
+          </button>
+        </DropdownMenu>
+      </div>
     </Card>
   )
 }

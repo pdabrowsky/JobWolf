@@ -40,6 +40,7 @@ module.exports = {
         gold: '#FFB81C',
         borderLight: '#7A7A7A',
         borderMid: '#5A5A5A',
+        hoverDark: '#1A1A1A',
         white: '#FFFFFF',
         transparent: 'transparent',
         current: 'currentColor',
