@@ -11,8 +11,8 @@ import { DropdownMenu } from '@/components/atoms/Dropdown'
 import { toast } from 'react-toastify'
 
 const dropdownOptions = [
-  { label: 'Candidate', href: '/register/candidate' },
-  { label: 'Employer', href: '/register/employer' },
+  { label: 'Candidate', href: '/register?role=candidate' },
+  { label: 'Employer', href: '/register?role=employer' },
 ]
 
 export const LoginForm = () => {

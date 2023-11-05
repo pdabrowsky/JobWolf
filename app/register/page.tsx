@@ -3,10 +3,11 @@ import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 import { RegisterForm } from '@/components/organisms/RegisterForm'
 import { notFound } from 'next/navigation'
 
-type Params = { params: { role: string } }
+type RegisterPageProps = { searchParams: { role: string } }
 
-const RegisterPage = ({ params }: Params) => {
-  let { role } = params
+const RegisterPage = ({ searchParams }: RegisterPageProps) => {
+  const { role } = searchParams
+
   if (role !== 'candidate' && role !== 'employer') notFound()
 
   return (
