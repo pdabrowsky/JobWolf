@@ -1,5 +1,7 @@
 'use server'
 
+import { sendEmail } from '@/app/api/email/sendEmail'
+import { resetPasswordTemplate } from '@/email-templates/resetPasswordTemplate'
 import prisma from '@/lib/prisma'
 import cryptoRandomString from 'crypto-random-string'
 
@@ -19,8 +21,6 @@ export const forgotPassword = async (email: string) => {
   const user = await findUserByEmail(email)
 
   if (!user) return { type: 'error', msg: 'Email not found' }
-
-  //TODO zabepieczenie przed DDOS - czas resend mail, sprawdzenie wygaśnięcia tokenu
 
   const resetPasswordToken = cryptoRandomString({
     length: 15,
@@ -48,9 +48,11 @@ export const forgotPassword = async (email: string) => {
     })
   }
 
-  //TODO: send email
-  console.log(
-    `http://localhost:3000/reset-password?token=${resetPasswordToken}`
+  await sendEmail(
+    email,
+    'Reset Your Password',
+    resetPasswordTemplate(resetPasswordToken)
   )
+
   return { type: 'success', msg: 'Email sent' }
 }
