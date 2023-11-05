@@ -2,9 +2,8 @@ import React, { ReactNode } from 'react'
 import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 import { ForgotPasswordForm } from '@/components/organisms/ForgotPasswordForm'
 import { ResetPasswordForm } from '@/components/organisms/ResetPasswordForm'
-import prisma from '@/lib/prisma'
 import { notFound } from 'next/navigation'
-import { UserRole } from '../actions/register'
+import prisma from '@/lib/prisma'
 
 type ResetPasswordPageProps = {
   searchParams: {
@@ -13,19 +12,14 @@ type ResetPasswordPageProps = {
 }
 
 const findUserByToken = async (token: string) => {
-  const candidate = await prisma.candidate.findUnique({
-    where: { resetPasswordToken: token },
-  })
-
-  if (candidate) return { ...candidate, role: 'candidate' }
-
-  const employer = await prisma.employer.findUnique({
-    where: { resetPasswordToken: token },
-  })
-
-  if (employer) return { ...employer, role: 'employer' }
-
-  return null
+  return (
+    (await prisma.candidate.findUnique({
+      where: { resetPasswordToken: token },
+    })) ||
+    (await prisma.employer.findUnique({
+      where: { resetPasswordToken: token },
+    }))
+  )
 }
 
 const ContentWrapper = ({ children }: { children: ReactNode }) => (
@@ -42,7 +36,7 @@ const ResetPasswordPage = async ({ searchParams }: ResetPasswordPageProps) => {
 
     return (
       <ContentWrapper>
-        <ResetPasswordForm userId={user.id} userRole={user.role as UserRole} />
+        <ResetPasswordForm resetPasswordToken={searchParams.token} />
       </ContentWrapper>
     )
   } else {
