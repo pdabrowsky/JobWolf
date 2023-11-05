@@ -45,7 +45,6 @@ export const LoginForm = () => {
           message: 'Authentication failed. Please check your credentials.',
         })
       } else {
-        router.refresh()
         router.push('/')
         toast.success('Login successful')
       }
@@ -56,7 +55,6 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.refresh()
       router.push('/')
     }
   }, [router, status])
