@@ -1,12 +1,12 @@
 import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
-import { ForgotPasswordForm } from '@/components/organisms/ForgotPasswordForm'
+import { ResetPasswordForm } from '@/components/organisms/ResetPasswordForm'
 
-const ForgotPage = () => {
+const ResetPasswordPage = () => {
   return (
     <div className="w-full flex justify-center pt-[100px] px-5">
-      <ForgotPasswordForm />
+      <ResetPasswordForm />
       <ToastContainerWrapper />
     </div>
   )
 }
-export default ForgotPage
+export default ResetPasswordPage
