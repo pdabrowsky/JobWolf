@@ -6,6 +6,10 @@ import { TextField } from '@/components/atoms/TextField'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { ResetPasswordFormProps } from './ResetPasswordForm.types'
+import { resetPassword } from '@/app/actions/resetPassword'
+import { toast } from 'react-toastify'
+import { useRouter } from 'next/navigation'
 
 const RegisterSchema = z
   .object({
@@ -21,7 +25,10 @@ const RegisterSchema = z
 
 type FormInput = z.infer<typeof RegisterSchema>
 
-export const ResetPasswordForm = () => {
+export const ResetPasswordForm = ({
+  resetPasswordToken,
+}: ResetPasswordFormProps) => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -32,8 +39,14 @@ export const ResetPasswordForm = () => {
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
     try {
-      console.log(data)
-      //TODO: Add forgot password logic
+      const res = await resetPassword(resetPasswordToken, data.password)
+
+      if (res.type === 'success') {
+        router.push('/login')
+        toast.success(res.msg)
+      } else {
+        toast.error(res.msg)
+      }
     } catch (error) {
       console.error(error)
     }
