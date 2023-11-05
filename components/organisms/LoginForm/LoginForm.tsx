@@ -9,6 +9,7 @@ import { TextField } from '@/components/atoms/TextField'
 import { Button } from '@/components/atoms/Button'
 import { DropdownMenu } from '@/components/atoms/Dropdown'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
 
 const dropdownOptions = [
   { label: 'Candidate', href: '/register?role=candidate' },
@@ -82,7 +83,9 @@ export const LoginForm = () => {
           type="password"
           {...register('password', { required: true })}
         />
-        <p className="text-[11px] lg:text-[12px]">Forget password?</p>
+        <Link href="/reset-password" className="text-[11px] lg:text-[12px]">
+          Forget password?
+        </Link>
         <Button
           type="submit"
           className="mx-auto mt-6 lg:mt-8 font-semibold px-8"

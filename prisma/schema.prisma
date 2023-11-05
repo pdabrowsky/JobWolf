@@ -9,27 +9,31 @@ datasource db {
 }
 
 model Candidate {
-  id           String  @id @default(uuid())
-  email        String  @unique
-  password     String
-  firstName    String?
-  lastName     String?
-  phone        String?
-  description  String?
-  githubUrl    String?
-  portfolioUrl String?
-  fileUrl      String?
+  id                       String    @id @default(uuid())
+  email                    String    @unique
+  password                 String
+  firstName                String?
+  lastName                 String?
+  phone                    String?
+  description              String?
+  githubUrl                String?
+  portfolioUrl             String?
+  fileUrl                  String?
+  resetPasswordToken       String?   @unique
+  resetPasswordTokenExpiry DateTime?
 }
 
 model Employer {
-  id          String  @id @default(uuid())
-  email       String  @unique
-  password    String
-  name        String?
-  city        String?
-  address     String?
-  description String?
-  phone       String?
-  website     String?
-  logoUrl     String?
+  id                       String    @id @default(uuid())
+  email                    String    @unique
+  password                 String
+  name                     String?
+  city                     String?
+  address                  String?
+  description              String?
+  phone                    String?
+  website                  String?
+  logoUrl                  String?
+  resetPasswordToken       String?   @unique
+  resetPasswordTokenExpiry DateTime?
 }

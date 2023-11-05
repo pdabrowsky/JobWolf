@@ -16,6 +16,7 @@
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "crypto-random-string": "^5.0.0",
     "framer-motion": "^10.16.4",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.21",

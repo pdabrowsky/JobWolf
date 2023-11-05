@@ -1,10 +1,12 @@
 'use client'
 
+import { forgotPassword } from '@/app/actions/forgotPassword'
 import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
 import { TextField } from '@/components/atoms/TextField'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 const RegisterSchema = z.object({
@@ -18,16 +20,19 @@ export const ForgotPasswordForm = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<FormInput>({
     resolver: zodResolver(RegisterSchema),
   })
 
   const onSubmit: SubmitHandler<FormInput> = async (data) => {
-    try {
-      console.log(data)
-      //TODO: Add forgot password logic
-    } catch (error) {
-      console.error(error)
+    const message = await forgotPassword(data.email)
+
+    if (message.type === 'success') {
+      toast.success(message.msg)
+      reset()
+    } else {
+      toast.error(message.msg)
     }
   }
 
