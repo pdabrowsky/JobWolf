@@ -83,7 +83,10 @@ export const LoginForm = () => {
           type="password"
           {...register('password', { required: true })}
         />
-        <Link href="/reset-password" className="text-[11px] lg:text-[12px]">
+        <Link
+          href="/reset-password"
+          className="text-[11px] lg:text-[12px] w-fit"
+        >
           Forget password?
         </Link>
         <Button
