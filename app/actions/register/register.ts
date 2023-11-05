@@ -9,12 +9,15 @@ export const register = async (
   password: string,
   role: UserRole
 ): Promise<RegisterResponse> => {
+  const candidate = await prisma.candidate.findUnique({ where: { email } })
+  const employer = await prisma.employer.findUnique({ where: { email } })
+
+  if (candidate || employer)
+    return { type: 'error', msg: 'An account with this email already exists' }
+
+  const passwordHash = bcrypt.hashSync(password, 10)
+
   if (role === 'candidate') {
-    const candidate = await prisma.candidate.findUnique({ where: { email } })
-    if (candidate) return { type: 'error', msg: 'Candidate already exists' }
-
-    const passwordHash = bcrypt.hashSync(password, 10)
-
     await prisma.candidate.create({
       data: {
         email,
@@ -22,11 +25,6 @@ export const register = async (
       },
     })
   } else {
-    const employer = await prisma.employer.findUnique({ where: { email } })
-    if (employer) return { type: 'error', msg: 'Employer already exists' }
-
-    const passwordHash = bcrypt.hashSync(password, 10)
-
     await prisma.employer.create({
       data: {
         email,
