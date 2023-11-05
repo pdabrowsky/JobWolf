@@ -1,4 +1,4 @@
-import { UserRole } from '@/app/actions/users'
+import { UserRole } from '@/app/actions/register'
 import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 import { RegisterForm } from '@/components/organisms/RegisterForm'
 import { notFound } from 'next/navigation'

@@ -1,3 +1,3 @@
-import { UserRole } from '@/app/actions/users'
+import { UserRole } from '@/app/actions/register'
 
 export type RegisterFormProps = { role: UserRole }
