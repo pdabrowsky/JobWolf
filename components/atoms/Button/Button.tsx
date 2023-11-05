@@ -3,15 +3,19 @@ import { cn } from '@/lib/utils'
 import { ButtonProps } from './Button.types'
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ type, children, onClick, className, ...rest }, ref) => (
+  ({ type, disabled, children, onClick, className, ...rest }, ref) => (
     <button
       type={type}
       onClick={onClick}
       className={cn(
-        'w-fit py-2 px-5 rounded-md bg-gold text-dark text-[14px] font-medium',
+        'w-fit py-2 px-5 rounded-md bg-gold text-dark text-[14px] font-medium transition-all',
+        {
+          'opacity-50': disabled,
+        },
         className
       )}
       ref={ref}
+      disabled={disabled}
       {...rest}
     >
       {children}
