@@ -19,7 +19,7 @@ export const ForgotPasswordForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<FormInput>({
     resolver: zodResolver(RegisterSchema),
@@ -51,6 +51,7 @@ export const ForgotPasswordForm = () => {
         <Button
           type="submit"
           className="mx-auto mt-6 lg:mt-8 font-semibold px-8"
+          disabled={isSubmitting}
         >
           Reset password
         </Button>

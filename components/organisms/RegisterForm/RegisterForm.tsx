@@ -38,7 +38,7 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormInput>({
     resolver: zodResolver(RegisterSchema),
   })
@@ -90,6 +90,7 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
         <Button
           type="submit"
           className="mx-auto mt-10 lg:mt-14 font-semibold px-8"
+          disabled={isSubmitting}
         >
           Sign up
         </Button>

@@ -23,7 +23,7 @@ export const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setError,
   } = useForm()
 
@@ -92,6 +92,7 @@ export const LoginForm = () => {
         <Button
           type="submit"
           className="mx-auto mt-6 lg:mt-8 font-semibold px-8"
+          disabled={isSubmitting}
         >
           Login
         </Button>
