@@ -6,6 +6,7 @@ import SessionProvider from '@/components/atoms/SessionProvider/SessionProvider'
 import { getServerSession } from 'next-auth'
 import { Navbar } from '@/components/molecules/Navbar'
 import { authOptions } from './api/auth/[...nextauth]/route'
+import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -26,6 +27,7 @@ export default async function RootLayout({
         <SessionProvider session={session}>
           <Navbar />
           {children}
+          <ToastContainerWrapper />
         </SessionProvider>
       </body>
     </html>

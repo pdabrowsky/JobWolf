@@ -23,10 +23,7 @@ const findUserByToken = async (token: string) => {
 }
 
 const ContentWrapper = ({ children }: { children: ReactNode }) => (
-  <div className="w-full flex justify-center pt-[100px] px-5">
-    {children}
-    <ToastContainerWrapper />
-  </div>
+  <div className="w-full flex justify-center pt-[100px] px-5">{children}</div>
 )
 
 const ResetPasswordPage = async ({ searchParams }: ResetPasswordPageProps) => {
