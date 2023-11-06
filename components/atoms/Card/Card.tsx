@@ -5,7 +5,7 @@ export const Card = ({ className, children }: CardProps) => {
   return (
     <div
       className={cn(
-        'bg-darkLight rounded-[8px] text-gray shadow-lg',
+        'relative bg-darkLight rounded-[8px] text-gray shadow-lg',
         className
       )}
     >

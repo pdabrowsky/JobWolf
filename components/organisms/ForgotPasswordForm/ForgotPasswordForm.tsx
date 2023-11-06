@@ -3,8 +3,11 @@
 import { forgotPassword } from '@/app/actions/forgotPassword'
 import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
+import { IconButton } from '@/components/atoms/IconButton'
 import { TextField } from '@/components/atoms/TextField'
+import { ArrowBackIcon } from '@/icons'
 import { zodResolver } from '@hookform/resolvers/zod'
+import router from 'next/router'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
@@ -38,6 +41,12 @@ export const ForgotPasswordForm = () => {
 
   return (
     <Card className="max-w-[600px] w-full flex flex-col py-16 px-8 lg:px-24">
+      <IconButton
+        className="absolute top-3 left-3"
+        icon={<ArrowBackIcon className="w-5 h-5" />}
+        aria-label="Go back to the login page"
+        onClick={() => router.push('/login')}
+      />
       <h2 className="text-gold text-[26px] mx-auto mb-10 lg:mb-14 font-medium">
         Forgot Password
       </h2>
