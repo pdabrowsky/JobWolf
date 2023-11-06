@@ -2,23 +2,24 @@
 
 import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
+import { CustomResponse, UserRole } from '../types'
 
 export const findUserByToken = async (token: string) => {
   const candidate = await prisma.candidate.findUnique({
     where: { resetPasswordToken: token },
   })
-  if (candidate) return { ...candidate, role: 'candidate' }
+  if (candidate) return { ...candidate, role: UserRole.Candidate }
 
   const employer = await prisma.employer.findUnique({
     where: { resetPasswordToken: token },
   })
-  if (employer) return { ...employer, role: 'employer' }
+  if (employer) return { ...employer, role: UserRole.Employer }
 }
 
 export const resetPassword = async (
   resetPasswordToken: string,
   password: string
-) => {
+): Promise<CustomResponse> => {
   const user = await findUserByToken(resetPasswordToken)
 
   if (!user) {
@@ -34,7 +35,7 @@ export const resetPassword = async (
 
   const passwordHash = bcrypt.hashSync(password, 10)
 
-  if (user.role === 'candidate') {
+  if (user.role === UserRole.Candidate) {
     await prisma.candidate.update({
       where: { id: user.id },
       data: {

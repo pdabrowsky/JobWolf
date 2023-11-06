@@ -5,6 +5,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { JWT } from 'next-auth/jwt'
 import NextAuth from 'next-auth/next'
+import { UserRole } from '@/app/actions/types'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -33,7 +34,7 @@ export const authOptions: AuthOptions = {
             candidate.password
           )
           if (isPasswordValid) {
-            return { ...candidate, role: 'candidate' }
+            return { ...candidate, role: UserRole.Candidate }
           }
         }
 
@@ -45,7 +46,7 @@ export const authOptions: AuthOptions = {
             employer.password
           )
           if (isPasswordValid) {
-            return { ...employer, role: 'employer' }
+            return { ...employer, role: UserRole.Employer }
           }
         }
 

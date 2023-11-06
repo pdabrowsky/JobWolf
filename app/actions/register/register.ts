@@ -2,13 +2,13 @@
 
 import prisma from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
-import { RegisterResponse, UserRole } from '.'
+import { CustomResponse, UserRole } from '../types'
 
 export const register = async (
   email: string,
   password: string,
   role: UserRole
-): Promise<RegisterResponse> => {
+): Promise<CustomResponse> => {
   const candidate = await prisma.candidate.findUnique({ where: { email } })
   const employer = await prisma.employer.findUnique({ where: { email } })
 
@@ -17,7 +17,7 @@ export const register = async (
 
   const passwordHash = bcrypt.hashSync(password, 10)
 
-  if (role === 'candidate') {
+  if (role === UserRole.Candidate) {
     await prisma.candidate.create({
       data: {
         email,
