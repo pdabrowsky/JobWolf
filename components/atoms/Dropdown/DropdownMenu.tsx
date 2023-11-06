@@ -33,7 +33,7 @@ export const DropdownMenu = ({
           >
             {options.map((option) => (
               <Link href={option.href} key={option.label}>
-                <motion.a
+                <motion.div
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
@@ -44,7 +44,7 @@ export const DropdownMenu = ({
                   onClick={() => setIsOpen(false)}
                 >
                   {option.label}
-                </motion.a>
+                </motion.div>
               </Link>
             ))}
           </motion.div>
