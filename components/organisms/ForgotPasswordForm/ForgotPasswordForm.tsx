@@ -7,7 +7,7 @@ import { IconButton } from '@/components/atoms/IconButton'
 import { TextField } from '@/components/atoms/TextField'
 import { ArrowBackIcon } from '@/icons'
 import { zodResolver } from '@hookform/resolvers/zod'
-import router from 'next/router'
+import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 import { z } from 'zod'
@@ -19,6 +19,7 @@ const RegisterSchema = z.object({
 type FormInput = z.infer<typeof RegisterSchema>
 
 export const ForgotPasswordForm = () => {
+  const router = useRouter()
   const {
     register,
     handleSubmit,
