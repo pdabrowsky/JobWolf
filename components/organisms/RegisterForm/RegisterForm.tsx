@@ -12,7 +12,7 @@ import { TextField } from '@/components/atoms/TextField'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { ArrowBackIcon } from '@/icons'
-import { IconButton } from '@/components/atoms/IconButton'
+import Link from 'next/link'
 
 const RegisterSchema = z
   .object({
@@ -60,12 +60,13 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
 
   return (
     <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
-      <IconButton
-        className="absolute top-3 left-3"
-        icon={<ArrowBackIcon className="w-5 h-5" />}
+      <Link
+        className="absolute top-3 left-3 p-1 flex"
+        href="/login"
         aria-label="Go back to the login page"
-        onClick={() => router.push('/login')}
-      />
+      >
+        <ArrowBackIcon className="w-6 h-6" />
+      </Link>
       <h2 className="text-gold text-[26px] mx-auto pt-6 mb-10 lg:mb-14 font-medium">
         Create account
       </h2>
