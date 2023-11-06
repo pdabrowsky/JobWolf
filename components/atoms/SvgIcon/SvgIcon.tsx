@@ -11,7 +11,7 @@ export const SvgIcon = forwardRef<SVGSVGElement, SvgIconProps>(
       <svg
         ref={ref}
         className={cn(
-          'inline-block fill-current flex-shrink-0 select-none w-em h-em',
+          'inline-block fill-current flex-shrink-0 select-none',
           className
         )}
         focusable="false"
