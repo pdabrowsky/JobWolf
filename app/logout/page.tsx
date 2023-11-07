@@ -1,10 +1,10 @@
 import { Logout } from '@/components/atoms/Logout'
 
-const logoutPage = () => {
+const LogoutPage = () => {
   return (
     <div>
       <Logout />
     </div>
   )
 }
-export default logoutPage
+export default LogoutPage
