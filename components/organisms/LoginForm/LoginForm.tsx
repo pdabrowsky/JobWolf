@@ -10,10 +10,11 @@ import { Button } from '@/components/atoms/Button'
 import { DropdownMenu } from '@/components/atoms/Dropdown'
 import { toast } from 'react-toastify'
 import Link from 'next/link'
+import { routes } from '@/constants/routes'
 
 const dropdownOptions = [
-  { label: 'Candidate', href: '/register?role=candidate' },
-  { label: 'Employer', href: '/register?role=employer' },
+  { label: 'Candidate', href: routes.REGISTER_CANDIDATE },
+  { label: 'Employer', href: routes.REGISTER_EMPLOYER },
 ]
 
 export const LoginForm = () => {
@@ -82,7 +83,7 @@ export const LoginForm = () => {
           {...register('password', { required: true })}
         />
         <Link
-          href="/reset-password"
+          href={routes.RESET_PASSWORD}
           className="text-[11px] lg:text-[12px] w-fit"
         >
           Forget password?

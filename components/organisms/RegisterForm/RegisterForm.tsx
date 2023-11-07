@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
 import { ArrowBackIcon } from '@/icons'
 import Link from 'next/link'
+import { routes } from '@/constants/routes'
 
 const RegisterSchema = z
   .object({
@@ -62,7 +63,7 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
     <Card className="max-w-[600px] w-full flex flex-col p-10 lg:px-24">
       <Link
         className="absolute top-3 left-3 p-1 flex"
-        href="/login"
+        href={routes.LOGIN}
         aria-label="Go back to the login page"
       >
         <ArrowBackIcon className="w-6 h-6" />

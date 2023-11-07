@@ -4,6 +4,7 @@ import { forgotPassword } from '@/app/actions/forgotPassword'
 import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
 import { TextField } from '@/components/atoms/TextField'
+import { routes } from '@/constants/routes'
 import { ArrowBackIcon } from '@/icons'
 import { zodResolver } from '@hookform/resolvers/zod'
 import Link from 'next/link'
@@ -42,7 +43,7 @@ export const ForgotPasswordForm = () => {
     <Card className="max-w-[600px] w-full flex flex-col py-16 px-8 lg:px-24">
       <Link
         className="absolute top-3 left-3 p-1 flex"
-        href="/login"
+        href={routes.LOGIN}
         aria-label="Go back to the login page"
       >
         <ArrowBackIcon className="w-6 h-6" />

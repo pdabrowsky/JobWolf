@@ -35,10 +35,10 @@ export const Navbar = () => {
       <Logo className="h-6 lg:h-7" />
       <ul className="flex items-center gap-5 lg:gap-8 text-[12px] lg:text-[14px] lg:mr-3">
         <li>
-          <Link href="/">Offers</Link>
+          <Link href={routes.HOME}>Offers</Link>
         </li>
         <li>
-          <Link href="/post-job">Post a job</Link>
+          <Link href={routes.POST_JOB}>Post a job</Link>
         </li>
         <li>
           <DropdownMenu options={dropdownOptions}>
