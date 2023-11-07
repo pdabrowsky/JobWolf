@@ -24,7 +24,7 @@ export const DropdownMenu = ({
       </div>
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <motion.ul
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -33,7 +33,7 @@ export const DropdownMenu = ({
           >
             {options.map((option) => (
               <Link href={option.href} key={option.label}>
-                <motion.div
+                <motion.li
                   initial={{ opacity: 0 }}
                   animate={{
                     opacity: 1,
@@ -44,10 +44,10 @@ export const DropdownMenu = ({
                   onClick={() => setIsOpen(false)}
                 >
                   {option.label}
-                </motion.div>
+                </motion.li>
               </Link>
             ))}
-          </motion.div>
+          </motion.ul>
         )}
       </AnimatePresence>
     </div>
