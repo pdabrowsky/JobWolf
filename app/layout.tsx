@@ -23,7 +23,7 @@ export default async function RootLayout({
   const session = await getServerSession(authOptions)
   return (
     <html lang="en">
-      <body className={cn(font.className, 'bg-dark')}>
+      <body className={cn(font.className, 'bg-dark text-gray')}>
         <SessionProvider session={session}>
           <Navbar />
           {children}
