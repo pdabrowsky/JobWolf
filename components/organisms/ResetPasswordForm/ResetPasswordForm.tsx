@@ -10,6 +10,7 @@ import { ResetPasswordFormProps } from './ResetPasswordForm.types'
 import { resetPassword } from '@/app/actions/resetPassword'
 import { toast } from 'react-toastify'
 import { useRouter } from 'next/navigation'
+import { routes } from '@/constants/routes'
 
 const RegisterSchema = z
   .object({
@@ -42,7 +43,7 @@ export const ResetPasswordForm = ({
       const res = await resetPassword(resetPasswordToken, data.password)
 
       if (res.type === 'success') {
-        router.push('/login')
+        router.push(routes.LOGIN)
         toast.success(res.msg)
       } else {
         toast.error(res.msg)

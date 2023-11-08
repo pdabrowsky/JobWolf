@@ -46,7 +46,7 @@ export const LoginForm = () => {
           message: 'Authentication failed. Please check your credentials.',
         })
       } else {
-        router.push('/')
+        router.push(routes.HOME)
         toast.success('Login successful')
       }
     } catch (error) {
@@ -56,7 +56,7 @@ export const LoginForm = () => {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/')
+      router.push(routes.HOME)
     }
   }, [router, status])
 

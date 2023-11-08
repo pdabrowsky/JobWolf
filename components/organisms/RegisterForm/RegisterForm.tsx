@@ -53,7 +53,7 @@ export const RegisterForm = ({ role }: RegisterFormProps) => {
 
     if (message.type === 'success') {
       toast.success(message.msg)
-      router.push('/login')
+      router.push(routes.LOGIN)
     } else {
       toast.error(message.msg)
     }
