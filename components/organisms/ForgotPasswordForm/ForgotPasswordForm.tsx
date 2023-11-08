@@ -13,7 +13,7 @@ import { toast } from 'react-toastify'
 import { z } from 'zod'
 
 const RegisterSchema = z.object({
-  email: z.string().email('Invalid email address'),
+  email: z.string().email('Invalid email address').min(1, 'Field is required'),
 })
 
 type FormInput = z.infer<typeof RegisterSchema>

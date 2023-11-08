@@ -17,11 +17,14 @@ import { routes } from '@/constants/routes'
 
 const RegisterSchema = z
   .object({
-    email: z.string().email('Invalid email address'),
+    email: z
+      .string()
+      .email('Invalid email address')
+      .min(1, 'Field is required'),
     password: z
       .string()
       .min(8, 'Password should be at least 8 characters long'),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(1, 'Field is required'),
     acceptTerms: z
       .boolean()
       .refine(

@@ -17,7 +17,7 @@ const RegisterSchema = z
     password: z
       .string()
       .min(8, 'Password should be at least 8 characters long'),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(1, 'Field is required'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
