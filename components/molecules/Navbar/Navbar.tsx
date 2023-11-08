@@ -20,7 +20,6 @@ const dropdownOptions = [
 
 export const Navbar = () => {
   const { data: session } = useSession()
-  console.log('sesja', session)
 
   return (
     <nav className="flex items-center justify-between h-14 lg:h-16 w-full border-b border-darkLight px-5 lg:px-8">
