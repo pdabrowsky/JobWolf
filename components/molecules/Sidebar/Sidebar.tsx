@@ -22,7 +22,7 @@ export const Sidebar = ({ activeTab }: SidebarProps) => {
   const isActive = (name: string) => activeTab === name.toLowerCase()
 
   return (
-    <Card className="px-4 py-3 lg:py-5 w-fit">
+    <Card className="px-4 py-3 lg:py-5 w-fit h-fit">
       <nav>
         <ul className="flex justify-center lg:block">
           {navItems.map((item) => (
