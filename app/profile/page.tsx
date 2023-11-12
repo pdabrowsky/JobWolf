@@ -4,6 +4,9 @@ import { getServerSession } from 'next-auth'
 import { notFound, redirect } from 'next/navigation'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { ChangePasswordForm } from '@/components/organisms/ChangePasswordForm'
+import { CandidateProfileForm } from '@/components/organisms/CandidateProfileForm'
+import { getCandidateProfile } from '../actions/candidate/profile'
+import { UserRole } from '../actions/types'
 
 type ProfilePageProps = { searchParams: { tab: string } }
 
@@ -12,13 +15,24 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
   const session = await getServerSession(authOptions)
   const { tab } = searchParams
 
-  if (!session || !session.user.email) redirect(routes.LOGIN)
+  if (!session || !session.user.email || !session.user.role)
+    redirect(routes.LOGIN)
   if (tab && tab !== 'settings') notFound()
 
   return (
     <div className="flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 lg:gap-4 mt-10 lg:mt-[100px] px-5">
       <Sidebar activeTab={tab === 'settings' ? 'settings' : 'profile'} />
-      {tab === 'settings' ? <ChangePasswordForm /> : null}
+      {tab === 'settings' ? (
+        <ChangePasswordForm />
+      ) : (
+        <>
+          {session.user.role === UserRole.Candidate ? (
+            <CandidateProfileForm
+              defaultData={(await getCandidateProfile(session.user.email)).data}
+            />
+          ) : null}
+        </>
+      )}
     </div>
   )
 }
