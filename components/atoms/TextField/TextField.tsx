@@ -9,7 +9,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <label htmlFor={name} className="pb-1 text-[12px] lg:text-[14px]">
           {label}
         </label>
