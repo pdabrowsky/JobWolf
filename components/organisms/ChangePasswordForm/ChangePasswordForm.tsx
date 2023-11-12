@@ -66,7 +66,7 @@ export const ChangePasswordForm = () => {
   }
 
   return (
-    <Card className="max-w-[500px] w-full flex flex-col p-4 px-6 lg:px-6">
+    <Card className="max-w-[500px] w-full flex flex-col p-6 lg:px-8">
       <h2 className="text-[22px] mb-3 font-medium">Settings</h2>
       <h4 className="text-[16px] mb-8 lg:mb-8 font-medium">Change password</h4>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -96,7 +96,7 @@ export const ChangePasswordForm = () => {
           className="mx-auto mt-10 lg:mt-14 font-semibold px-8"
           disabled={isSubmitting}
         >
-          Save
+          Change password
         </Button>
       </form>
     </Card>
