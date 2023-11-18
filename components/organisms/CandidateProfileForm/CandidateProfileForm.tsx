@@ -11,7 +11,6 @@ import { toast } from 'react-toastify'
 import { updateCandidateProfile } from '@/app/actions/candidate/profile'
 import { useSession } from 'next-auth/react'
 import { CandidateProfileFormProps } from './CandidateProfileForm.types'
-import { revalidatePath } from 'next/cache'
 
 const CandidateProfileSchema = z.object({
   firstName: z.string(),
@@ -53,7 +52,6 @@ export const CandidateProfileForm = ({
 
     if (message.type === 'success') {
       toast.success(message.msg)
-      revalidatePath('/profile')
     } else {
       toast.error(message.msg)
     }
