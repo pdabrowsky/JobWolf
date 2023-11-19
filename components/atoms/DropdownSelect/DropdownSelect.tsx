@@ -71,7 +71,7 @@ export const DropdownSelect = ({
           >
             {options.map((option) => (
               <motion.li
-                key={option.value}
+                key={option.label}
                 initial={{ opacity: 0 }}
                 animate={{
                   opacity: 1,
@@ -81,7 +81,7 @@ export const DropdownSelect = ({
                 onClick={() => handleSelect(option)}
                 className="block text-[12px] lg:text-[13px] px-4 py-2 hover:bg-hoverDark transition-all rounded-md cursor-pointer"
               >
-                {option.value}
+                {option.label}
               </motion.li>
             ))}
           </motion.ul>
