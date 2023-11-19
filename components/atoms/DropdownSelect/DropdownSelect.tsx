@@ -58,7 +58,7 @@ export const DropdownSelect = ({
           className="cursor-pointer w-full bg-darkLight border border-borderMid text-gray px-1.5 py-1.5 text-[14px] lg:text-[16px] rounded-md placeholder:text-gray placeholder:text-opacity-30 hover:border-borderLight focus-visible:outline-none focus-visible:ring-0 focus-visible:border-borderLight"
           {...rest}
         />
-        <ArrowDownIcon className=" h-6 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+        <ArrowDownIcon className=" h-6 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none text-borderLight" />
       </div>
       <AnimatePresence>
         {isFocused && (
