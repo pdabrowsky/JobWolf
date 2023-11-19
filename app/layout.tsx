@@ -7,6 +7,7 @@ import { getServerSession } from 'next-auth'
 import { Navbar } from '@/components/molecules/Navbar'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
+import { EdgeStoreProvider } from '../lib/edgestore'
 
 const font = Open_Sans({ subsets: ['latin'] })
 
@@ -25,9 +26,11 @@ export default async function RootLayout({
     <html lang="en">
       <body className={cn(font.className, 'bg-dark text-gray')}>
         <SessionProvider session={session}>
-          <Navbar />
-          {children}
-          <ToastContainerWrapper />
+          <EdgeStoreProvider>
+            <Navbar />
+            {children}
+            <ToastContainerWrapper />
+          </EdgeStoreProvider>
         </SessionProvider>
       </body>
     </html>
