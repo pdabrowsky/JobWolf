@@ -1,55 +1,63 @@
 'use client'
 
 import { z } from 'zod'
-import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { useForm, SubmitHandler } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { TextField } from '@/components/atoms/TextField'
 import { TextArea } from '@/components/atoms/TextArea'
 import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
-import { DropdownSelect } from '@/components/atoms/DropdownSelect/DropdownSelect'
+import { updateEmployerProfile } from '@/app/actions/employer/profile'
+import { useSession } from 'next-auth/react'
+import { toast } from 'react-toastify'
+import { EmployerProfileFormProps } from './EmployerProfileForm.types'
 
 const EmployerProfileSchema = z.object({
-  companyName: z.string().min(1, 'Field is required'),
+  name: z.string().min(1, 'Field is required'),
   city: z.string().min(1, 'Field is required'),
   address: z.string().min(1, 'Field is required'),
-  companyDescription: z.string().max(500).min(1, 'Field is required'),
+  description: z.string().max(500).min(1, 'Field is required'),
   phone: z.string().min(1, 'Field is required'),
-  websiteUrl: z
+  website: z
     .string()
     .min(1, 'Field is required')
     .url()
     .optional()
     .or(z.literal('')),
-  category: z.string(),
 })
 
 type EmployerProfileFormInput = z.infer<typeof EmployerProfileSchema>
 
-const dropdownOptions = [
-  { value: 'option1', label: 'Option 1' },
-  { value: 'option2', label: 'Option 2' },
-]
+// const dropdownOptions = [
+//   { value: '10', label: '10+' },
+//   { value: '25', label: '25+' },
+//   { value: '50', label: '50+' },
+//   { value: '100', label: '100+' },
+//   { value: '500', label: '500+' },
+// ]
 
-export const EmployerProfileForm = () => {
+export const EmployerProfileForm = ({
+  defaultData,
+}: EmployerProfileFormProps) => {
+  const { data: session } = useSession()
+
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors, isSubmitting },
   } = useForm<EmployerProfileFormInput>({
     resolver: zodResolver(EmployerProfileSchema),
+    defaultValues: defaultData,
   })
 
   const onSubmit: SubmitHandler<EmployerProfileFormInput> = async (data) => {
-    console.log(data)
-    // const message = await updateEmployerProfile(data, session?.user.email)
+    const message = await updateEmployerProfile(data, session?.user.email)
 
-    // if (message.type === 'success') {
-    //   toast.success(message.msg)
-    // } else {
-    //   toast.error(message.msg)
-    // }
+    if (message.type === 'success') {
+      toast.success(message.msg)
+    } else {
+      toast.error(message.msg)
+    }
   }
 
   return (
@@ -60,7 +68,7 @@ export const EmployerProfileForm = () => {
           label="Company Name"
           placeholder="Enter company name"
           errors={errors}
-          {...register('companyName')}
+          {...register('name')}
         />
         <div className="flex gap-3">
           <TextField
@@ -81,7 +89,7 @@ export const EmployerProfileForm = () => {
           rows={6}
           placeholder="Describe your company"
           errors={errors}
-          {...register('companyDescription')}
+          {...register('description')}
         />
         <TextField
           label="Phone"
@@ -93,9 +101,9 @@ export const EmployerProfileForm = () => {
           label="Website URL"
           placeholder="https://yourcompany.com"
           errors={errors}
-          {...register('websiteUrl')}
+          {...register('website')}
         />
-        <Controller
+        {/* <Controller
           name="category"
           control={control}
           render={({ field }) => (
@@ -103,11 +111,11 @@ export const EmployerProfileForm = () => {
               label="Category"
               options={dropdownOptions}
               errors={errors}
-              placeholder="Select a category"
+              placeholder="Select a company size"
               onChange={(value) => field.onChange(value)}
             />
           )}
-        />
+        /> */}
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"

@@ -8,6 +8,11 @@ import { CandidateProfileForm } from '@/components/organisms/CandidateProfileFor
 import { getCandidateProfile } from '../actions/candidate/profile'
 import { UserRole } from '../actions/types'
 import { EmployerProfileForm } from '@/components/organisms/EmployerProfileForm'
+import {
+  EmployerProfileData,
+  getEmployerProfile,
+} from '../actions/employer/profile'
+import { CandidateProfileData } from '../actions/candidate/profile/types'
 
 type ProfilePageProps = { searchParams: { tab: string } }
 
@@ -24,8 +29,7 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
   if (session.user.role === UserRole.Candidate) {
     defaultData = (await getCandidateProfile(session.user.email)).data
   } else {
-    // Assuming you have a similar function for employers
-    // defaultData = await getEmployerProfile(session.user.email);
+    defaultData = (await getEmployerProfile(session.user.email)).data
   }
 
   return (
@@ -36,9 +40,13 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
       ) : (
         <>
           {session.user.role === UserRole.Candidate ? (
-            <CandidateProfileForm defaultData={defaultData} />
+            <CandidateProfileForm
+              defaultData={defaultData as CandidateProfileData}
+            />
           ) : (
-            <EmployerProfileForm />
+            <EmployerProfileForm
+              defaultData={defaultData as EmployerProfileData}
+            />
           )}
         </>
       )}
