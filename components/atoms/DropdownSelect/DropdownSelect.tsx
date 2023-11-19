@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { FieldError } from 'react-hook-form'
@@ -7,6 +7,7 @@ import {
   DropdownSelectProps,
 } from './DropdownSelect.types'
 import { ErrorMessage } from '../ErrorMessage'
+import { ArrowDownIcon } from '@/icons'
 
 export const DropdownSelect = ({
   name,
@@ -17,17 +18,17 @@ export const DropdownSelect = ({
   onChange,
   placeholder,
   initialOption,
+  ...rest
 }: DropdownSelectProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const [selectedOption, setSelectedOption] = useState(initialOption || null)
-  const dropdownRef = useRef(null)
 
-  const onFocus = (e) => {
+  const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
     setIsFocused(true)
   }
 
-  const onBlur = (e) => {
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
     setIsFocused(false)
   }
@@ -41,18 +42,24 @@ export const DropdownSelect = ({
   const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
   return (
-    <div className={cn(className, 'relative w-fit')} ref={dropdownRef}>
+    <div className={cn(className, 'relative w-fit')}>
       <label htmlFor={name} className="block text-[12px] lg:text-[13px] pb-1">
         {label}
       </label>
-      <input
-        readOnly
-        value={selectedOption?.label || 'Select an option'}
-        placeholder={placeholder}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        className="cursor-pointer bg-darkLight border border-borderMid text-gray px-1.5 py-1.5 text-[14px] lg:text-[16px] rounded-md placeholder:text-gray placeholder:text-opacity-30 focus-visible:ring-0 focus-visible:border-borderLight"
-      />
+      <div className="relative">
+        <input
+          readOnly
+          id={name}
+          name={name}
+          value={selectedOption?.label || ''}
+          placeholder={placeholder}
+          onFocus={onFocus}
+          onBlur={onBlur}
+          className="cursor-pointer bg-darkLight border border-borderMid text-gray px-1.5 py-1.5 text-[14px] lg:text-[16px] rounded-md placeholder:text-gray placeholder:text-opacity-30 hover:border-borderLight focus-visible:outline-none focus-visible:ring-0 focus-visible:border-borderLight"
+          {...rest}
+        />
+        <ArrowDownIcon className=" h-6 absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+      </div>
       <AnimatePresence>
         {isFocused && (
           <motion.ul

@@ -103,6 +103,7 @@ export const EmployerProfileForm = () => {
               label="Category"
               options={dropdownOptions}
               errors={errors}
+              placeholder="Select a category"
               onChange={(value) => field.onChange(value)}
             />
           )}
