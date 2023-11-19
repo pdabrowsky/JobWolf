@@ -35,7 +35,7 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
         <ChangePasswordForm />
       ) : (
         <>
-          {session.user.role !== UserRole.Candidate ? (
+          {session.user.role === UserRole.Candidate ? (
             <CandidateProfileForm defaultData={defaultData} />
           ) : (
             <EmployerProfileForm />
