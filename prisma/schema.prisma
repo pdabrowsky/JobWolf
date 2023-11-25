@@ -18,6 +18,7 @@ model Candidate {
   description              String?
   githubUrl                String?
   portfolioUrl             String?
+  fileName                 String?
   fileUrl                  String?
   resetPasswordToken       String?   @unique
   resetPasswordTokenExpiry DateTime?
@@ -33,6 +34,7 @@ model Employer {
   description              String?
   phone                    String?
   website                  String?
+  logoName                 String?
   logoUrl                  String?
   resetPasswordToken       String?   @unique
   resetPasswordTokenExpiry DateTime?
