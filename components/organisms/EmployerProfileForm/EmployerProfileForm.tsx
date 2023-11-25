@@ -96,7 +96,7 @@ export const EmployerProfileForm = ({
           errors={errors}
           {...register('name')}
         />
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <TextField
             label="City"
             placeholder="Enter city"
