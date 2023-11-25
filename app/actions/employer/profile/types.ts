@@ -9,4 +9,6 @@ export type EmployerProfileData = {
   description: string
   phone: string
   website: string
+  logoName: string
+  logoUrl: string
 }

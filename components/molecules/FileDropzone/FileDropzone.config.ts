@@ -1,8 +1,7 @@
 export const dropzoneVariants = {
   base: 'relative rounded-md p-4 flex justify-center items-center flex-col cursor-pointer border border-dashed border-borderLight transition-all ease-in-out hover:opacity-80',
   fileLoaded: 'opacity-80',
-  disabled:
-    'bg-gray-200 border-gray-300 cursor-default pointer-events-none bg-opacity-30 dark:bg-gray-700',
+  disabled: 'opacity-80',
   accept: 'border border-blue-500 bg-blue-500 bg-opacity-10',
   reject: 'border border-red-700 bg-red-700 bg-opacity-10',
 }

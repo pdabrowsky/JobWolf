@@ -26,8 +26,8 @@ const EmployerProfileSchema = z.object({
     .url()
     .optional()
     .or(z.literal('')),
-  fileName: z.string().optional(),
-  fileUrl: z.string().optional(),
+  logoName: z.string().optional(),
+  logoUrl: z.string().optional(),
 })
 
 type EmployerProfileFormInput = z.infer<typeof EmployerProfileSchema>
@@ -49,14 +49,18 @@ export const EmployerProfileForm = ({
     defaultValues: defaultData,
   })
 
-  const fileName = watch('fileName')
-  const fileUrl = watch('fileUrl')
+  const logoName = watch('logoName')
+  const logoUrl = watch('logoUrl')
 
   const onSubmit: SubmitHandler<EmployerProfileFormInput> = async (data) => {
     const message = await updateEmployerProfile(data, session?.user.email)
 
     if (message.type === 'success') {
       toast.success(message.msg)
+      if (data.logoUrl && data.logoUrl !== defaultData?.logoUrl)
+        edgestore.publicFiles.confirmUpload({
+          url: data.logoUrl,
+        })
     } else {
       toast.error(message.msg)
     }
@@ -70,17 +74,11 @@ export const EmployerProfileForm = ({
           temporary: true,
         },
       })
-      setValue('fileUrl', res.url)
-      setValue('fileName', file.name)
+      setValue('logoUrl', res.url)
+      setValue('logoName', file.name)
     } else {
-      // Think about deleting the file from the server
-      // if (fileUrl) {
-      //   await edgestore.publicFiles.delete({
-      //     url: fileUrl,
-      //   })
-      // }
-      setValue('fileName', '')
-      setValue('fileUrl', '')
+      setValue('logoName', '')
+      setValue('logoUrl', '')
     }
   }
 
@@ -128,8 +126,8 @@ export const EmployerProfileForm = ({
           {...register('website')}
         />
         <FileDropzone
-          fileName={fileName}
-          fileUrl={fileUrl}
+          fileName={logoName}
+          fileUrl={logoUrl}
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB
           }}
