@@ -13,6 +13,7 @@ import { toast } from 'react-toastify'
 import { EmployerProfileFormProps } from './EmployerProfileForm.types'
 import { FileDropzone } from '@/components/molecules/FileDropzone'
 import { useEdgeStore } from '@/lib/edgestore'
+import { Checkbox } from '@/components/atoms/Checkbox'
 
 const EmployerProfileSchema = z.object({
   name: z.string().min(1, 'Field is required'),
@@ -28,6 +29,9 @@ const EmployerProfileSchema = z.object({
     .or(z.literal('')),
   logoName: z.string().optional(),
   logoUrl: z.string().optional(),
+  acceptDeclaration: z
+    .boolean()
+    .refine((val) => val === true, 'You must accept declaration'),
 })
 
 type EmployerProfileFormInput = z.infer<typeof EmployerProfileSchema>
@@ -137,6 +141,11 @@ export const EmployerProfileForm = ({
             onFileUpload(file)
           }}
           disabled={isSubmitting}
+        />
+        <Checkbox
+          label="Declare that the information provided above is true and accurate, and represent the stated company."
+          errors={errors}
+          {...register('acceptDeclaration')}
         />
         <Button
           type="submit"
