@@ -1,5 +1,11 @@
+import { PostJobForm } from '@/components/organisms/PostJobForm'
+
 const ProfilePage = () => {
-  return <p className="font-bold text-yellow-600 p-3">Post a job</p>
+  return (
+    <div className="flex justify-center mt-10 lg:mt-20 px-5">
+      <PostJobForm />
+    </div>
+  )
 }
 
 export default ProfilePage
