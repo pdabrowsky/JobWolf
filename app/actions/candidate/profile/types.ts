@@ -9,4 +9,6 @@ export type CandidateProfileData = {
   description: string
   githubUrl: string
   portfolioUrl: string
+  fileName: string
+  fileUrl: string
 }

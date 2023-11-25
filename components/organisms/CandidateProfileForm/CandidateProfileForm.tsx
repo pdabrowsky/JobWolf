@@ -11,6 +11,8 @@ import { toast } from 'react-toastify'
 import { updateCandidateProfile } from '@/app/actions/candidate/profile'
 import { useSession } from 'next-auth/react'
 import { CandidateProfileFormProps } from './CandidateProfileForm.types'
+import { FileDropzone } from '@/components/molecules/FileDropzone'
+import { useEdgeStore } from '@/lib/edgestore'
 
 const CandidateProfileSchema = z.object({
   firstName: z.string(),
@@ -29,6 +31,8 @@ const CandidateProfileSchema = z.object({
     .url('Please enter a valid URL')
     .optional()
     .or(z.literal('')),
+  fileName: z.string().optional(),
+  fileUrl: z.string().optional(),
 })
 
 type CandidateProfileFormInput = z.infer<typeof CandidateProfileSchema>
@@ -37,23 +41,50 @@ export const CandidateProfileForm = ({
   defaultData,
 }: CandidateProfileFormProps) => {
   const { data: session } = useSession()
+  const { edgestore } = useEdgeStore()
 
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<CandidateProfileFormInput>({
     resolver: zodResolver(CandidateProfileSchema),
     defaultValues: defaultData,
   })
 
+  const fileName = watch('fileName')
+  const fileUrl = watch('fileUrl')
+
   const onSubmit: SubmitHandler<CandidateProfileFormInput> = async (data) => {
     const message = await updateCandidateProfile(data, session?.user.email)
 
     if (message.type === 'success') {
       toast.success(message.msg)
+      if (data.fileUrl && data.fileUrl !== defaultData?.fileUrl) {
+        await edgestore.publicFiles.confirmUpload({
+          url: data.fileUrl,
+        })
+      }
     } else {
       toast.error(message.msg)
+    }
+  }
+
+  const onFileUpload = async (file?: File) => {
+    if (file) {
+      const res = await edgestore.publicFiles.upload({
+        file: file,
+        options: {
+          temporary: true,
+        },
+      })
+      setValue('fileUrl', res.url)
+      setValue('fileName', file.name)
+    } else {
+      setValue('fileName', '')
+      setValue('fileUrl', '')
     }
   }
 
@@ -97,6 +128,17 @@ export const CandidateProfileForm = ({
           placeholder="https://yourportfolio.com"
           errors={errors}
           {...register('portfolioUrl')}
+        />
+        <FileDropzone
+          fileName={fileName}
+          fileUrl={fileUrl}
+          dropzoneOptions={{
+            maxSize: 1024 * 1024 * 5, // 5MB
+          }}
+          onChange={(file) => {
+            onFileUpload(file)
+          }}
+          disabled={isSubmitting}
         />
         <Button
           type="submit"

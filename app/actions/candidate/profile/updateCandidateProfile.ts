@@ -11,6 +11,8 @@ export const updateCandidateProfile = async (
     description?: string
     githubUrl?: string
     portfolioUrl?: string
+    fileName?: string
+    fileUrl?: string
   },
   email?: string | null
 ): Promise<CustomResponse> => {
@@ -25,6 +27,8 @@ export const updateCandidateProfile = async (
         description: data.description,
         githubUrl: data.githubUrl,
         portfolioUrl: data.portfolioUrl,
+        fileName: data.fileName,
+        fileUrl: data.fileUrl,
       },
     })
 

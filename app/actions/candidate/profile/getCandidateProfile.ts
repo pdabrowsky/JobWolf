@@ -20,6 +20,8 @@ export const getCandidateProfile = async (
       description: candidate.description || '',
       githubUrl: candidate.githubUrl || '',
       portfolioUrl: candidate.portfolioUrl || '',
+      fileName: candidate.fileName || '',
+      fileUrl: candidate.fileUrl || '',
     }
 
     return {
