@@ -90,7 +90,7 @@ export const CandidateProfileForm = ({
 
   return (
     <Card className="max-w-[500px] w-full flex flex-col p-6 lg:px-8">
-      <h2 className="text-[22px] mb-8 font-medium">My Profile (Candidate)</h2>
+      <h2 className="text-[22px] mb-8 font-medium">My Profile</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <TextField
           label="Name"
