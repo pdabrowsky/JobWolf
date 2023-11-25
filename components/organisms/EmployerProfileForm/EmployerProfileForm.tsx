@@ -54,13 +54,13 @@ export const EmployerProfileForm = ({
 
   const onSubmit: SubmitHandler<EmployerProfileFormInput> = async (data) => {
     const message = await updateEmployerProfile(data, session?.user.email)
-
     if (message.type === 'success') {
       toast.success(message.msg)
-      if (data.logoUrl && data.logoUrl !== defaultData?.logoUrl)
-        edgestore.publicFiles.confirmUpload({
+      if (data.logoUrl && data.logoUrl !== defaultData?.logoUrl) {
+        await edgestore.publicFiles.confirmUpload({
           url: data.logoUrl,
         })
+      }
     } else {
       toast.error(message.msg)
     }

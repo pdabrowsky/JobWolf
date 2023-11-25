@@ -11,6 +11,8 @@ export const updateEmployerProfile = async (
     description?: string
     phone?: string
     website?: string
+    logoName?: string
+    logoUrl?: string
   },
   email?: string | null
 ): Promise<CustomResponse> => {
@@ -25,6 +27,8 @@ export const updateEmployerProfile = async (
         description: data.description,
         phone: data.phone,
         website: data.website,
+        logoName: data.logoName,
+        logoUrl: data.logoUrl,
       },
     })
 

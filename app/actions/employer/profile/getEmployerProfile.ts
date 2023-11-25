@@ -20,6 +20,8 @@ export const getEmployerProfile = async (
       description: employer.description || '',
       phone: employer.phone || '',
       website: employer.website || '',
+      logoName: employer.logoName || '',
+      logoUrl: employer.logoUrl || '',
     }
 
     return {
