@@ -11,6 +11,8 @@ import { updateEmployerProfile } from '@/app/actions/employer/profile'
 import { useSession } from 'next-auth/react'
 import { toast } from 'react-toastify'
 import { EmployerProfileFormProps } from './EmployerProfileForm.types'
+import { FileDropzone } from '@/components/molecules/FileDropzone'
+import { useEdgeStore } from '@/lib/edgestore'
 
 const EmployerProfileSchema = z.object({
   name: z.string().min(1, 'Field is required'),
@@ -24,31 +26,31 @@ const EmployerProfileSchema = z.object({
     .url()
     .optional()
     .or(z.literal('')),
+  fileName: z.string().optional(),
+  fileUrl: z.string().optional(),
 })
 
 type EmployerProfileFormInput = z.infer<typeof EmployerProfileSchema>
-
-// const dropdownOptions = [
-//   { value: '10', label: '10+' },
-//   { value: '25', label: '25+' },
-//   { value: '50', label: '50+' },
-//   { value: '100', label: '100+' },
-//   { value: '500', label: '500+' },
-// ]
 
 export const EmployerProfileForm = ({
   defaultData,
 }: EmployerProfileFormProps) => {
   const { data: session } = useSession()
+  const { edgestore } = useEdgeStore()
 
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors, isSubmitting },
   } = useForm<EmployerProfileFormInput>({
     resolver: zodResolver(EmployerProfileSchema),
     defaultValues: defaultData,
   })
+
+  const fileName = watch('fileName')
+  const fileUrl = watch('fileUrl')
 
   const onSubmit: SubmitHandler<EmployerProfileFormInput> = async (data) => {
     const message = await updateEmployerProfile(data, session?.user.email)
@@ -57,6 +59,28 @@ export const EmployerProfileForm = ({
       toast.success(message.msg)
     } else {
       toast.error(message.msg)
+    }
+  }
+
+  const onFileUpload = async (file?: File) => {
+    if (file) {
+      const res = await edgestore.publicFiles.upload({
+        file: file,
+        options: {
+          temporary: true,
+        },
+      })
+      setValue('fileUrl', res.url)
+      setValue('fileName', file.name)
+    } else {
+      // Think about deleting the file from the server
+      // if (fileUrl) {
+      //   await edgestore.publicFiles.delete({
+      //     url: fileUrl,
+      //   })
+      // }
+      setValue('fileName', '')
+      setValue('fileUrl', '')
     }
   }
 
@@ -103,19 +127,17 @@ export const EmployerProfileForm = ({
           errors={errors}
           {...register('website')}
         />
-        {/* <Controller
-          name="category"
-          control={control}
-          render={({ field }) => (
-            <DropdownSelect
-              label="Category"
-              options={dropdownOptions}
-              errors={errors}
-              placeholder="Select a company size"
-              onChange={(value) => field.onChange(value)}
-            />
-          )}
-        /> */}
+        <FileDropzone
+          fileName={fileName}
+          fileUrl={fileUrl}
+          dropzoneOptions={{
+            maxSize: 1024 * 1024 * 5, // 5MB
+          }}
+          onChange={(file) => {
+            onFileUpload(file)
+          }}
+          disabled={isSubmitting}
+        />
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"
