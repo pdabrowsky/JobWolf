@@ -13,7 +13,16 @@ export const FileDropzone = React.forwardRef<
   DropzoneInputProps
 >(
   (
-    { dropzoneOptions, fileName, fileUrl, className, disabled, onChange },
+    {
+      dropzoneOptions,
+      fileName,
+      fileUrl,
+      className,
+      disabled,
+      onChange,
+      name,
+      label,
+    },
     ref
   ) => {
     // dropzone configuration
@@ -75,13 +84,16 @@ export const FileDropzone = React.forwardRef<
     }, [fileRejections, dropzoneOptions])
 
     return (
-      <div>
+      <div className="flex flex-col">
+        <label htmlFor={name} className="pb-1 text-[12px] lg:text-[14px]">
+          {label}
+        </label>
         <div
           {...getRootProps({
             className: dropZoneClassName,
           })}
         >
-          <input ref={ref} {...getInputProps()} />
+          <input ref={ref} id={name} name={name} {...getInputProps()} />
 
           <div className="flex flex-col items-center justify-center text-xs text-gray-400">
             <UploadCloudIcon className="mb-2 h-7 w-7" />

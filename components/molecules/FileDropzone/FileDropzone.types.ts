@@ -1,6 +1,8 @@
 import { DropzoneOptions } from 'react-dropzone'
 
 export type DropzoneInputProps = {
+  name: string
+  label: string
   className?: string
   fileName?: string
   fileUrl?: string

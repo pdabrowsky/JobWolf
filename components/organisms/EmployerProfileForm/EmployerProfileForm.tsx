@@ -127,6 +127,8 @@ export const EmployerProfileForm = ({
         />
         <FileDropzone
           fileName={logoName}
+          name="logo"
+          label="Company Logo"
           fileUrl={logoUrl}
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB

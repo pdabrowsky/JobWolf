@@ -130,6 +130,8 @@ export const CandidateProfileForm = ({
           {...register('portfolioUrl')}
         />
         <FileDropzone
+          name="cv"
+          label="Upload CV or other file"
           fileName={fileName}
           fileUrl={fileUrl}
           dropzoneOptions={{
