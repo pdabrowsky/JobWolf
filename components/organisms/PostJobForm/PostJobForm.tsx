@@ -29,6 +29,8 @@ const dropdownOptions = [
   { value: '500', label: '500+' },
 ]
 
+const techOptions = ['React', 'HTML', 'Java', 'CSS', 'JavaScript']
+
 export const PostJobForm = () => {
   const {
     register,
@@ -112,7 +114,7 @@ export const PostJobForm = () => {
               label="Choose Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
-              technologies={['React', 'HTML', 'Java', 'CSS', 'JavaScript']}
+              technologies={techOptions}
             />
           )}
         />
