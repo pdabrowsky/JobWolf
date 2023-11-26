@@ -8,16 +8,18 @@ import { Button } from '@/components/atoms/Button'
 import { Card } from '@/components/atoms/Card'
 import { DropdownSelect } from '@/components/atoms/DropdownSelect'
 import { TextArea } from '@/components/atoms/TextArea'
+import { TechSelector } from '@/components/molecules/TechSelector'
 
-const EmployerProfileSchema = z.object({
+const PostJobSchema = z.object({
   title: z.string().min(1, 'Field is required'),
-  operatingMode: z.string().min(1, 'Field is required'),
-  experience: z.string().min(1, 'Field is required'),
-  typeOfWork: z.string().min(1, 'Field is required'),
+  operatingMode: z.string(),
+  experience: z.string(),
+  typeOfWork: z.string(),
   description: z.string().min(1, 'Field is required'),
+  selectedTechs: z.array(z.string()),
 })
 
-type PostJobFormInput = z.infer<typeof EmployerProfileSchema>
+type PostJobFormInput = z.infer<typeof PostJobSchema>
 
 const dropdownOptions = [
   { value: '10', label: '10+' },
@@ -34,7 +36,7 @@ export const PostJobForm = () => {
     control,
     formState: { errors, isSubmitting },
   } = useForm<PostJobFormInput>({
-    resolver: zodResolver(EmployerProfileSchema),
+    resolver: zodResolver(PostJobSchema),
   })
 
   const onSubmit: SubmitHandler<PostJobFormInput> = async (data) => {
@@ -53,7 +55,7 @@ export const PostJobForm = () => {
         Fill out the form to post a job offer
       </h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <TextField
             label="City"
             placeholder="Enter city"
@@ -74,16 +76,16 @@ export const PostJobForm = () => {
             )}
           />
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <Controller
             name="experience"
             control={control}
             render={({ field }) => (
               <DropdownSelect
-                label="Operating mode"
+                label="Experience"
                 options={dropdownOptions}
                 errors={errors}
-                placeholder="Select operating mode"
+                placeholder="Select experience"
                 onChange={(value) => field.onChange(value)}
               />
             )}
@@ -93,16 +95,27 @@ export const PostJobForm = () => {
             control={control}
             render={({ field }) => (
               <DropdownSelect
-                label="Operating mode"
+                label="Type of work"
                 options={dropdownOptions}
                 errors={errors}
-                placeholder="Select operating mode"
+                placeholder="Select type of work"
                 onChange={(value) => field.onChange(value)}
               />
             )}
           />
         </div>
-
+        <Controller
+          name="selectedTechs"
+          control={control}
+          render={({ field }) => (
+            <TechSelector
+              label="Choose Technologies"
+              name={field.name}
+              onChange={(selected) => field.onChange(selected)}
+              technologies={['React', 'HTML', 'Java', 'CSS', 'JavaScript']}
+            />
+          )}
+        />
         <TextArea
           label="Description"
           rows={8}
