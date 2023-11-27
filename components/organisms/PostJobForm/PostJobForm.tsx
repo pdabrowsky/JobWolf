@@ -9,6 +9,12 @@ import { Card } from '@/components/atoms/Card'
 import { DropdownSelect } from '@/components/atoms/DropdownSelect'
 import { TextArea } from '@/components/atoms/TextArea'
 import { TechSelector } from '@/components/molecules/TechSelector'
+import {
+  operatingModeOptions,
+  experienceOptions,
+  typeOfWorkOptions,
+  techOptions,
+} from './PostJobForm.config'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Field is required'),
@@ -16,20 +22,11 @@ const PostJobSchema = z.object({
   experience: z.string(),
   typeOfWork: z.string(),
   description: z.string().min(1, 'Field is required'),
-  selectedTechs: z.array(z.string()),
+  mustHaveTechs: z.array(z.string()),
+  niceToHaveTechs: z.array(z.string()),
 })
 
 type PostJobFormInput = z.infer<typeof PostJobSchema>
-
-const dropdownOptions = [
-  { value: '10', label: '10+' },
-  { value: '25', label: '25+' },
-  { value: '50', label: '50+' },
-  { value: '100', label: '100+' },
-  { value: '500', label: '500+' },
-]
-
-const techOptions = ['React', 'HTML', 'Java', 'CSS', 'JavaScript']
 
 export const PostJobForm = () => {
   const {
@@ -70,7 +67,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Operating mode"
-                options={dropdownOptions}
+                options={operatingModeOptions}
                 errors={errors}
                 placeholder="Select operating mode"
                 onChange={(value) => field.onChange(value)}
@@ -85,7 +82,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Experience"
-                options={dropdownOptions}
+                options={experienceOptions}
                 errors={errors}
                 placeholder="Select experience"
                 onChange={(value) => field.onChange(value)}
@@ -98,7 +95,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Type of work"
-                options={dropdownOptions}
+                options={typeOfWorkOptions}
                 errors={errors}
                 placeholder="Select type of work"
                 onChange={(value) => field.onChange(value)}
@@ -107,11 +104,23 @@ export const PostJobForm = () => {
           />
         </div>
         <Controller
-          name="selectedTechs"
+          name="mustHaveTechs"
           control={control}
           render={({ field }) => (
             <TechSelector
-              label="Choose Technologies"
+              label="Must Have Technologies"
+              name={field.name}
+              onChange={(selected) => field.onChange(selected)}
+              technologies={techOptions}
+            />
+          )}
+        />
+        <Controller
+          name="niceToHaveTechs"
+          control={control}
+          render={({ field }) => (
+            <TechSelector
+              label="Nice To Have Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
               technologies={techOptions}
