@@ -102,7 +102,7 @@ export const FileDropzone = React.forwardRef<
         </div>
 
         {fileUrl && fileName && !disabled && (
-          <div className="mt-2 flex items-center">
+          <div className="text-sm mt-2 flex items-center">
             <a
               href={getDownloadUrl(fileUrl, fileName)}
               target="_blank"
