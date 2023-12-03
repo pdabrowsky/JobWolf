@@ -39,3 +39,49 @@ model Employer {
   resetPasswordToken       String?   @unique
   resetPasswordTokenExpiry DateTime?
 }
+
+model Offer {
+  id              String        @id @default(uuid())
+  title           String
+  description     String
+  city            String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  experienceId    Int
+  experience      Experience    @relation(fields: [experienceId], references: [id])
+  typeOfWorkId    Int
+  typeOfWork      TypeOfWork    @relation(fields: [typeOfWorkId], references: [id])
+  operatingModeId Int
+  operatingMode   OperatingMode @relation(fields: [operatingModeId], references: [id])
+  mustHaveTech    Technology[]  @relation("mustHaveTech")
+  niceToHaveTech  Technology[]  @relation("niceToHaveTech")
+
+  @@index([experienceId])
+  @@index([typeOfWorkId])
+  @@index([operatingModeId])
+}
+
+model Experience {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  offers Offer[]
+}
+
+model TypeOfWork {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  offers Offer[]
+}
+
+model OperatingMode {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  offers Offer[]
+}
+
+model Technology {
+  id               Int     @id @default(autoincrement())
+  name             String  @unique
+  offersMustHave   Offer[] @relation("mustHaveTech")
+  offersNiceToHave Offer[] @relation("niceToHaveTech")
+}
