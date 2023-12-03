@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { TechItem } from '@/components/atoms/TechItem'
 import { TechSelectorProps } from './TechSelector.types'
 import { cn } from '@/lib/utils'
+import { FieldError } from 'react-hook-form'
+import { ErrorMessage } from '@/components/atoms/ErrorMessage'
 
 export const TechSelector = ({
   label,
@@ -9,6 +11,7 @@ export const TechSelector = ({
   className,
   onChange,
   technologies,
+  errors,
 }: TechSelectorProps & {
   onChange: (value: string[]) => void
   initialOption?: string[]
@@ -22,6 +25,8 @@ export const TechSelector = ({
     setSelectedTechs(newSelectedTechs)
     onChange(newSelectedTechs)
   }
+
+  const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
   return (
     <div
@@ -42,6 +47,7 @@ export const TechSelector = ({
           />
         ))}
       </div>
+      {error && <ErrorMessage error={error} />}
     </div>
   )
 }

@@ -22,7 +22,6 @@ export const DropdownSelect = ({
 }: DropdownSelectProps) => {
   const [isFocused, setIsFocused] = useState(false)
   const [selectedOption, setSelectedOption] = useState(initialOption || null)
-
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
     setIsFocused(true)
@@ -38,7 +37,6 @@ export const DropdownSelect = ({
     onChange?.(option.value)
     setSelectedOption(option)
   }
-
   const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
   return (

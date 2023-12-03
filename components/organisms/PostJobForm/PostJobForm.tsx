@@ -17,11 +17,11 @@ import {
 } from './PostJobForm.config'
 
 const PostJobSchema = z.object({
-  title: z.string().min(1, 'Field is required'),
-  operatingMode: z.string(),
-  experience: z.string(),
-  typeOfWork: z.string(),
-  description: z.string().min(1, 'Field is required'),
+  title: z.string().min(1, 'Required'),
+  operatingMode: z.string().min(1, 'Required'),
+  experience: z.string().min(1, 'Required'),
+  typeOfWork: z.string().min(1, 'Required'),
+  description: z.string().min(1, 'Required'),
   mustHaveTechs: z.array(z.string()),
   niceToHaveTechs: z.array(z.string()),
 })
@@ -67,6 +67,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Operating mode"
+                name={field.name}
                 options={operatingModeOptions}
                 errors={errors}
                 placeholder="Select operating mode"
@@ -82,6 +83,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Experience"
+                name={field.name}
                 options={experienceOptions}
                 errors={errors}
                 placeholder="Select experience"
@@ -95,6 +97,7 @@ export const PostJobForm = () => {
             render={({ field }) => (
               <DropdownSelect
                 label="Type of work"
+                name={field.name}
                 options={typeOfWorkOptions}
                 errors={errors}
                 placeholder="Select type of work"
@@ -112,6 +115,7 @@ export const PostJobForm = () => {
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
               technologies={techOptions}
+              errors={errors}
             />
           )}
         />
@@ -124,6 +128,7 @@ export const PostJobForm = () => {
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
               technologies={techOptions}
+              errors={errors}
             />
           )}
         />
