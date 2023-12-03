@@ -40,10 +40,10 @@ export const TechSelector = ({
       <div className="flex gap-2 flex-wrap">
         {technologies.map((tech) => (
           <TechItem
-            key={tech}
-            name={tech}
-            isSelected={selectedTechs.includes(tech)}
-            onToggle={() => handleSelect(tech)}
+            key={tech.value}
+            name={tech.label}
+            isSelected={selectedTechs.includes(tech.value)}
+            onToggle={() => handleSelect(tech.value)}
           />
         ))}
       </div>

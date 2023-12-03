@@ -5,6 +5,11 @@ export type TechSelectorProps = {
   label: string
   className?: string
   onChange: (value: string[]) => void
-  technologies: string[]
+  technologies: TechSelectorOption[]
   errors?: FieldErrors
+}
+
+export type TechSelectorOption = {
+  value: string
+  label: string
 }
