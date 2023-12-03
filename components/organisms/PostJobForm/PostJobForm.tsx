@@ -9,12 +9,7 @@ import { Card } from '@/components/atoms/Card'
 import { DropdownSelect } from '@/components/atoms/DropdownSelect'
 import { TextArea } from '@/components/atoms/TextArea'
 import { TechSelector } from '@/components/molecules/TechSelector'
-import {
-  operatingModeOptions,
-  experienceOptions,
-  typeOfWorkOptions,
-  techOptions,
-} from './PostJobForm.config'
+import { PostJobFormProps } from './PostJobForm.types'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Required'),
@@ -28,7 +23,7 @@ const PostJobSchema = z.object({
 
 type PostJobFormInput = z.infer<typeof PostJobSchema>
 
-export const PostJobForm = () => {
+export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
   const {
     register,
     handleSubmit,
@@ -68,7 +63,7 @@ export const PostJobForm = () => {
               <DropdownSelect
                 label="Operating mode"
                 name={field.name}
-                options={operatingModeOptions}
+                options={selectOptions.operatingModes}
                 errors={errors}
                 placeholder="Select operating mode"
                 onChange={(value) => field.onChange(value)}
@@ -84,7 +79,7 @@ export const PostJobForm = () => {
               <DropdownSelect
                 label="Experience"
                 name={field.name}
-                options={experienceOptions}
+                options={selectOptions.experiences}
                 errors={errors}
                 placeholder="Select experience"
                 onChange={(value) => field.onChange(value)}
@@ -98,7 +93,7 @@ export const PostJobForm = () => {
               <DropdownSelect
                 label="Type of work"
                 name={field.name}
-                options={typeOfWorkOptions}
+                options={selectOptions.typesOfWork}
                 errors={errors}
                 placeholder="Select type of work"
                 onChange={(value) => field.onChange(value)}
@@ -114,7 +109,7 @@ export const PostJobForm = () => {
               label="Must Have Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
-              technologies={techOptions}
+              technologies={selectOptions.techOptions}
               errors={errors}
             />
           )}
@@ -127,7 +122,7 @@ export const PostJobForm = () => {
               label="Nice To Have Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
-              technologies={techOptions}
+              technologies={selectOptions.techOptions}
               errors={errors}
             />
           )}
