@@ -10,6 +10,9 @@ import { DropdownSelect } from '@/components/atoms/DropdownSelect'
 import { TextArea } from '@/components/atoms/TextArea'
 import { TechSelector } from '@/components/molecules/TechSelector'
 import { PostJobFormProps } from './PostJobForm.types'
+import { toast } from 'react-toastify'
+import { useSession } from 'next-auth/react'
+import { postOffer } from '@/app/actions/jobPost/postOffer'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Required'),
@@ -24,6 +27,8 @@ const PostJobSchema = z.object({
 type PostJobFormInput = z.infer<typeof PostJobSchema>
 
 export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
+  const { data: session } = useSession()
+
   const {
     register,
     handleSubmit,
@@ -34,13 +39,15 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
   })
 
   const onSubmit: SubmitHandler<PostJobFormInput> = async (data) => {
-    console.log(data)
-    // const message = await updateEmployerProfile(data, session?.user.email)
-    // if (message.type === 'success') {
-    //   toast.success(message.msg)
-    // } else {
-    //   toast.error(message.msg)
-    // }
+    if (!session?.user.email)
+      return toast.error('You must be logged in to post a job offer')
+
+    const message = await postOffer(session.user.email, data)
+    if (message.type === 'success') {
+      toast.success(message.msg)
+    } else {
+      toast.error(message.msg)
+    }
   }
 
   return (
