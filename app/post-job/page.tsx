@@ -1,5 +1,5 @@
 import { PostJobForm } from '@/components/organisms/PostJobForm'
-import { getAllJobFormOptions } from '../actions/JobPost/getFormData'
+import { getAllJobFormOptions } from '../actions/offer/getFormData'
 
 const ProfilePage = async () => {
   const options = await getAllJobFormOptions()

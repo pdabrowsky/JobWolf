@@ -12,7 +12,7 @@ import { TechSelector } from '@/components/molecules/TechSelector'
 import { PostJobFormProps } from './PostJobForm.types'
 import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
-import { postOffer } from '@/app/actions/jobPost/postOffer'
+import { postOffer } from '@/app/actions/offer/postOffer'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Required'),
