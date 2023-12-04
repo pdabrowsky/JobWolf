@@ -15,19 +15,19 @@ export const getAllJobFormOptions = async (): Promise<PostJobFormOptions> => {
 
     return {
       operatingModes: operatingModes.map((item) => ({
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
       })),
       experiences: experiences.map((item) => ({
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
       })),
       typesOfWork: typesOfWork.map((item) => ({
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
       })),
       techOptions: techOptions.map((item) => ({
-        value: item.id.toString(),
+        value: item.id,
         label: item.name,
       })),
     }

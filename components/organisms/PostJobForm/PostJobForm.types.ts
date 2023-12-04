@@ -10,6 +10,6 @@ export type PostJobFormOptions = {
 }
 
 export type SelectOption = {
-  value: string
+  value: number
   label: string
 }

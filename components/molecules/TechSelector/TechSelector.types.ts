@@ -10,6 +10,6 @@ export type TechSelectorProps = {
 }
 
 export type TechSelectorOption = {
-  value: string
+  value: number
   label: string
 }

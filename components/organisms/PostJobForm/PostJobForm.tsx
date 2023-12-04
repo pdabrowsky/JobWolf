@@ -13,12 +13,12 @@ import { PostJobFormProps } from './PostJobForm.types'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Required'),
-  operatingMode: z.string().min(1, 'Required'),
-  experience: z.string().min(1, 'Required'),
-  typeOfWork: z.string().min(1, 'Required'),
   description: z.string().min(1, 'Required'),
-  mustHaveTechs: z.array(z.string()),
-  niceToHaveTechs: z.array(z.string()),
+  operatingMode: z.number().min(1, 'Required'),
+  experience: z.number().min(1, 'Required'),
+  typeOfWork: z.number().min(1, 'Required'),
+  mustHaveTechs: z.array(z.number()),
+  niceToHaveTechs: z.array(z.number()),
 })
 
 type PostJobFormInput = z.infer<typeof PostJobSchema>

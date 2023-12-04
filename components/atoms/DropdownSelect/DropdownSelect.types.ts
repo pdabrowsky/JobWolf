@@ -13,6 +13,6 @@ export type DropdownSelectProps = Omit<
 }
 
 export type DropdownSelectOption = {
-  value: string
+  value: number
   label: string
 }
