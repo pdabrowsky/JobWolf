@@ -38,6 +38,7 @@ model Employer {
   logoUrl                  String?
   resetPasswordToken       String?   @unique
   resetPasswordTokenExpiry DateTime?
+  Offer                    Offer[]
 }
 
 model Offer {
@@ -47,6 +48,8 @@ model Offer {
   city            String
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+  employerId      String
+  employer        Employer      @relation(fields: [employerId], references: [id])
   experienceId    Int
   experience      Experience    @relation(fields: [experienceId], references: [id])
   typeOfWorkId    Int
@@ -59,6 +62,7 @@ model Offer {
   @@index([experienceId])
   @@index([typeOfWorkId])
   @@index([operatingModeId])
+  @@index([employerId])
 }
 
 model Experience {
