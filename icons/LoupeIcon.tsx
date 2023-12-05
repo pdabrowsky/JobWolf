@@ -9,8 +9,8 @@ export const LoupeIcon = forwardRef<SVGSVGElement, SvgIconProps>(
         <path
           d="M20 20L17 17"
           stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
+          strokeWidth="2"
+          strokeLinecap="round"
         />
       </SvgIcon>
     )
