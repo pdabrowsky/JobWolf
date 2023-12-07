@@ -12,7 +12,7 @@ export const Search = React.forwardRef<HTMLInputElement, SearchProps>(
     const router = useRouter()
     const initialRender = useRef(true)
 
-    const [text, setText] = useState(search)
+    const [text, setText] = useState(search || '')
     const [query] = useDebounce(text, 300)
 
     useEffect(() => {
