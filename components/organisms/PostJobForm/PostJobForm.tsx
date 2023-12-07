@@ -33,6 +33,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors, isSubmitting },
   } = useForm<PostJobFormInput>({
     resolver: zodResolver(PostJobSchema),
@@ -45,6 +46,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
     const message = await postOffer(session.user.email, data)
     if (message.type === 'success') {
       toast.success(message.msg)
+      reset()
     } else {
       toast.error(message.msg)
     }
