@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TechItem } from '@/components/atoms/TechItem'
+import { TechItemCheckbox } from '@/components/atoms/TechItemCheckbox'
 import { TechSelectorProps } from './TechSelector.types'
 import { cn } from '@/lib/utils'
 import { FieldError } from 'react-hook-form'
@@ -13,12 +13,12 @@ export const TechSelector = ({
   technologies,
   errors,
 }: TechSelectorProps & {
-  onChange: (value: string[]) => void
-  initialOption?: string[]
+  onChange: (value: number[]) => void
+  initialOption?: number[]
 }) => {
-  const [selectedTechs, setSelectedTechs] = useState<string[]>([])
+  const [selectedTechs, setSelectedTechs] = useState<number[]>([])
 
-  const handleSelect = (tech: string) => {
+  const handleSelect = (tech: number) => {
     const newSelectedTechs = selectedTechs.includes(tech)
       ? selectedTechs.filter((t) => t !== tech)
       : [...selectedTechs, tech]
@@ -39,7 +39,7 @@ export const TechSelector = ({
       </label>
       <div className="flex gap-2 flex-wrap">
         {technologies.map((tech) => (
-          <TechItem
+          <TechItemCheckbox
             key={tech.value}
             name={tech.label}
             isSelected={selectedTechs.includes(tech.value)}
