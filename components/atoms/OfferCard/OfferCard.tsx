@@ -32,7 +32,7 @@ export const OfferCard = ({
             <p className="text-[11px] lg:text-[15px] truncate">{companyName}</p>
           </div>
         </div>
-        <div className="flex-col items-end hidden lg:flex gap-1">
+        <div className="flex-col items-end hidden md:flex gap-1">
           <div>
             <p className="font-semibold text-lg">1000 - 3000 PLN</p>
           </div>
