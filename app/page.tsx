@@ -30,7 +30,7 @@ const Home = async ({
             <p>No offers</p>
           )}
         </div>
-        {offers.length && (
+        {!!offers.length && (
           <OffersList offers={offers} className="lg:min-w-[800px]" />
         )}
       </div>
