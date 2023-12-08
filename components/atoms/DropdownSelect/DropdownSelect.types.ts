@@ -6,7 +6,7 @@ export type DropdownSelectProps = Omit<
 > & {
   options: DropdownSelectOption[]
   initialOption?: DropdownSelectOption
-  onChange?: (value: string) => void
+  onChange?: (value: number) => void
   label: string
   errors?: FieldErrors
   className?: string
