@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Card } from '../Card'
 import { OfferCardProps } from './OfferCard.types'
 import Image from 'next/image'
+import { TechItem } from '../TechItem'
 
 export const OfferCard = ({
   id,
@@ -25,24 +26,19 @@ export const OfferCard = ({
             />
           </div>
           <div className="ml-4 max-w-fit">
-            <p className="text-[14px] lg:text-lg font-semibold truncate">
+            <p className="text-[13px] lg:text-lg font-semibold truncate pb-1">
               {title}
             </p>
-            <p className="text-[12px] lg:text-[15px] truncate">{companyName}</p>
+            <p className="text-[11px] lg:text-[15px] truncate">{companyName}</p>
           </div>
         </div>
-        <div className="flex flex-col items-end">
+        <div className="flex-col items-end hidden lg:flex gap-1">
           <div>
             <p className="font-semibold text-lg">1000 - 3000 PLN</p>
           </div>
-          <div className="flex">
-            {technologies.map((tech, index) => (
-              <div
-                key={index}
-                className="bg-gold text-sm text-black px-2 py-1 rounded-lg mr-2 last:mr-0"
-              >
-                {tech}
-              </div>
+          <div className="flex gap-2">
+            {technologies.slice(0, 3).map((tech, index) => (
+              <TechItem key={index} name={tech} variant="gold" />
             ))}
           </div>
         </div>
