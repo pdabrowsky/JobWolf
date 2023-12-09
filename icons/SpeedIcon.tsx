@@ -1,8 +1,8 @@
 import { SvgIconProps, SvgIcon } from '@/components/atoms/SvgIcon'
 import { forwardRef } from 'react'
 
-export const CompasIcon = forwardRef<SVGSVGElement, SvgIconProps>(
-  function CompasIcon(props, ref) {
+export const SpeedIcon = forwardRef<SVGSVGElement, SvgIconProps>(
+  function SpeedIcon(props, ref) {
     return (
       <SvgIcon ref={ref} viewBox="0 0 24 24" fill="none" {...props}>
         <path
