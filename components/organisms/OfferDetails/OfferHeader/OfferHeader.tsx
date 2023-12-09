@@ -13,12 +13,7 @@ export const OfferHeader = ({
   className,
 }: OfferHeaderProps) => {
   return (
-    <Card
-      className={cn(
-        'flex items-center gap-4 p-4 w-full lg:w-[800px] max-w-[800px] ',
-        className
-      )}
-    >
+    <Card className={cn('flex items-center gap-4 p-5 w-full', className)}>
       <div className="relative w-10 h-10 lg:w-20 lg:h-20">
         <Image
           src={logoUrl}

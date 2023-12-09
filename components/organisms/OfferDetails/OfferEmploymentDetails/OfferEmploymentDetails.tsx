@@ -28,7 +28,7 @@ export const OfferEmploymentDetails = ({
   typeOfWork,
 }: OfferEmploymentDetailsProps) => {
   return (
-    <Card className="flex p-4 gap-4 flex-wrap lg:flex-nowrap">
+    <Card className="flex p-5 gap-4 flex-wrap lg:flex-nowrap">
       <OfferAttributeItem
         label="Experience"
         value={experience}

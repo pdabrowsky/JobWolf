@@ -1,4 +1,5 @@
 import { OfferDetailsProps } from '.'
+import { OfferCompanyDetails } from './OfferCompanyDetails'
 import { OfferEmploymentDetails } from './OfferEmploymentDetails'
 import { OfferHeader } from './OfferHeader'
 
@@ -11,7 +12,7 @@ export const OfferDetails = ({
   typeOfWork,
 }: OfferDetailsProps) => {
   return (
-    <main className=" flex flex-col gap-4">
+    <main className=" flex flex-col gap-4 lg:w-[800px] max-w-[800px]">
       <OfferHeader
         title={title}
         city={city}
@@ -22,6 +23,10 @@ export const OfferDetails = ({
         experience={experience.name}
         operatingMode={operatingMode.name}
         typeOfWork={typeOfWork.name}
+      />
+      <OfferCompanyDetails
+        name={employer.name}
+        description={employer.description}
       />
     </main>
   )
