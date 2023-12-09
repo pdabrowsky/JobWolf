@@ -29,18 +29,21 @@ export const OfferHeader = ({
       </div>
       <div className="flex flex-col justify-center gap-2 w-full max-w-[680px]">
         <div className="flex justify-between">
-          <p className="text-[14px] lg:text-2xl font-semibold truncate pb-1">
+          <h1 className="text-[14px] lg:text-2xl font-semibold truncate pb-1">
             {title}
-          </p>
-          <StarIcon className="w-5 h-5 lg:w-6 lg:h-6 text-gold cursor-pointer" />
+          </h1>
+          <StarIcon
+            className="w-5 h-5 lg:w-6 lg:h-6 text-gold cursor-pointer"
+            aria-hidden="true"
+          />
         </div>
         <div className="flex gap-4">
           <div className="flex gap-1 items-center">
-            <CompanyIcon className="w-6 h-6" />
+            <CompanyIcon className="w-6 h-6" aria-hidden="true" />
             <p className="text-[11px] lg:text-[15px] truncate">{companyName}</p>
           </div>
           <div className="flex gap-1 items-center">
-            <LocationIcon className="w-6 h-6" />
+            <LocationIcon className="w-6 h-6" aria-hidden="true" />
             <p className="text-[11px] lg:text-[15px] truncate">{city}</p>
           </div>
         </div>

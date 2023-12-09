@@ -10,11 +10,13 @@ const OfferAttributeItem = ({
   value,
 }: OfferAttributeItemProps) => {
   return (
-    <div className={'flex items-center gap-4 lg:w-1/3'}>
-      {icon}
+    <div className="flex items-center gap-4 lg:w-1/3">
+      <div aria-hidden="true">{icon}</div>
       <div className="flex flex-col">
-        <p className={'text-[12px] lg:text-[15px] '}>{label}</p>
-        <p className={'text-[12px] lg:text-[15px] font-semibold '}>{value}</p>
+        <strong className="text-[12px] lg:text-[15px] font-normal">
+          {label}
+        </strong>
+        <p className="text-[12px] lg:text-[15px] font-semibold">{value}</p>
       </div>
     </div>
   )
