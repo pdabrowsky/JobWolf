@@ -9,8 +9,8 @@ datasource db {
 }
 
 model Candidate {
-  id                       String    @id @default(uuid())
-  email                    String    @unique
+  id                       String        @id @default(uuid())
+  email                    String        @unique
   password                 String
   firstName                String?
   lastName                 String?
@@ -20,8 +20,9 @@ model Candidate {
   portfolioUrl             String?
   fileName                 String?
   fileUrl                  String?
-  resetPasswordToken       String?   @unique
+  resetPasswordToken       String?       @unique
   resetPasswordTokenExpiry DateTime?
+  applications             Application[]
 }
 
 model Employer {
@@ -58,6 +59,8 @@ model Offer {
   operatingMode   OperatingMode @relation(fields: [operatingModeId], references: [id])
   mustHaveTech    Technology[]  @relation("mustHaveTech")
   niceToHaveTech  Technology[]  @relation("niceToHaveTech")
+  applications    Application[]
+  isOpen          Boolean       @default(true)
 
   @@index([experienceId])
   @@index([typeOfWorkId])
@@ -88,4 +91,25 @@ model Technology {
   name             String  @unique
   offersMustHave   Offer[] @relation("mustHaveTech")
   offersNiceToHave Offer[] @relation("niceToHaveTech")
+}
+
+model Application {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  candidateId String
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+  offerId     String
+  offer       Offer     @relation(fields: [offerId], references: [id])
+
+  candidateFirstName    String?
+  candidateLastName     String?
+  candidatePhone        String?
+  candidateDescription  String?
+  candidateGithubUrl    String?
+  candidatePortfolioUrl String?
+  candidateFileName     String?
+  candidateFileUrl      String?
+
+  @@index([candidateId])
+  @@index([offerId])
 }
