@@ -1,5 +1,6 @@
 import { OfferDetailsProps } from '.'
 import { OfferCompanyDetails } from './OfferCompanyDetails'
+import { OfferDescription } from './OfferDescription'
 import { OfferEmploymentDetails } from './OfferEmploymentDetails'
 import { OfferHeader } from './OfferHeader'
 import { OfferTechStack } from './OfferTechStack'
@@ -12,6 +13,7 @@ export const OfferDetails = ({
   operatingMode,
   mustHaveTech,
   niceToHaveTech,
+  description,
   typeOfWork,
 }: OfferDetailsProps) => {
   return (
@@ -35,6 +37,7 @@ export const OfferDetails = ({
         mustHaveTech={mustHaveTech}
         niceToHaveTech={niceToHaveTech}
       />
+      <OfferDescription description={description} />
     </main>
   )
 }

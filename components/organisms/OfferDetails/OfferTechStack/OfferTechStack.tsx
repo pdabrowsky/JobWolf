@@ -7,7 +7,7 @@ export const OfferTechStack = ({
   niceToHaveTech,
 }: OfferTechStackProps) => {
   return (
-    <Card className="p-5 flex flex-col gap-8">
+    <Card className="p-5 flex flex-col gap-6 lg:gap-8">
       <div>
         <h3 className="text-lg font-semibold mb-3">Must Have Technologies</h3>
         <div className="flex flex-wrap gap-3">
