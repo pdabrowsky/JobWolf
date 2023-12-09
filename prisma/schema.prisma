@@ -31,7 +31,7 @@ model Employer {
   name                     String?
   city                     String?
   address                  String?
-  description              String?
+  description              String?   @db.VarChar(500)
   phone                    String?
   website                  String?
   logoName                 String?
