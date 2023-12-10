@@ -9,7 +9,6 @@ const FavoritesPage = async () => {
   const session = await getServerSession(authOptions)
 
   if (session?.user?.role !== UserRole.Candidate || !session?.user?.email) {
-    console.log(session?.user?.role)
     notFound()
   }
 

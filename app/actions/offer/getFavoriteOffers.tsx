@@ -7,7 +7,6 @@ export const getFavoriteOffers = async (candidateEmail: string) => {
     })
 
     if (!candidate) {
-      console.error('Candidate not found')
       return []
     }
 
