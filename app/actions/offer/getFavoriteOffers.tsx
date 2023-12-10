@@ -20,7 +20,6 @@ export const getFavoriteOffers = async (candidateEmail: string) => {
             employer: {
               select: {
                 logoUrl: true,
-                logoName: true,
                 name: true,
               },
             },
