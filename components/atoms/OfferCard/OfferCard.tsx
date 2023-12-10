@@ -14,7 +14,7 @@ export const OfferCard = ({
   technologies,
 }: OfferCardProps) => {
   return (
-    <Link href={`/offer?id=${id}`}>
+    <Link href={`/offer?id=${id}`} className="w-full">
       <Card className="flex justify-between gap-4 items-center p-4 w-full">
         <div className="flex items-center">
           <div className="relative w-10 h-10 lg:w-14 lg:h-14">

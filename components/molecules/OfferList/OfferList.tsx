@@ -1,5 +1,3 @@
-'use client'
-
 import { OfferCard } from '@/components/atoms/OfferCard'
 import { OfferListProps } from './OfferList.types'
 import { cn } from '@/lib/utils'

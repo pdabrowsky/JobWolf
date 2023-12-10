@@ -4,4 +4,5 @@ export type OfferCardProps = {
   technologies: string[]
   companyName: string
   employerLogoUrl: string
+  isFavorite?: boolean
 }
