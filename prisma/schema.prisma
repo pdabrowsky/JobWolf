@@ -9,8 +9,8 @@ datasource db {
 }
 
 model Candidate {
-  id                       String        @id @default(uuid())
-  email                    String        @unique
+  id                       String          @id @default(uuid())
+  email                    String          @unique
   password                 String
   firstName                String?
   lastName                 String?
@@ -20,9 +20,10 @@ model Candidate {
   portfolioUrl             String?
   fileName                 String?
   fileUrl                  String?
-  resetPasswordToken       String?       @unique
+  resetPasswordToken       String?         @unique
   resetPasswordTokenExpiry DateTime?
   applications             Application[]
+  favoriteOffers           FavoriteOffer[]
 }
 
 model Employer {
@@ -43,24 +44,25 @@ model Employer {
 }
 
 model Offer {
-  id              String        @id @default(uuid())
+  id              String          @id @default(uuid())
   title           String
-  description     String        @db.Text
+  description     String          @db.Text
   city            String
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   employerId      String
-  employer        Employer      @relation(fields: [employerId], references: [id])
+  employer        Employer        @relation(fields: [employerId], references: [id])
   experienceId    Int
-  experience      Experience    @relation(fields: [experienceId], references: [id])
+  experience      Experience      @relation(fields: [experienceId], references: [id])
   typeOfWorkId    Int
-  typeOfWork      TypeOfWork    @relation(fields: [typeOfWorkId], references: [id])
+  typeOfWork      TypeOfWork      @relation(fields: [typeOfWorkId], references: [id])
   operatingModeId Int
-  operatingMode   OperatingMode @relation(fields: [operatingModeId], references: [id])
-  mustHaveTech    Technology[]  @relation("mustHaveTech")
-  niceToHaveTech  Technology[]  @relation("niceToHaveTech")
+  operatingMode   OperatingMode   @relation(fields: [operatingModeId], references: [id])
+  mustHaveTech    Technology[]    @relation("mustHaveTech")
+  niceToHaveTech  Technology[]    @relation("niceToHaveTech")
   applications    Application[]
-  isOpen          Boolean       @default(true)
+  isOpen          Boolean         @default(true)
+  favoritedBy     FavoriteOffer[]
 
   @@index([experienceId])
   @@index([typeOfWorkId])
@@ -110,6 +112,18 @@ model Application {
   candidateFileName     String?
   candidateFileUrl      String?
 
+  @@index([candidateId])
+  @@index([offerId])
+}
+
+model FavoriteOffer {
+  candidateId String
+  offerId     String
+
+  candidate Candidate @relation(fields: [candidateId], references: [id])
+  offer     Offer     @relation(fields: [offerId], references: [id])
+
+  @@id([candidateId, offerId])
   @@index([candidateId])
   @@index([offerId])
 }
