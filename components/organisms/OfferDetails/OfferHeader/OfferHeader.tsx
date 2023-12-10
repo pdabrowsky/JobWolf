@@ -4,12 +4,12 @@ import { Card } from '@/components/atoms/Card'
 import { OfferHeaderProps } from '.'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { CompanyIcon, LocationIcon } from '@/icons'
-import { StarIcon } from 'lucide-react'
+import { CompanyIcon, LocationIcon, StarIcon } from '@/icons'
 import { UserRole } from '@/app/actions/types'
 import { useSession } from 'next-auth/react'
 import { toggleFavoriteOffer } from '@/app/actions/offer/toggleFavoriteOffer'
 import { toast } from 'react-toastify'
+import { useState } from 'react'
 
 export const OfferHeader = ({
   offerId,
@@ -18,7 +18,10 @@ export const OfferHeader = ({
   logoUrl,
   title,
   className,
+  isAddedToFavourites,
 }: OfferHeaderProps) => {
+  const [isFavorite, setIsFavorite] = useState(isAddedToFavourites)
+
   const { data: session } = useSession()
   const candidateEmail =
     session?.user?.role === UserRole.Candidate ? session.user.email : null
@@ -32,6 +35,7 @@ export const OfferHeader = ({
       toast.error(response.msg)
     } else {
       toast.success(response.msg)
+      setIsFavorite((fav) => !fav)
     }
   }
 
@@ -50,9 +54,14 @@ export const OfferHeader = ({
           <h1 className="text-[14px] lg:text-2xl font-semibold truncate pb-1">
             {title}
           </h1>
-          {candidateEmail && (
+          {candidateEmail && isFavorite !== undefined && (
             <button onClick={() => handletoggleFavorite(candidateEmail)}>
-              <StarIcon className="w-5 h-5 lg:w-6 lg:h-6 text-gold" />
+              <StarIcon
+                className={cn('w-5 h-5 lg:w-6 lg:h-6 text-gold', {
+                  'fill-none': !isFavorite,
+                  'fill-gold': isFavorite,
+                })}
+              />
             </button>
           )}
         </div>

@@ -2,9 +2,24 @@ import { OfferDetailsProps } from '@/components/organisms/OfferDetails'
 import prisma from '@/lib/prisma'
 
 export const getOffer = async (
-  id: string
+  id: string,
+  candidateEmail?: string | null
 ): Promise<OfferDetailsProps | null> => {
   try {
+    let isAddedToFavourites
+
+    if (candidateEmail) {
+      const favorite = await prisma.favoriteOffer.findFirst({
+        where: {
+          offerId: id,
+          candidate: {
+            email: candidateEmail,
+          },
+        },
+      })
+      isAddedToFavourites = !!favorite
+    }
+
     const offer = await prisma.offer.findUnique({
       where: { id: id },
       include: {
@@ -21,6 +36,7 @@ export const getOffer = async (
 
     return {
       ...offer,
+      isAddedToFavourites,
       employer: {
         ...offer.employer,
         name: offer.employer.name || '',

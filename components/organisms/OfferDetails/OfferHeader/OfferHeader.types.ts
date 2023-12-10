@@ -5,4 +5,5 @@ export type OfferHeaderProps = {
   companyName: string
   className?: string
   offerId: string
+  isAddedToFavourites?: boolean
 }

@@ -10,6 +10,7 @@ export const OfferDetails = ({
   title,
   id,
   city,
+  isAddedToFavourites,
   employer,
   experience,
   operatingMode,
@@ -27,6 +28,7 @@ export const OfferDetails = ({
           city={city}
           companyName={employer.name}
           logoUrl={employer.logoUrl}
+          isAddedToFavourites={isAddedToFavourites}
         />
         <OfferEmploymentDetails
           experience={experience.name}

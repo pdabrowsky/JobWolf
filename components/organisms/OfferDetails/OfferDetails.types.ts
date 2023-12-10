@@ -5,6 +5,7 @@ export type OfferDetailsProps = {
   city: string
   createdAt: Date
   updatedAt: Date
+  isAddedToFavourites?: boolean
   employer: {
     id: string
     email: string
