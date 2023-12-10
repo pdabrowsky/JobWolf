@@ -2,6 +2,7 @@ import { Search } from '@/components/atoms/Search'
 import { getOfferList } from './actions/offer/getOfferList'
 import { OffersList } from '@/components/molecules/OfferList'
 import { pluralize } from '@/lib/helpers'
+import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 
 const Home = async ({
   searchParams,
@@ -34,6 +35,7 @@ const Home = async ({
           <OffersList offers={offers} className="lg:min-w-[800px]" />
         )}
       </div>
+      <BackToTopButton />
     </div>
   )
 }
