@@ -22,6 +22,7 @@ export const OfferDetails = ({
     <div className="flex flex-col gap-4 lg:flex-row">
       <main className=" flex flex-col gap-4 lg:w-[800px] max-w-[800px]">
         <OfferHeader
+          offerId={id}
           title={title}
           city={city}
           companyName={employer.name}

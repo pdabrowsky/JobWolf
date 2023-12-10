@@ -4,4 +4,5 @@ export type OfferHeaderProps = {
   city: string
   companyName: string
   className?: string
+  offerId: string
 }
