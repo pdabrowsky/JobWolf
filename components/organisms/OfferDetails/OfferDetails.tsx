@@ -8,6 +8,7 @@ import { OfferTechStack } from './OfferTechStack'
 
 export const OfferDetails = ({
   title,
+  id,
   city,
   employer,
   experience,
@@ -54,6 +55,7 @@ export const OfferDetails = ({
             contractType: 'Work Contract',
           },
         ]}
+        offerId={id}
       />
     </div>
   )
