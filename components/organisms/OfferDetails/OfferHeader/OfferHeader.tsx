@@ -41,7 +41,7 @@ export const OfferHeader = ({
 
   return (
     <Card className={cn('flex items-center gap-4 p-5 w-full', className)}>
-      <div className="relative w-10 h-10 lg:w-20 lg:h-20">
+      <div className="relative hidden w-10 h-10 lg:block lg:w-20 lg:h-20">
         <Image
           src={logoUrl}
           alt={`${companyName} logo`}
@@ -49,13 +49,16 @@ export const OfferHeader = ({
           style={{ objectFit: 'contain' }}
         />
       </div>
-      <div className="flex flex-col justify-center gap-2 w-full max-w-[680px]">
+      <div className="flex flex-col justify-center gap-3 w-full max-w-[680px]">
         <div className="flex justify-between">
-          <h1 className="text-[14px] lg:text-2xl font-semibold truncate pb-1">
+          <h1 className="text-[14px] lg:text-2xl font-semibold truncate">
             {title}
           </h1>
           {candidateEmail && isFavorite !== undefined && (
-            <button onClick={() => handletoggleFavorite(candidateEmail)}>
+            <button
+              className="flex align-center lg:block"
+              onClick={() => handletoggleFavorite(candidateEmail)}
+            >
               <StarIcon
                 className={cn('w-5 h-5 lg:w-6 lg:h-6 text-gold', {
                   'fill-none': !isFavorite,
