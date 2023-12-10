@@ -23,7 +23,7 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
       role="dialog"
     >
       <div className="bg-darkLight p-4 rounded-lg shadow-lg relative w-full lg:w-fit lg:min-w-[500px] mx-5">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center mb-10">
           {typeof title === 'string' ? (
             <h2 className="text-lg font-semibold">{title}</h2>
           ) : (
