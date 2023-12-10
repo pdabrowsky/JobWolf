@@ -3,6 +3,7 @@ import { getOfferList } from './actions/offer/getOfferList'
 import { OffersList } from '@/components/molecules/OfferList'
 import { pluralize } from '@/lib/helpers'
 import { BackToTopButton } from '@/components/atoms/BackToTopButton'
+import { SearchFilters } from '@/components/organisms/SearchFilters'
 
 const Home = async ({
   searchParams,
@@ -18,8 +19,11 @@ const Home = async ({
   const offers = await getOfferList(search)
 
   return (
-    <div className="flex flex-col items-center justify-center pt-12 w-full px-4">
-      <Search className="max-w-[500px] mb-14" search={search} />
+    <div className="min-h-screen py-12 flex flex-col items-center w-full px-4">
+      <div className="flex justify-center mb-14 w-full gap-2">
+        <Search className="max-w-[500px] w-full" search={search} />
+        <SearchFilters />
+      </div>
       <div>
         <div className="mb-4 flex">
           {offers.length ? (
