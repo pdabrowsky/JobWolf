@@ -24,15 +24,17 @@ export const Modal = ({
 
   return (
     <div
-      className={cn(
-        'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50',
-        className
-      )}
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
       onClick={handleBackdropClick}
       aria-modal="true"
       role="dialog"
     >
-      <div className="bg-darkLight p-4 rounded-lg shadow-lg relative w-full lg:w-fit lg:min-w-[500px] mx-5">
+      <div
+        className={cn(
+          'bg-darkLight p-4 rounded-lg shadow-lg relative w-full lg:w-fit lg:min-w-[500px] mx-5',
+          className
+        )}
+      >
         <div className="flex justify-between items-center mb-10">
           {typeof title === 'string' ? (
             <h2 className="text-lg font-semibold">{title}</h2>
