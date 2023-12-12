@@ -1,8 +1,15 @@
 import React from 'react'
 import { CloseIcon } from '@/icons'
 import { ModalProps } from '.'
+import { cn } from '@/lib/utils'
 
-export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
+export const Modal = ({
+  isOpen,
+  onClose,
+  title,
+  children,
+  className,
+}: ModalProps) => {
   const handleBackdropClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
@@ -17,7 +24,10 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+      className={cn(
+        'fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50',
+        className
+      )}
       onClick={handleBackdropClick}
       aria-modal="true"
       role="dialog"
