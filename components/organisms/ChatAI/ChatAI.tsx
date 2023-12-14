@@ -72,7 +72,7 @@ export const ChatAI = ({ className }: ChatAIProps) => {
               label="Name"
               placeholder="Type answer here..."
               labelClassName="sr-only"
-              className="w-full"
+              className="w-full pr-10"
               autoComplete="off"
               autoFocus
               {...register('messageInput')}
