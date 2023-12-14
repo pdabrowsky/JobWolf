@@ -5,12 +5,15 @@ import { FieldError } from 'react-hook-form'
 import { cn } from '@/lib/utils'
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ name, errors, className, label, ...rest }, ref) => {
+  ({ name, errors, className, label, labelClassName, ...rest }, ref) => {
     const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
     return (
       <div className="flex flex-col w-full">
-        <label htmlFor={name} className="pb-1 text-[12px] lg:text-[14px]">
+        <label
+          htmlFor={name}
+          className={cn('pb-1 text-[12px] lg:text-[14px]', labelClassName)}
+        >
           {label}
         </label>
         <input

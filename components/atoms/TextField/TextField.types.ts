@@ -1,6 +1,7 @@
 import { FieldErrors } from 'react-hook-form'
 
 export type TextFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
-  label: string
+  label?: string
   errors?: FieldErrors
+  labelClassName?: string
 }
