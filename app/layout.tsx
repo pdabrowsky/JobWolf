@@ -23,7 +23,10 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions)
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className="scrollbar-thin scrollbar-thumb-rounded-full scrollbar-thumb-darkGray scrollbar-track-neutral-900"
+    >
       <body className={cn(font.className, 'bg-dark text-gray')}>
         <SessionProvider session={session}>
           <EdgeStoreProvider>
