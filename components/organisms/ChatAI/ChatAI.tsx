@@ -1,40 +1,25 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
 import { cn } from '@/lib/utils'
 import { ChatAIProps } from '.'
 import { useState } from 'react'
-import { MessageType, Message } from './Message'
 import { Modal } from '@/components/molecules/Modal'
 import { Tooltip } from 'react-tooltip'
 import { ChatIcon, SendIcon } from '@/icons'
+import { useChat } from 'ai/react'
 import { TextField } from '@/components/atoms/TextField'
+import { Message } from './Message'
 
 export const ChatAI = ({ className }: ChatAIProps) => {
-  const [messages, setMessages] = useState<MessageType[]>([])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const { register, handleSubmit, reset } = useForm<{ messageInput: string }>()
-
-  const onSendMessage = (data: { messageInput: string }) => {
-    const newMessage: MessageType = {
-      id: Date.now(),
-      text: data.messageInput,
-      sender: 'user',
-    }
-    setMessages([...messages, newMessage])
-
-    setTimeout(() => {
-      const aiMessage: MessageType = {
-        id: Date.now() + 1,
-        text: 'This is an automated response from AI.',
-        sender: 'ai',
-      }
-      setMessages((prevMessages) => [...prevMessages, aiMessage])
-    }, 1000)
-
-    reset()
-  }
+  const { input, handleInputChange, handleSubmit, isLoading, messages } =
+    useChat({
+      body: {
+        jobDetails:
+          'Junior Frontend Developer with required technologies including React, css, HTML, and JavaScript.',
+      },
+    })
 
   return (
     <>
@@ -48,7 +33,7 @@ export const ChatAI = ({ className }: ChatAIProps) => {
       </button>
       <Tooltip id="chat-ai" />
       <Modal
-        className=""
+        className="lg:w-[550px]"
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         title="Virtual Assistant"
@@ -56,7 +41,7 @@ export const ChatAI = ({ className }: ChatAIProps) => {
         <>
           <div
             className={cn(
-              'w-full overflow-hidden overflow-y-auto overscroll-contain h-96 border border-borderMid rounded-lg p-3 space-y-2 flex flex-col-reverse scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-darkGray scrollbar-thumb-neutral-900',
+              'gap-4 w-full overflow-hidden overflow-y-auto overscroll-contain h-96 lg:h-[400px] border border-borderMid rounded-lg p-3 space-y-2 flex flex-col-reverse scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-darkGray scrollbar-thumb-neutral-900',
               className
             )}
           >
@@ -64,21 +49,21 @@ export const ChatAI = ({ className }: ChatAIProps) => {
               <Message key={message.id} message={message} />
             ))}
           </div>
-          <form
-            onSubmit={handleSubmit(onSendMessage)}
-            className="relative w-full flex mt-4"
-          >
+          <form onSubmit={handleSubmit} className="relative w-full flex mt-4">
             <TextField
-              label="Name"
+              label="Virtual Assistant"
+              name="Virtual Assistant"
               placeholder="Type answer here..."
+              onChange={handleInputChange}
               labelClassName="sr-only"
+              value={input}
               className="w-full pr-10"
               autoComplete="off"
               autoFocus
-              {...register('messageInput')}
             />
             <button
               type="submit"
+              disabled={isLoading}
               className="absolute px-2 right-0 top-1/2 transform -translate-y-1/2 h-full"
             >
               <SendIcon className="w-6 h-6" />

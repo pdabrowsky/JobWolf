@@ -1,14 +1,29 @@
+import { cn } from '@/lib/utils'
 import { MessageProps } from '.'
 
 export const Message = ({ message }: MessageProps) => {
-  const isUser = message.sender === 'user'
+  const isUser = message.role === 'user'
   return (
     <div
-      className={`p-2 my-1 text-sm ${
-        isUser ? 'bg-blue-500 text-white ml-auto' : 'bg-gray-300 mr-auto'
-      } rounded-lg max-w-xs`}
+      className={cn(
+        'p-2 text-sm whitespace-pre-wrap md:max-w-[90%] bg-darkGray rounded-lg flex gap-2',
+        isUser ? 'ml-auto' : 'mr-auto'
+      )}
     >
-      {message.text}
+      {!isUser && (
+        <span className="text-lightPurple font-bold bg-purple p-2 rounded-full text-xs h-fit leading-none">
+          AI
+        </span>
+      )}
+      {message.content
+        .split('\n')
+        .map((currentTextBlock: string, index: number) => {
+          if (currentTextBlock === '') {
+            return <p key={message.id + index}>&nbsp;</p>
+          } else {
+            return <p key={message.id + index}>{currentTextBlock}</p>
+          }
+        })}
     </div>
   )
 }
