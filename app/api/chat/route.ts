@@ -15,7 +15,7 @@ export async function POST(request: Request) {
   const response = await openai.createChatCompletion({
     model: 'gpt-4-1106-preview',
     stream: true,
-    max_tokens: 600,
+    max_tokens: 500,
     messages: [
       {
         role: 'system',
