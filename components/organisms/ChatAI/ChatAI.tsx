@@ -10,14 +10,19 @@ import { useChat } from 'ai/react'
 import { TextField } from '@/components/atoms/TextField'
 import { Message } from './Message'
 
-export const ChatAI = ({ className }: ChatAIProps) => {
+export const ChatAI = ({ className, offerDetails }: ChatAIProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const mustHaveTechNames = offerDetails.mustHaveTech
+    .map((tech) => tech.name)
+    .join(', ')
+  const niceToHaveTechNames = offerDetails.niceToHaveTech
+    .map((tech) => tech.name)
+    .join(', ')
 
   const { input, handleInputChange, handleSubmit, isLoading, messages } =
     useChat({
       body: {
-        jobDetails:
-          'Junior Frontend Developer with required technologies including React, css, HTML, and JavaScript.',
+        jobDetails: `title: ${offerDetails.title}, experience: ${offerDetails.experience.name}, must have technologies: ${mustHaveTechNames}, nice to have technologies: ${niceToHaveTechNames}`,
       },
     })
 

@@ -15,15 +15,17 @@ export const Message = ({ message }: MessageProps) => {
           AI
         </span>
       )}
-      {message.content
-        .split('\n')
-        .map((currentTextBlock: string, index: number) => {
-          if (currentTextBlock === '') {
-            return <p key={message.id + index}>&nbsp;</p>
-          } else {
-            return <p key={message.id + index}>{currentTextBlock}</p>
-          }
-        })}
+      <div>
+        {message.content
+          .split('\n')
+          .map((currentTextBlock: string, index: number) => {
+            if (currentTextBlock === '') {
+              return <p key={message.id + index}>&nbsp;</p>
+            } else {
+              return <p key={message.id + index}>{currentTextBlock}</p>
+            }
+          })}
+      </div>
     </div>
   )
 }

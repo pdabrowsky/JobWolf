@@ -23,7 +23,7 @@ const OfferPage = async ({
   return (
     <div className="flex justify-center my-10 lg:my-20 px-5">
       <OfferDetails {...offer} />
-      <ChatAI />
+      <ChatAI offerDetails={offer} />
     </div>
   )
 }
