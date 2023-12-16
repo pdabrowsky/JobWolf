@@ -21,7 +21,7 @@ export const updateEmployerProfile = async (
     await prisma.employer.update({
       where: { email: email },
       data: {
-        name: data.name,
+        companyName: data.name,
         city: data.city,
         address: data.address,
         description: data.description,

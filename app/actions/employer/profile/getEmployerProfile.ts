@@ -14,7 +14,7 @@ export const getEmployerProfile = async (
     if (!employer) return {}
 
     const profileData: EmployerProfileData = {
-      name: employer.name || '',
+      name: employer.companyName || '',
       city: employer.city || '',
       address: employer.address || '',
       description: employer.description || '',

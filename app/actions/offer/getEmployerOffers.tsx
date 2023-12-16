@@ -17,7 +17,7 @@ export const getEmployerOffers = async (employerEmail: string) => {
       include: {
         employer: {
           select: {
-            name: true,
+            companyName: true,
             logoUrl: true,
           },
         },
@@ -41,7 +41,7 @@ export const getEmployerOffers = async (employerEmail: string) => {
       title: offer.title,
       description: offer.description,
       technologies: offer.mustHaveTech.map((tech) => tech.name),
-      companyName: offer.employer.name || '',
+      companyName: offer.employer.companyName || '',
       employerLogoUrl: offer.employer.logoUrl || '',
       isOpen: offer.isOpen,
     }))

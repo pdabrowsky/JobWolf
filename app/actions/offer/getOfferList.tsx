@@ -19,7 +19,7 @@ export const getOfferList = async (query?: string) => {
           select: {
             logoUrl: true,
             logoName: true,
-            name: true,
+            companyName: true,
           },
         },
         mustHaveTech: {
@@ -39,7 +39,7 @@ export const getOfferList = async (query?: string) => {
         id: offer.id,
         title: offer.title,
         technologies: offer.mustHaveTech.map((tech) => tech.name),
-        companyName: offer.employer.name || '',
+        companyName: offer.employer.companyName || '',
         employerLogoUrl: offer.employer.logoUrl || '',
       }
     })

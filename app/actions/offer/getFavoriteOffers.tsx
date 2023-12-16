@@ -20,7 +20,7 @@ export const getFavoriteOffers = async (candidateEmail: string) => {
             employer: {
               select: {
                 logoUrl: true,
-                name: true,
+                companyName: true,
               },
             },
             mustHaveTech: {
@@ -38,7 +38,7 @@ export const getFavoriteOffers = async (candidateEmail: string) => {
       id: offer.id,
       title: offer.title,
       technologies: offer.mustHaveTech.map((tech) => tech.name),
-      companyName: offer.employer.name || '',
+      companyName: offer.employer.companyName || '',
       employerLogoUrl: offer.employer.logoUrl || '',
     }))
   } catch (error) {
