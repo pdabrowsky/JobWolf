@@ -39,7 +39,7 @@ export const getOffer = async (
       isAddedToFavourites,
       employer: {
         ...offer.employer,
-        name: offer.employer.name || '',
+        name: offer.employer.companyName || '',
         city: offer.employer.city || '',
         address: offer.employer.address || '',
         description: offer.employer.description || '',
