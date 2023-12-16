@@ -63,6 +63,7 @@ model Offer {
   applications    Application[]
   isOpen          Boolean         @default(true)
   favoritedBy     FavoriteOffer[]
+  salaryRanges    SalaryRange[]
 
   @@index([experienceId])
   @@index([typeOfWorkId])
@@ -126,4 +127,21 @@ model FavoriteOffer {
   @@id([candidateId, offerId])
   @@index([candidateId])
   @@index([offerId])
+}
+
+model ContractType {
+  id       Int           @id @default(autoincrement())
+  name     String        @unique
+  salaries SalaryRange[]
+}
+
+model SalaryRange {
+  id             Int          @id @default(autoincrement())
+  salaryFrom     Int
+  salaryTo       Int
+  contractTypeId Int
+  contractType   ContractType @relation(fields: [contractTypeId], references: [id])
+  offers         Offer[]
+
+  @@index([contractTypeId])
 }
