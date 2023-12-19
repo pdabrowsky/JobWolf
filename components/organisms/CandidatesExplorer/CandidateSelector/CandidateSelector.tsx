@@ -10,7 +10,12 @@ export const CandidateSelector = ({
   className,
 }: CandidateSelectorProps) => {
   return (
-    <Card className={cn('p-3 flex flex-col gap-3', className)}>
+    <Card
+      className={cn(
+        'p-3 flex flex-col gap-3 w-full lg:max-w-[300px]',
+        className
+      )}
+    >
       {candidates.length ? (
         <>
           <h2>Select Candidate</h2>
@@ -28,7 +33,7 @@ export const CandidateSelector = ({
                 aria-pressed={candidate.id === selectedCandidateId}
                 onClick={() => onCandidateSelect(candidate)}
               >
-                <span>{`${candidate.firstName} ${candidate.lastName}`}</span>
+                <p className="max-w-[260px] truncate">{`${candidate.firstName} ${candidate.lastName}`}</p>
                 <InfoIcon className="w-5 h-5" aria-hidden="true" />
               </li>
             ))}

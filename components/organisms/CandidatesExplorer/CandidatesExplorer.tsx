@@ -12,13 +12,13 @@ export const CandidatesExplorer = ({ candidates }: CandidatesExplorerProps) => {
   }
 
   return (
-    <div className="w-[800px] flex gap-4">
+    <div className="lg:w-[1000px] flex flex-wrap lg:flex-nowrap gap-4">
       <CandidateSelector
         candidates={candidates}
         onCandidateSelect={handleCandidateSelect}
         selectedCandidateId={selectedCandidate?.id}
       />
-      <CandidateDetails candidate={selectedCandidate} />
+      {selectedCandidate && <CandidateDetails candidate={selectedCandidate} />}
     </div>
   )
 }
