@@ -10,18 +10,12 @@ const Home = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  // const limit =
-  //   typeof searchParams.limit === 'string' ? Number(searchParams.limit) : 10
-
-  const search =
-    typeof searchParams.search === 'string' ? searchParams.search : undefined
-
-  const offers = await getOfferList(search)
+  const offers = await getOfferList(searchParams.search as string)
 
   return (
     <div className="min-h-screen py-12 flex flex-col items-center w-full px-4">
       <div className="flex justify-center mb-14 w-full gap-2">
-        <Search className="max-w-[500px] w-full" search={search} />
+        <Search className="max-w-[500px] w-full" />
         <SearchFilters />
       </div>
       <div>

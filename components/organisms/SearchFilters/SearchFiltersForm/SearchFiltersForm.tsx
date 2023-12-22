@@ -4,6 +4,8 @@ import { TechSelector } from '@/components/molecules/TechSelector'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useSearchParams, useRouter } from 'next/navigation'
+import queryString from 'query-string'
 
 const PostJobSchema = z.object({
   salaryFrom: z.string(),
@@ -11,9 +13,18 @@ const PostJobSchema = z.object({
   techStack: z.array(z.number()),
 })
 
+type Filters = {
+  techStack?: number[]
+  salaryFrom?: string
+  salaryTo?: string
+}
+
 type SearchFilters = z.infer<typeof PostJobSchema>
 
 export const SearchFiltersForm = () => {
+  const searchParams = useSearchParams()
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -21,10 +32,27 @@ export const SearchFiltersForm = () => {
     formState: { errors },
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
+    defaultValues: {
+      ...queryString.parse(searchParams.toString()),
+    },
   })
 
   const onSubmit: SubmitHandler<SearchFilters> = async (data) => {
-    console.log(data)
+    const newSearchParams: Filters = {
+      techStack: data.techStack,
+    }
+
+    if (data.salaryFrom) newSearchParams.salaryFrom = data.salaryFrom
+    if (data.salaryTo) newSearchParams.salaryTo = data.salaryTo
+
+    const search = searchParams.get('search')
+
+    const stringifiedParams = queryString.stringify({
+      ...data,
+      search,
+    })
+
+    router.push(`?${stringifiedParams}`)
   }
 
   return (
