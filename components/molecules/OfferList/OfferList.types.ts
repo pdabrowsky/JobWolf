@@ -7,4 +7,8 @@ export type OfferListProps = {
   getOffers: GetOffersFunction
 }
 
-type GetOffersFunction = (page: number) => Promise<OfferCardProps[]>
+type GetOffersFunction = (page: number) => Promise<{
+  offers: OfferCardProps[]
+  totalOffers: number
+  hasNextPage: boolean
+}>

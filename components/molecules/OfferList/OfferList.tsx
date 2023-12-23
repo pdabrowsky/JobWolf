@@ -1,6 +1,6 @@
 'use client'
 
-import { OfferCard, OfferCardProps } from '@/components/atoms/OfferCard'
+import { OfferCard } from '@/components/atoms/OfferCard'
 import { OfferListProps } from './OfferList.types'
 import { cn } from '@/lib/utils'
 import { useState, useEffect, useCallback, useRef } from 'react'
@@ -14,18 +14,19 @@ export const OffersList = ({
 }: OfferListProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const [offerList, setOfferList] = useState(offers)
+  const [hasNextPage, setHasNextPage] = useState(true)
   const [page, setPage] = useState(1)
   const inView = useInView(ref)
 
   const loadMoreMovies = useCallback(async () => {
     const next = page + 1
-    const newOfferList = await getOffers(next)
-    if (newOfferList?.length) {
+    const { hasNextPage, offers } = await getOffers(next)
+
+    !hasNextPage && setHasNextPage(false)
+
+    if (offers?.length) {
       setPage(next)
-      setOfferList((prev: OfferCardProps[] | undefined) => [
-        ...(prev?.length ? prev : []),
-        ...newOfferList,
-      ])
+      setOfferList((prev) => [...(prev || []), ...offers])
     }
   }, [getOffers, page])
 
@@ -40,7 +41,11 @@ export const OffersList = ({
       {offerList.map((offer) => (
         <OfferCard key={offer.id} {...offer} />
       ))}
-      <Spinner ref={ref} />
+      {hasNextPage ? (
+        <Spinner ref={ref} />
+      ) : (
+        <p className="mx-auto py-5">No more offers</p>
+      )}
     </ul>
   )
 }

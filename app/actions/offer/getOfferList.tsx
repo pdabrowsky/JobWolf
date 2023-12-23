@@ -42,17 +42,31 @@ export const getOfferList = async (
       },
     })
 
-    return offers.map((offer) => {
-      return {
-        id: offer.id,
-        title: offer.title,
-        technologies: offer.mustHaveTech.map((tech) => tech.name),
-        companyName: offer.employer.companyName || '',
-        employerLogoUrl: offer.employer.logoUrl || '',
-      }
+    const totalOffers = await prisma.offer.count({
+      where: whereCondition,
     })
+
+    const hasNextPage = skip + offers.length < totalOffers
+
+    return {
+      offers: offers.map((offer) => {
+        return {
+          id: offer.id,
+          title: offer.title,
+          technologies: offer.mustHaveTech.map((tech) => tech.name),
+          companyName: offer.employer.companyName || '',
+          employerLogoUrl: offer.employer.logoUrl || '',
+        }
+      }),
+      totalOffers,
+      hasNextPage,
+    }
   } catch (error) {
     console.error(error)
-    return []
+    return {
+      offers: [],
+      totalOffers: 0,
+      hasNextPage: false,
+    }
   }
 }

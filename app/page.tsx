@@ -13,7 +13,7 @@ const Home = async ({
   const search =
     typeof searchParams.search === 'string' ? searchParams.search : undefined
 
-  const offers = await getOfferList(search)
+  const { offers, totalOffers } = await getOfferList(search)
 
   const getOffers = async (page: number) => {
     'use server'
@@ -32,8 +32,7 @@ const Home = async ({
         <div className="mb-4 flex">
           {offers.length ? (
             <p className="text-[14px] lg:text-[16px] text-gold font-semibold">
-              Found {offers.length}{' '}
-              {pluralize(offers.length, 'offer', 'offers')}
+              Found {totalOffers} {pluralize(totalOffers, 'offer', 'offers')}
             </p>
           ) : (
             <p>No offers</p>
