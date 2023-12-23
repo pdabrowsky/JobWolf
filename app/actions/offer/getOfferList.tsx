@@ -1,6 +1,10 @@
 import prisma from '@/lib/prisma'
 
-export const getOfferList = async (query?: string) => {
+export const getOfferList = async (
+  query?: string,
+  page: number = 1,
+  pageSize: number = 10
+) => {
   try {
     let whereCondition = {}
 
@@ -12,8 +16,12 @@ export const getOfferList = async (query?: string) => {
       }
     }
 
+    const skip = (page - 1) * pageSize
+
     const offers = await prisma.offer.findMany({
       where: whereCondition,
+      skip: skip,
+      take: pageSize,
       include: {
         employer: {
           select: {

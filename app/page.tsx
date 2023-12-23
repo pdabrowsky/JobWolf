@@ -10,7 +10,17 @@ const Home = async ({
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  const offers = await getOfferList(searchParams.search as string)
+  const search =
+    typeof searchParams.search === 'string' ? searchParams.search : undefined
+
+  const offers = await getOfferList(search)
+
+  const getOffers = async (page: number) => {
+    'use server'
+
+    const offers = await getOfferList(search, page)
+    return offers
+  }
 
   return (
     <div className="min-h-screen py-12 flex flex-col items-center w-full px-4">
@@ -30,7 +40,13 @@ const Home = async ({
           )}
         </div>
         {!!offers.length && (
-          <OffersList offers={offers} className="lg:min-w-[800px]" />
+          <OffersList
+            offers={offers}
+            className="lg:min-w-[800px]"
+            search={search}
+            getOffers={getOffers}
+            key={search}
+          />
         )}
       </div>
       <BackToTopButton />
