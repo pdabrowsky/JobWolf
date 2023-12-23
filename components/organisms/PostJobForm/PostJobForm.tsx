@@ -13,6 +13,7 @@ import { PostJobFormProps } from './PostJobForm.types'
 import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
 import { postOffer } from '@/app/actions/offer/postOffer'
+import { SalaryRange } from '../SalaryRange'
 
 const PostJobSchema = z.object({
   title: z.string().min(1, 'Required'),
@@ -22,9 +23,32 @@ const PostJobSchema = z.object({
   typeOfWork: z.number().min(1, 'Required'),
   mustHaveTechs: z.array(z.number()),
   niceToHaveTechs: z.array(z.number()),
+  salaryRange: z
+    .array(
+      z
+        .object({
+          from: z.number().min(1, 'Required'),
+          to: z.number().min(1, 'Required'),
+          contractType: z.number().min(1, 'Required'),
+        })
+        .refine((data) => data.from <= data.to, {
+          message: 'From value cannot be greater than To value',
+          path: ['from-to'],
+        })
+    )
+    .refine(
+      (data) => {
+        const contractTypeSet = new Set(data.map((item) => item.contractType))
+        return contractTypeSet.size === data.length
+      },
+      {
+        message: 'Duplicate contract types are not allowed',
+        path: ['contractType'],
+      }
+    ),
 })
 
-type PostJobFormInput = z.infer<typeof PostJobSchema>
+export type PostJobFormInput = z.infer<typeof PostJobSchema>
 
 export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
   const { data: session } = useSession()
@@ -34,9 +58,13 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
     handleSubmit,
     control,
     reset,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<PostJobFormInput>({
     resolver: zodResolver(PostJobSchema),
+    defaultValues: {
+      salaryRange: [{ from: 0, to: 0 }],
+    },
   })
 
   const onSubmit: SubmitHandler<PostJobFormInput> = async (data) => {
@@ -135,6 +163,17 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               errors={errors}
             />
           )}
+        />
+        <SalaryRange
+          name="salaryRange"
+          control={control}
+          formErrors={errors}
+          register={register}
+          getValues={getValues}
+          contractTypes={[
+            { label: 'B2b', value: 1 },
+            { label: 'UOP', value: 2 },
+          ]}
         />
         <TextArea
           label="Description"
