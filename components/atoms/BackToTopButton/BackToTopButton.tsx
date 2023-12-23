@@ -19,7 +19,7 @@ export const BackToTopButton = () => {
       setIsVisible(window.scrollY > 300)
     }
 
-    const throttledHandleScroll = throttle(handleScroll, 120)
+    const throttledHandleScroll = throttle(handleScroll, 100)
 
     window.addEventListener('scroll', throttledHandleScroll)
     return () => window.removeEventListener('scroll', throttledHandleScroll)
