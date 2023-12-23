@@ -11,12 +11,13 @@ export const OffersList = ({
   offers,
   className,
   getOffers,
+  defaultHasNextPage,
 }: OfferListProps) => {
   const ref = useRef<HTMLDivElement>(null)
   const [offerList, setOfferList] = useState(offers)
-  const [hasNextPage, setHasNextPage] = useState(true)
+  const [hasNextPage, setHasNextPage] = useState(defaultHasNextPage)
   const [page, setPage] = useState(1)
-  const inView = useInView(ref)
+  const isInView = useInView(ref)
 
   const loadMoreMovies = useCallback(async () => {
     const next = page + 1
@@ -31,10 +32,10 @@ export const OffersList = ({
   }, [getOffers, page])
 
   useEffect(() => {
-    if (inView.valueOf()) {
+    if (isInView && hasNextPage) {
       loadMoreMovies()
     }
-  }, [inView, loadMoreMovies])
+  }, [hasNextPage, isInView, loadMoreMovies])
 
   return (
     <ul className={cn('flex flex-col gap-4', className)}>

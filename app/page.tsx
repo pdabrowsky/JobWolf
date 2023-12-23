@@ -13,7 +13,7 @@ const Home = async ({
   const search =
     typeof searchParams.search === 'string' ? searchParams.search : undefined
 
-  const { offers, totalOffers } = await getOfferList(search)
+  const { offers, totalOffers, hasNextPage } = await getOfferList(search)
 
   const getOffers = async (page: number) => {
     'use server'
@@ -42,8 +42,8 @@ const Home = async ({
           <OffersList
             offers={offers}
             className="lg:min-w-[800px]"
-            search={search}
             getOffers={getOffers}
+            defaultHasNextPage={hasNextPage}
             key={search}
           />
         )}
