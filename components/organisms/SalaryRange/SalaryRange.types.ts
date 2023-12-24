@@ -14,5 +14,5 @@ export type SalaryRangeProps = {
   register: UseFormRegister<PostJobFormInput>
   getValues: UseFormGetValues<PostJobFormInput>
   contractTypes: SelectOption[]
-  formErrors?: FieldErrors
+  formErrors?: FieldErrors<PostJobFormInput>
 }

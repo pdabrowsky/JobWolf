@@ -6,11 +6,13 @@ import { SalaryRangeProps } from './SalaryRange.types'
 import { Controller, useFieldArray } from 'react-hook-form'
 import { DropdownSelect } from '@/components/atoms/DropdownSelect'
 import { cn } from '@/lib/utils'
+import { ErrorMessage } from '@/components/atoms/ErrorMessage'
 
 export const SalaryRange = ({
   control,
   register,
   contractTypes,
+  formErrors,
   getValues,
 }: SalaryRangeProps) => {
   const { fields, append, remove } = useFieldArray({
@@ -39,49 +41,58 @@ export const SalaryRange = ({
   return (
     <>
       {fields.map((field, index) => (
-        <div
-          key={field.id}
-          className="flex flex-wrap md:flex-nowrap gap-3 items-end"
-        >
-          <TextField
-            label="From"
-            type="number"
-            {...register(`salaryRange.${index}.from`, {
-              setValueAs: (value) => (value === '' ? '' : Number(value)),
-            })}
-          />
-          <TextField
-            label="To"
-            type="number"
-            {...register(`salaryRange.${index}.to`, {
-              setValueAs: (value) => (value === '' ? '' : Number(value)),
-            })}
-          />
-          <Controller
-            name={`salaryRange.${index}.contractType`}
-            control={control}
-            render={({ field }) => (
-              <DropdownSelect
-                label="Contract type"
-                name={field.name}
-                options={getAvailableContractTypes(index)}
-                placeholder="Select contract type"
-                onChange={(value) => field.onChange(value)}
-              />
-            )}
-          />
+        <div key={field.id}>
+          <div className="flex flex-wrap md:flex-nowrap gap-3 items-end">
+            <TextField
+              label="From"
+              type="number"
+              {...register(`salaryRange.${index}.from`, {
+                setValueAs: (value) => (value === '' ? '' : Number(value)),
+              })}
+            />
+            <TextField
+              label="To"
+              type="number"
+              {...register(`salaryRange.${index}.to`, {
+                setValueAs: (value) => (value === '' ? '' : Number(value)),
+              })}
+            />
+            <Controller
+              name={`salaryRange.${index}.contractType`}
+              control={control}
+              render={({ field }) => (
+                <DropdownSelect
+                  label="Contract type"
+                  name={field.name}
+                  options={getAvailableContractTypes(index)}
+                  placeholder="Select contract type"
+                  onChange={(value) => field.onChange(value)}
+                />
+              )}
+            />
 
-          <button
-            type="button"
-            className={cn('md:mb-1 p-1', {
-              'cursor-default': fields.length <= 1,
-              'text-gold': fields.length > 1,
-            })}
-            disabled={fields.length <= 1}
-            onClick={() => handleRemoveClick(index)}
-          >
-            <MinusIcon className="w-5 h-5" />
-          </button>
+            <button
+              type="button"
+              className={cn('md:mb-1 p-1', {
+                'cursor-default': fields.length <= 1,
+                'text-gold': fields.length > 1,
+              })}
+              disabled={fields.length <= 1}
+              onClick={() => handleRemoveClick(index)}
+            >
+              <MinusIcon className="w-5 h-5" />
+            </button>
+          </div>
+
+          <ErrorMessage
+            error={
+              formErrors?.salaryRange?.[index]?.from ||
+              formErrors?.salaryRange?.[index]?.to ||
+              formErrors?.salaryRange?.[index]?.contractType ||
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (formErrors?.salaryRange?.[index] as any)?.from_to
+            }
+          />
         </div>
       ))}
       <button

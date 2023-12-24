@@ -33,7 +33,7 @@ const PostJobSchema = z.object({
         })
         .refine((data) => data.from <= data.to, {
           message: 'From value cannot be greater than To value',
-          path: ['from-to'],
+          path: ['from_to'],
         })
     )
     .refine(
