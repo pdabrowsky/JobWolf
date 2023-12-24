@@ -5,13 +5,19 @@ import prisma from '@/lib/prisma'
 
 export const getAllJobFormOptions = async (): Promise<PostJobFormOptions> => {
   try {
-    const [operatingModes, experiences, typesOfWork, techOptions] =
-      await Promise.all([
-        prisma.operatingMode.findMany({ orderBy: { id: 'asc' } }),
-        prisma.experience.findMany({ orderBy: { id: 'asc' } }),
-        prisma.typeOfWork.findMany({ orderBy: { id: 'asc' } }),
-        prisma.technology.findMany({ orderBy: { id: 'asc' } }),
-      ])
+    const [
+      operatingModes,
+      experiences,
+      typesOfWork,
+      techOptions,
+      contractTypes,
+    ] = await Promise.all([
+      prisma.operatingMode.findMany({ orderBy: { id: 'asc' } }),
+      prisma.experience.findMany({ orderBy: { id: 'asc' } }),
+      prisma.typeOfWork.findMany({ orderBy: { id: 'asc' } }),
+      prisma.technology.findMany({ orderBy: { id: 'asc' } }),
+      prisma.contractType.findMany({ orderBy: { id: 'asc' } }),
+    ])
 
     return {
       operatingModes: operatingModes.map((item) => ({
@@ -30,6 +36,10 @@ export const getAllJobFormOptions = async (): Promise<PostJobFormOptions> => {
         value: item.id,
         label: item.name,
       })),
+      contractTypes: contractTypes.map((item) => ({
+        value: item.id,
+        label: item.name,
+      })),
     }
   } catch (error) {
     console.error(error)
@@ -38,6 +48,7 @@ export const getAllJobFormOptions = async (): Promise<PostJobFormOptions> => {
       experiences: [],
       typesOfWork: [],
       techOptions: [],
+      contractTypes: [],
     }
   }
 }

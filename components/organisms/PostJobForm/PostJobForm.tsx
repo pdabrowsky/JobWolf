@@ -170,10 +170,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           formErrors={errors}
           register={register}
           getValues={getValues}
-          contractTypes={[
-            { label: 'B2b', value: 1 },
-            { label: 'UOP', value: 2 },
-          ]}
+          contractTypes={selectOptions.contractTypes}
         />
         <TextArea
           label="Description"

@@ -7,6 +7,7 @@ export type PostJobFormOptions = {
   experiences: SelectOption[]
   typesOfWork: SelectOption[]
   techOptions: SelectOption[]
+  contractTypes: SelectOption[]
 }
 
 export type SelectOption = {
