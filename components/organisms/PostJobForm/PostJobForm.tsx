@@ -27,8 +27,14 @@ const PostJobSchema = z.object({
     .array(
       z
         .object({
-          from: z.number().min(1, 'Required'),
-          to: z.number().min(1, 'Required'),
+          from: z
+            .number()
+            .nonnegative('Enter a positive number')
+            .min(1, 'Required'),
+          to: z
+            .number()
+            .nonnegative('Enter a positive number')
+            .min(1, 'Required'),
           contractType: z.number().min(1, 'Required'),
         })
         .refine((data) => data.from <= data.to, {
@@ -58,7 +64,6 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
     handleSubmit,
     control,
     reset,
-    getValues,
     formState: { errors, isSubmitting },
   } = useForm<PostJobFormInput>({
     resolver: zodResolver(PostJobSchema),
@@ -169,7 +174,6 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           control={control}
           formErrors={errors}
           register={register}
-          getValues={getValues}
           contractTypes={selectOptions.contractTypes}
         />
         <TextArea

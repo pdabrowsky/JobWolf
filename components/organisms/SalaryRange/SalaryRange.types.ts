@@ -1,9 +1,4 @@
-import {
-  Control,
-  FieldErrors,
-  UseFormGetValues,
-  UseFormRegister,
-} from 'react-hook-form'
+import { Control, FieldErrors, UseFormRegister } from 'react-hook-form'
 import { PostJobFormInput } from '../PostJobForm'
 import { SelectOption } from '../PostJobForm/PostJobForm.types'
 
@@ -12,7 +7,6 @@ export type SalaryRangeProps = {
   name: string
   control: Control<PostJobFormInput>
   register: UseFormRegister<PostJobFormInput>
-  getValues: UseFormGetValues<PostJobFormInput>
   contractTypes: SelectOption[]
   formErrors?: FieldErrors<PostJobFormInput>
 }

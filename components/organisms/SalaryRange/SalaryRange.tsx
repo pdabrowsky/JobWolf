@@ -13,7 +13,6 @@ export const SalaryRange = ({
   register,
   contractTypes,
   formErrors,
-  getValues,
 }: SalaryRangeProps) => {
   const { fields, append, remove } = useFieldArray({
     control,
@@ -27,16 +26,7 @@ export const SalaryRange = ({
     if (fields.length > 1) remove(index)
   }
 
-  const getAvailableContractTypes = (currentIndex: number) => {
-    const selectedTypes = getValues('salaryRange').map(
-      (field) => field.contractType
-    )
-    return contractTypes.filter(
-      (type) =>
-        !selectedTypes.includes(type.value) ||
-        type.value === selectedTypes[currentIndex]
-    )
-  }
+  const canAddMore = fields.length < contractTypes.length
 
   return (
     <>
@@ -64,7 +54,7 @@ export const SalaryRange = ({
                 <DropdownSelect
                   label="Contract type"
                   name={field.name}
-                  options={getAvailableContractTypes(index)}
+                  options={contractTypes}
                   placeholder="Select contract type"
                   onChange={(value) => field.onChange(value)}
                 />
@@ -86,18 +76,21 @@ export const SalaryRange = ({
 
           <ErrorMessage
             error={
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              (formErrors?.salaryRange as any)?.contractType ||
               formErrors?.salaryRange?.[index]?.from ||
               formErrors?.salaryRange?.[index]?.to ||
-              formErrors?.salaryRange?.[index]?.contractType ||
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               (formErrors?.salaryRange?.[index] as any)?.from_to
             }
           />
         </div>
       ))}
-      <button type="button" onClick={handleAddClick} className="p-1 mr-auto">
-        Add more
-      </button>
+      {canAddMore && (
+        <button type="button" onClick={handleAddClick} className="p-1 mr-auto">
+          Add more
+        </button>
+      )}
     </>
   )
 }
