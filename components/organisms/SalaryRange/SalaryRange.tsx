@@ -95,11 +95,7 @@ export const SalaryRange = ({
           />
         </div>
       ))}
-      <button
-        type="button"
-        onClick={handleAddClick}
-        className="md:mb-1 p-1 mr-auto text-gold"
-      >
+      <button type="button" onClick={handleAddClick} className="p-1 mr-auto">
         Add more
       </button>
     </>
