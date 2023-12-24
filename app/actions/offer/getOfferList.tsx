@@ -36,6 +36,18 @@ export const getOfferList = async (
             name: true,
           },
         },
+        salaryRanges: {
+          take: 1,
+          select: {
+            salaryFrom: true,
+            salaryTo: true,
+            contractType: {
+              select: {
+                name: true,
+              },
+            },
+          },
+        },
       },
       orderBy: {
         createdAt: 'desc',
@@ -50,12 +62,20 @@ export const getOfferList = async (
 
     return {
       offers: offers.map((offer) => {
+        const firstSalaryRange = offer.salaryRanges[0] || null
         return {
           id: offer.id,
           title: offer.title,
           technologies: offer.mustHaveTech.map((tech) => tech.name),
           companyName: offer.employer.companyName || '',
           employerLogoUrl: offer.employer.logoUrl || '',
+          salaryRange: firstSalaryRange
+            ? {
+                salaryFrom: firstSalaryRange.salaryFrom,
+                salaryTo: firstSalaryRange.salaryTo,
+                contractTypeName: firstSalaryRange.contractType?.name,
+              }
+            : null,
         }
       }),
       totalOffers,

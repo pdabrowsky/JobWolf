@@ -13,6 +13,7 @@ export const postOffer = async (
     typeOfWork: number
     mustHaveTechs: number[]
     niceToHaveTechs: number[]
+    salaryRange: { from: number; to: number; contractType: number }[]
   }
 ): Promise<CustomResponse> => {
   const user = await prisma.employer.findUnique({
@@ -36,6 +37,13 @@ export const postOffer = async (
         },
         niceToHaveTech: {
           connect: data.niceToHaveTechs.map((id) => ({ id })),
+        },
+        salaryRanges: {
+          create: data.salaryRange.map((sr) => ({
+            salaryFrom: sr.from,
+            salaryTo: sr.to,
+            contractTypeId: sr.contractType,
+          })),
         },
       },
     })
