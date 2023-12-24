@@ -11,6 +11,7 @@ export const OfferCard = ({
   title,
   companyName,
   employerLogoUrl,
+  salaryRange,
   technologies,
 }: OfferCardProps) => {
   return (
@@ -37,7 +38,14 @@ export const OfferCard = ({
           </div>
           <div className="flex-col items-end hidden md:flex gap-1">
             <div>
-              <p className="font-semibold text-lg">1000 - 3000 PLN</p>
+              {salaryRange ? (
+                // TODO remove this
+                <p className="font-semibold text-lg">
+                  {salaryRange.salaryFrom} - {salaryRange.salaryTo} PLN
+                </p>
+              ) : (
+                <p className="font-semibold text-lg">N/A</p>
+              )}
             </div>
             <div className="flex gap-2">
               {technologies.slice(0, 3).map((tech, index) => (

@@ -41,6 +41,6 @@ export type OfferDetailsProps = {
   salaryRanges: {
     salaryFrom: number
     salaryTo: number
-    contractTypeName: string
+    contractType: string
   }[]
 }

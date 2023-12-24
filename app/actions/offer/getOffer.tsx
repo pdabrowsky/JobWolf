@@ -45,7 +45,7 @@ export const getOffer = async (
       salaryRanges: offer.salaryRanges.map((salaryRange) => ({
         salaryFrom: salaryRange.salaryFrom,
         salaryTo: salaryRange.salaryTo,
-        contractTypeName: salaryRange.contractType?.name,
+        contractType: salaryRange.contractType?.name,
       })),
       employer: {
         ...offer.employer,

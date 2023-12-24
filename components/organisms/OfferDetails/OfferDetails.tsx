@@ -18,6 +18,7 @@ export const OfferDetails = ({
   niceToHaveTech,
   description,
   typeOfWork,
+  salaryRanges,
 }: OfferDetailsProps) => {
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
@@ -45,21 +46,7 @@ export const OfferDetails = ({
         />
         <OfferDescription description={description} />
       </main>
-      <OfferApplySidebarFrom
-        salary={[
-          {
-            salaryFrom: 10000,
-            salaryTo: 15000,
-            contractType: 'B2B',
-          },
-          {
-            salaryFrom: 9000,
-            salaryTo: 14000,
-            contractType: 'Work Contract',
-          },
-        ]}
-        offerId={id}
-      />
+      <OfferApplySidebarFrom salary={salaryRanges} offerId={id} />
     </div>
   )
 }
