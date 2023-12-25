@@ -75,7 +75,7 @@ export const getOfferList = async (
                 salaryTo: firstSalaryRange.salaryTo,
                 contractTypeName: firstSalaryRange.contractType?.name,
               }
-            : null,
+            : undefined,
         }
       }),
       totalOffers,
