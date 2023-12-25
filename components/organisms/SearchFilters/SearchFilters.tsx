@@ -3,8 +3,9 @@
 import React, { useState } from 'react'
 import { Modal } from '@/components/molecules/Modal'
 import { SearchFiltersForm } from './SearchFiltersForm'
+import { SearchFiltersProps } from '.'
 
-export const SearchFilters = () => {
+export const SearchFilters = ({ filterOptions }: SearchFiltersProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleOpen = () => setIsModalOpen(true)
@@ -20,7 +21,10 @@ export const SearchFilters = () => {
       </button>
 
       <Modal isOpen={isModalOpen} onClose={handleClose} title="Filters">
-        <SearchFiltersForm onClose={handleClose} />
+        <SearchFiltersForm
+          onClose={handleClose}
+          filterOptions={filterOptions}
+        />
       </Modal>
     </>
   )

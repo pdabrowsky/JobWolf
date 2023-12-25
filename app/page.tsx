@@ -4,6 +4,7 @@ import { OffersList } from '@/components/molecules/OfferList'
 import { pluralize } from '@/lib/helpers'
 import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 import { SearchFilters } from '@/components/organisms/SearchFilters'
+import { getFilterOptions } from './actions/offer/getFilltersOptions'
 
 const Home = async ({
   searchParams,
@@ -14,6 +15,7 @@ const Home = async ({
     typeof searchParams.search === 'string' ? searchParams.search : undefined
 
   const { offers, totalOffers, hasNextPage } = await getOfferList(search)
+  const filterOptions = await getFilterOptions()
 
   const getOffers = async (page: number) => {
     'use server'
@@ -26,7 +28,7 @@ const Home = async ({
     <div className="min-h-screen py-12 flex flex-col items-center w-full px-4">
       <div className="flex justify-center mb-14 w-full gap-2">
         <Search className="max-w-[500px] w-full" />
-        <SearchFilters />
+        <SearchFilters filterOptions={filterOptions} />
       </div>
       <div>
         <div className="mb-4 flex">

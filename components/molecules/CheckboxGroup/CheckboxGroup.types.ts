@@ -8,7 +8,7 @@ export type CheckboxGroupProps = {
   control: Control<any>
 }
 
-type CheckboxOption = {
+export type CheckboxOption = {
   value: number
   label: string
 }

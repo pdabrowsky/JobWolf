@@ -15,9 +15,10 @@ const PostJobSchema = z
     salaryFrom: z.number().min(0).optional(),
     salaryTo: z.number().min(0).optional(),
     techStack: z.array(z.number()),
-    typeOfEmployment: z.array(z.number()),
+    contractType: z.array(z.number()),
     experience: z.array(z.number()),
     typeOfWork: z.array(z.number()),
+    operatingMode: z.array(z.number()),
   })
   .refine(
     (data) =>
@@ -32,7 +33,10 @@ const PostJobSchema = z
 
 type SearchFilters = z.infer<typeof PostJobSchema>
 
-export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
+export const SearchFiltersForm = ({
+  onClose,
+  filterOptions,
+}: SearchFiltersFormProps) => {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -51,9 +55,8 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
       techStack: transformQueryParamToArray(parsedQuery.techStack),
       experience: transformQueryParamToArray(parsedQuery.experience),
       typeOfWork: transformQueryParamToArray(parsedQuery.typeOfWork),
-      typeOfEmployment: transformQueryParamToArray(
-        parsedQuery.typeOfEmployment
-      ),
+      contractType: transformQueryParamToArray(parsedQuery.contractType),
+      operatingMode: transformQueryParamToArray(parsedQuery.operatingMode),
     },
   })
 
@@ -98,29 +101,19 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
             name={field.name}
             initialOptions={field.value}
             onChange={(selected) => field.onChange(selected)}
-            technologies={[
-              { value: 1, label: 'React' },
-              { value: 2, label: 'Vue' },
-              { value: 3, label: 'Angular' },
-              { value: 4, label: 'Typescript' },
-              { value: 5, label: 'C#' },
-            ]}
+            technologies={filterOptions.technologyOptions}
             errors={errors}
           />
         )}
       />
       <Controller
-        name="typeOfEmployment"
+        name="contractType"
         control={control}
         render={({ field }) => (
           <CheckboxGroup
             name={field.name}
             label="Type of employment"
-            options={[
-              { value: 1, label: 'B2b' },
-              { value: 2, label: 'Work contract' },
-              { value: 3, label: 'Permanent' },
-            ]}
+            options={filterOptions.contractTypeOptions}
             control={control}
           />
         )}
@@ -132,11 +125,7 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
           <CheckboxGroup
             name={field.name}
             label="Experience"
-            options={[
-              { value: 1, label: 'Junior' },
-              { value: 2, label: 'Mid' },
-              { value: 3, label: 'Senior' },
-            ]}
+            options={filterOptions.experienceOptions}
             control={control}
           />
         )}
@@ -148,11 +137,19 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
           <CheckboxGroup
             name={field.name}
             label="Type of work"
-            options={[
-              { value: 1, label: 'Full-time' },
-              { value: 2, label: 'Part-time' },
-              { value: 3, label: 'Remote' },
-            ]}
+            options={filterOptions.typeOfWorkOptions}
+            control={control}
+          />
+        )}
+      />
+      <Controller
+        name="operatingMode"
+        control={control}
+        render={({ field }) => (
+          <CheckboxGroup
+            name={field.name}
+            label="Operating mode"
+            options={filterOptions.operatingModeOptions}
             control={control}
           />
         )}

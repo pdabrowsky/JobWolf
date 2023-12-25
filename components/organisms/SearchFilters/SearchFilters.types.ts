@@ -1,3 +1,5 @@
+import { FilterOptionsSet } from './SearchFiltersForm/SearchFiltersForm.types'
+
 export type SearchFiltersProps = {
-  modalIsOpen?: boolean
+  filterOptions: FilterOptionsSet
 }
