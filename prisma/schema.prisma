@@ -52,11 +52,11 @@ model Offer {
   updatedAt       DateTime        @updatedAt
   employerId      String          @db.VarChar(36)
   employer        Employer        @relation(fields: [employerId], references: [id])
-  experienceId    String          @db.VarChar(36)
+  experienceId    Int
   experience      Experience      @relation(fields: [experienceId], references: [id])
-  typeOfWorkId    String          @db.VarChar(36)
+  typeOfWorkId    Int
   typeOfWork      TypeOfWork      @relation(fields: [typeOfWorkId], references: [id])
-  operatingModeId String          @db.VarChar(36)
+  operatingModeId Int
   operatingMode   OperatingMode   @relation(fields: [operatingModeId], references: [id])
   mustHaveTech    Technology[]    @relation("mustHaveTech")
   niceToHaveTech  Technology[]    @relation("niceToHaveTech")
@@ -72,19 +72,19 @@ model Offer {
 }
 
 model Experience {
-  id     String  @id @default(uuid())
+  id     Int     @id @default(autoincrement())
   name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
 
 model TypeOfWork {
-  id     String  @id @default(uuid())
+  id     Int     @id @default(autoincrement())
   name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
 
 model OperatingMode {
-  id     String  @id @default(uuid())
+  id     Int     @id @default(autoincrement())
   name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
