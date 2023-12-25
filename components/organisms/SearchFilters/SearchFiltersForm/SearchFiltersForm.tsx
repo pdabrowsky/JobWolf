@@ -6,12 +6,24 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useSearchParams, useRouter } from 'next/navigation'
 import queryString from 'query-string'
+import { SearchFiltersFormProps } from './SearchFiltersForm.types'
 
-const PostJobSchema = z.object({
-  salaryFrom: z.number().optional(),
-  salaryTo: z.number().optional(),
-  techStack: z.array(z.number()),
-})
+const PostJobSchema = z
+  .object({
+    salaryFrom: z.number().min(0).optional(),
+    salaryTo: z.number().min(0).optional(),
+    techStack: z.array(z.number()),
+  })
+  .refine(
+    (data) =>
+      data.salaryFrom === undefined ||
+      data.salaryTo === undefined ||
+      data.salaryFrom <= data.salaryTo,
+    {
+      message: 'Salary from must not be greater than salary to',
+      path: ['salaryFrom'],
+    }
+  )
 
 type Filters = {
   techStack?: number[]
@@ -21,7 +33,7 @@ type Filters = {
 
 type SearchFilters = z.infer<typeof PostJobSchema>
 
-export const SearchFiltersForm = () => {
+export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
   const searchParams = useSearchParams()
   const router = useRouter()
 
@@ -31,7 +43,6 @@ export const SearchFiltersForm = () => {
     register,
     handleSubmit,
     control,
-    getValues,
     formState: { errors },
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
@@ -45,7 +56,7 @@ export const SearchFiltersForm = () => {
         : [],
     },
   })
-  console.log(getValues('salaryFrom'))
+
   const onSubmit: SubmitHandler<SearchFilters> = async (data) => {
     const newSearchParams: Filters = {
       techStack: data.techStack,
@@ -62,6 +73,7 @@ export const SearchFiltersForm = () => {
     })
 
     router.push(`?${stringifiedParams}`)
+    onClose()
   }
 
   return (

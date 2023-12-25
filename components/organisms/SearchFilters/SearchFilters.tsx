@@ -20,7 +20,7 @@ export const SearchFilters = () => {
       </button>
 
       <Modal isOpen={isModalOpen} onClose={handleClose} title="Filters">
-        <SearchFiltersForm />
+        <SearchFiltersForm onClose={handleClose} />
       </Modal>
     </>
   )
