@@ -20,7 +20,12 @@ export const SearchFilters = ({ filterOptions }: SearchFiltersProps) => {
         Filters
       </button>
 
-      <Modal isOpen={isModalOpen} onClose={handleClose} title="Filters">
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleClose}
+        title="Filters"
+        className="max-w-[600px] max-h-[95%] overflow-auto overscroll-contain"
+      >
         <SearchFiltersForm
           onClose={handleClose}
           filterOptions={filterOptions}
