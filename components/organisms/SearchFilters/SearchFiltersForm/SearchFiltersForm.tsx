@@ -8,15 +8,15 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import queryString from 'query-string'
 
 const PostJobSchema = z.object({
-  salaryFrom: z.string(),
-  salaryTo: z.string(),
+  salaryFrom: z.number(),
+  salaryTo: z.number(),
   techStack: z.array(z.number()),
 })
 
 type Filters = {
   techStack?: number[]
-  salaryFrom?: string
-  salaryTo?: string
+  salaryFrom?: number
+  salaryTo?: number
 }
 
 type SearchFilters = z.infer<typeof PostJobSchema>
@@ -24,6 +24,8 @@ type SearchFilters = z.infer<typeof PostJobSchema>
 export const SearchFiltersForm = () => {
   const searchParams = useSearchParams()
   const router = useRouter()
+
+  const parsedQuery = queryString.parse(searchParams.toString())
 
   const {
     register,
@@ -33,7 +35,13 @@ export const SearchFiltersForm = () => {
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
     defaultValues: {
-      ...queryString.parse(searchParams.toString()),
+      salaryFrom: Number(parsedQuery.salaryFrom) || undefined,
+      salaryTo: Number(parsedQuery.salaryTo) || undefined,
+      techStack: Array.isArray(parsedQuery.techStack)
+        ? parsedQuery.techStack.map(Number)
+        : parsedQuery.techStack
+        ? [Number(parsedQuery.techStack)]
+        : [],
     },
   })
 
@@ -49,7 +57,7 @@ export const SearchFiltersForm = () => {
 
     const stringifiedParams = queryString.stringify({
       ...data,
-      search,
+      ...(search && { search }),
     })
 
     router.push(`?${stringifiedParams}`)
@@ -60,13 +68,15 @@ export const SearchFiltersForm = () => {
       <div className="flex flex-col gap-4 md:flex-row md:gap-3">
         <TextField
           label="Salary from"
+          type="number"
           errors={errors}
-          {...register('salaryFrom')}
+          {...register('salaryFrom', { valueAsNumber: true })}
         />
         <TextField
           label="Salary to"
+          type="number"
           errors={errors}
-          {...register('salaryTo')}
+          {...register('salaryTo', { valueAsNumber: true })}
         />
       </div>
       <Controller
@@ -76,6 +86,7 @@ export const SearchFiltersForm = () => {
           <TechSelector
             label="Technology stack"
             name={field.name}
+            initialOptions={field.value}
             onChange={(selected) => field.onChange(selected)}
             technologies={[
               { value: 1, label: 'React' },

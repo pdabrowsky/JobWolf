@@ -12,11 +12,14 @@ export const TechSelector = ({
   onChange,
   technologies,
   errors,
+  initialOptions,
 }: TechSelectorProps & {
   onChange: (value: number[]) => void
-  initialOption?: number[]
+  initialOptions?: number[]
 }) => {
-  const [selectedTechs, setSelectedTechs] = useState<number[]>([])
+  const [selectedTechs, setSelectedTechs] = useState<number[]>(
+    initialOptions || []
+  )
 
   const handleSelect = (tech: number) => {
     const newSelectedTechs = selectedTechs.includes(tech)
