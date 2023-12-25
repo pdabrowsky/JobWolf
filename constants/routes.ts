@@ -8,4 +8,7 @@ export const routes = {
   SETTINGS: 'profile?tab=settings',
   POST_JOB: '/post-job',
   RESET_PASSWORD: '/reset-password',
+  POSTED_OFFERS: '/posted-offers',
+  OFFER_CANDIDATES: '/posted-offers/candidates',
+  FAVORITES: '/favorites',
 }

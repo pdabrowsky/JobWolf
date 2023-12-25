@@ -34,14 +34,14 @@ export const OfferFavoriteList = ({
     <div className={cn('flex flex-col gap-4', className)}>
       {offerList.length !== 0 ? (
         offerList.map((offer) => (
-          <div key={offer.id} className="flex items-center gap-2 lg:gap-4">
+          <ul key={offer.id} className="flex items-center gap-2 lg:gap-4">
             <OfferCard {...offer} />
             <StarIcon
               className="w-6 h-6 lg:w-8 lg:h-8 text-gold fill-gold"
               role="button"
               onClick={() => handletoggleFavorite(offer.id)}
             />
-          </div>
+          </ul>
         ))
       ) : (
         <p>No offers</p>

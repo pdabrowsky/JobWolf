@@ -1,4 +1,5 @@
 'use client'
+import { UserRole } from '@/app/actions/types'
 import { DropdownMenu } from '@/components/atoms/Dropdown'
 import { IconButton } from '@/components/atoms/IconButton'
 import { Logo } from '@/components/atoms/Logo'
@@ -20,6 +21,7 @@ const dropdownOptions = [
 
 export const Navbar = () => {
   const { data: session } = useSession()
+  const isEmployer = session?.user?.role === UserRole.Employer
 
   return (
     <nav className="flex items-center justify-between h-14 lg:h-16 w-full border-b border-darkLight px-5 lg:px-8">
@@ -28,9 +30,22 @@ export const Navbar = () => {
         <li>
           <Link href={routes.HOME}>Offers</Link>
         </li>
-        <li>
-          <Link href={routes.POST_JOB}>Post a job</Link>
-        </li>
+        {isEmployer ? (
+          <>
+            <li>
+              <Link href={routes.POST_JOB}>Post a job</Link>
+            </li>
+            <li>
+              <Link href={routes.POSTED_OFFERS}>My offers</Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link href={routes.FAVORITES}>Favorite offers</Link>
+            </li>
+          </>
+        )}
         <li>
           {session ? (
             <DropdownMenu options={dropdownOptions}>
