@@ -8,8 +8,8 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import queryString from 'query-string'
 
 const PostJobSchema = z.object({
-  salaryFrom: z.number(),
-  salaryTo: z.number(),
+  salaryFrom: z.number().optional(),
+  salaryTo: z.number().optional(),
   techStack: z.array(z.number()),
 })
 
@@ -31,6 +31,7 @@ export const SearchFiltersForm = () => {
     register,
     handleSubmit,
     control,
+    getValues,
     formState: { errors },
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
@@ -44,7 +45,7 @@ export const SearchFiltersForm = () => {
         : [],
     },
   })
-
+  console.log(getValues('salaryFrom'))
   const onSubmit: SubmitHandler<SearchFilters> = async (data) => {
     const newSearchParams: Filters = {
       techStack: data.techStack,
@@ -70,13 +71,17 @@ export const SearchFiltersForm = () => {
           label="Salary from"
           type="number"
           errors={errors}
-          {...register('salaryFrom', { valueAsNumber: true })}
+          {...register('salaryFrom', {
+            setValueAs: (v) => (v === '' ? undefined : parseInt(v, 10)),
+          })}
         />
         <TextField
           label="Salary to"
           type="number"
           errors={errors}
-          {...register('salaryTo', { valueAsNumber: true })}
+          {...register('salaryTo', {
+            setValueAs: (v) => (v === '' ? undefined : parseInt(v, 10)),
+          })}
         />
       </div>
       <Controller
