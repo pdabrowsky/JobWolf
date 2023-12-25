@@ -3,7 +3,7 @@ export type OfferCardProps = {
   title: string
   technologies: string[]
   companyName: string
-  salaryRange: salaryRange
+  salaryRange?: salaryRange
   employerLogoUrl: string
   isFavorite?: boolean
 }

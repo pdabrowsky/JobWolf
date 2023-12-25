@@ -61,7 +61,7 @@ export const getFavoriteOffers = async (candidateEmail: string) => {
               salaryTo: firstSalaryRange.salaryTo,
               contractTypeName: firstSalaryRange.contractType?.name,
             }
-          : null,
+          : undefined,
       }
     })
   } catch (error) {
