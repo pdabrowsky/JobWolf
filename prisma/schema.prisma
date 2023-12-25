@@ -10,17 +10,17 @@ datasource db {
 
 model Candidate {
   id                       String          @id @default(uuid())
-  email                    String          @unique
-  password                 String
-  firstName                String?
-  lastName                 String?
-  phone                    String?
-  description              String?
-  githubUrl                String?
-  portfolioUrl             String?
-  fileName                 String?
-  fileUrl                  String?
-  resetPasswordToken       String?         @unique
+  email                    String          @unique @db.VarChar(80)
+  password                 String          @db.VarChar(80)
+  firstName                String?         @db.VarChar(80)
+  lastName                 String?         @db.VarChar(80)
+  phone                    String?         @db.VarChar(15)
+  description              String?         @db.Text
+  githubUrl                String?         @db.VarChar(100)
+  portfolioUrl             String?         @db.VarChar(100)
+  fileName                 String?         @db.VarChar(100)
+  fileUrl                  String?         @db.VarChar(180)
+  resetPasswordToken       String?         @unique @db.VarChar(80)
   resetPasswordTokenExpiry DateTime?
   applications             Application[]
   favoriteOffers           FavoriteOffer[]
@@ -28,35 +28,35 @@ model Candidate {
 
 model Employer {
   id                       String    @id @default(uuid())
-  email                    String    @unique
-  password                 String
-  companyName              String?
-  city                     String?
-  address                  String?
+  email                    String    @unique @db.VarChar(80)
+  password                 String    @db.VarChar(80)
+  companyName              String?   @db.VarChar(80)
+  city                     String?   @db.VarChar(80)
+  address                  String?   @db.VarChar(80)
   description              String?   @db.VarChar(500)
-  phone                    String?
-  website                  String?
-  logoName                 String?
-  logoUrl                  String?
-  resetPasswordToken       String?   @unique
+  phone                    String?   @db.VarChar(15)
+  website                  String?   @db.VarChar(100)
+  logoName                 String?   @db.VarChar(100)
+  logoUrl                  String?   @db.VarChar(180)
+  resetPasswordToken       String?   @unique @db.VarChar(80)
   resetPasswordTokenExpiry DateTime?
   Offer                    Offer[]
 }
 
 model Offer {
   id              String          @id @default(uuid())
-  title           String
+  title           String          @db.VarChar(100)
   description     String          @db.Text
-  city            String
+  city            String          @db.VarChar(80)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
-  employerId      String
+  employerId      String          @db.VarChar(36)
   employer        Employer        @relation(fields: [employerId], references: [id])
-  experienceId    Int
+  experienceId    String          @db.VarChar(36)
   experience      Experience      @relation(fields: [experienceId], references: [id])
-  typeOfWorkId    Int
+  typeOfWorkId    String          @db.VarChar(36)
   typeOfWork      TypeOfWork      @relation(fields: [typeOfWorkId], references: [id])
-  operatingModeId Int
+  operatingModeId String          @db.VarChar(36)
   operatingMode   OperatingMode   @relation(fields: [operatingModeId], references: [id])
   mustHaveTech    Technology[]    @relation("mustHaveTech")
   niceToHaveTech  Technology[]    @relation("niceToHaveTech")
@@ -72,26 +72,26 @@ model Offer {
 }
 
 model Experience {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
+  id     String  @id @default(uuid())
+  name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
 
 model TypeOfWork {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
+  id     String  @id @default(uuid())
+  name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
 
 model OperatingMode {
-  id     Int     @id @default(autoincrement())
-  name   String  @unique
+  id     String  @id @default(uuid())
+  name   String  @unique @db.VarChar(15)
   offers Offer[]
 }
 
 model Technology {
   id               Int     @id @default(autoincrement())
-  name             String  @unique
+  name             String  @unique @db.VarChar(30)
   offersMustHave   Offer[] @relation("mustHaveTech")
   offersNiceToHave Offer[] @relation("niceToHaveTech")
 }
@@ -99,27 +99,27 @@ model Technology {
 model Application {
   id          String    @id @default(uuid())
   createdAt   DateTime  @default(now())
-  candidateId String
+  candidateId String    @db.VarChar(36)
   candidate   Candidate @relation(fields: [candidateId], references: [id])
-  offerId     String
+  offerId     String    @db.VarChar(36)
   offer       Offer     @relation(fields: [offerId], references: [id])
 
-  candidateFirstName    String?
-  candidateLastName     String?
-  candidatePhone        String?
-  candidateDescription  String?
-  candidateGithubUrl    String?
-  candidatePortfolioUrl String?
-  candidateFileName     String?
-  candidateFileUrl      String?
+  candidateFirstName    String? @db.VarChar(80)
+  candidateLastName     String? @db.VarChar(80)
+  candidatePhone        String? @db.VarChar(15)
+  candidateDescription  String? @db.Text
+  candidateGithubUrl    String? @db.VarChar(100)
+  candidatePortfolioUrl String? @db.VarChar(100)
+  candidateFileName     String? @db.VarChar(100)
+  candidateFileUrl      String? @db.VarChar(180)
 
   @@index([candidateId])
   @@index([offerId])
 }
 
 model FavoriteOffer {
-  candidateId String
-  offerId     String
+  candidateId String @db.VarChar(36)
+  offerId     String @db.VarChar(36)
 
   candidate Candidate @relation(fields: [candidateId], references: [id])
   offer     Offer     @relation(fields: [offerId], references: [id])
@@ -131,7 +131,7 @@ model FavoriteOffer {
 
 model ContractType {
   id       Int           @id @default(autoincrement())
-  name     String        @unique
+  name     String        @unique @db.VarChar(20)
   salaries SalaryRange[]
 }
 
