@@ -7,12 +7,17 @@ import { z } from 'zod'
 import { useSearchParams, useRouter } from 'next/navigation'
 import queryString from 'query-string'
 import { SearchFiltersFormProps } from './SearchFiltersForm.types'
+import { CheckboxGroup } from '@/components/molecules/CheckboxGroup'
+import { transformQueryParamToArray } from './SearchFiltersForm.helpers'
 
 const PostJobSchema = z
   .object({
     salaryFrom: z.number().min(0).optional(),
     salaryTo: z.number().min(0).optional(),
     techStack: z.array(z.number()),
+    typeOfEmployment: z.array(z.number()),
+    experience: z.array(z.number()),
+    typeOfWork: z.array(z.number()),
   })
   .refine(
     (data) =>
@@ -24,12 +29,6 @@ const PostJobSchema = z
       path: ['salaryFrom'],
     }
   )
-
-type Filters = {
-  techStack?: number[]
-  salaryFrom?: number
-  salaryTo?: number
-}
 
 type SearchFilters = z.infer<typeof PostJobSchema>
 
@@ -49,22 +48,16 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
     defaultValues: {
       salaryFrom: Number(parsedQuery.salaryFrom) || undefined,
       salaryTo: Number(parsedQuery.salaryTo) || undefined,
-      techStack: Array.isArray(parsedQuery.techStack)
-        ? parsedQuery.techStack.map(Number)
-        : parsedQuery.techStack
-        ? [Number(parsedQuery.techStack)]
-        : [],
+      techStack: transformQueryParamToArray(parsedQuery.techStack),
+      experience: transformQueryParamToArray(parsedQuery.experience),
+      typeOfWork: transformQueryParamToArray(parsedQuery.typeOfWork),
+      typeOfEmployment: transformQueryParamToArray(
+        parsedQuery.typeOfEmployment
+      ),
     },
   })
 
   const onSubmit: SubmitHandler<SearchFilters> = async (data) => {
-    const newSearchParams: Filters = {
-      techStack: data.techStack,
-    }
-
-    if (data.salaryFrom) newSearchParams.salaryFrom = data.salaryFrom
-    if (data.salaryTo) newSearchParams.salaryTo = data.salaryTo
-
     const search = searchParams.get('search')
 
     const stringifiedParams = queryString.stringify({
@@ -113,6 +106,54 @@ export const SearchFiltersForm = ({ onClose }: SearchFiltersFormProps) => {
               { value: 5, label: 'C#' },
             ]}
             errors={errors}
+          />
+        )}
+      />
+      <Controller
+        name="typeOfEmployment"
+        control={control}
+        render={({ field }) => (
+          <CheckboxGroup
+            name={field.name}
+            label="Type of employment"
+            options={[
+              { value: 1, label: 'B2b' },
+              { value: 2, label: 'Work contract' },
+              { value: 3, label: 'Permanent' },
+            ]}
+            control={control}
+          />
+        )}
+      />
+      <Controller
+        name="experience"
+        control={control}
+        render={({ field }) => (
+          <CheckboxGroup
+            name={field.name}
+            label="Experience"
+            options={[
+              { value: 1, label: 'Junior' },
+              { value: 2, label: 'Mid' },
+              { value: 3, label: 'Senior' },
+            ]}
+            control={control}
+          />
+        )}
+      />
+      <Controller
+        name="typeOfWork"
+        control={control}
+        render={({ field }) => (
+          <CheckboxGroup
+            name={field.name}
+            label="Type of work"
+            options={[
+              { value: 1, label: 'Full-time' },
+              { value: 2, label: 'Part-time' },
+              { value: 3, label: 'Remote' },
+            ]}
+            control={control}
           />
         )}
       />
