@@ -5,7 +5,10 @@ import { FieldError } from 'react-hook-form'
 import { cn } from '@/lib/utils'
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ name, errors, className, label, labelClassName, ...rest }, ref) => {
+  (
+    { name, errors, className, label, labelClassName, type = 'text', ...rest },
+    ref
+  ) => {
     const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
     return (
@@ -22,6 +25,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             className
           )}
           id={name}
+          type={type}
           name={name}
           ref={ref}
           {...rest}
