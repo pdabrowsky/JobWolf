@@ -1,29 +1,5 @@
 import prisma from '@/lib/prisma'
 
-type FilterOptions = {
-  contractType: number[]
-  technology: number[]
-  operatingMode: number[]
-  typeOfWork: number[]
-  experience: number[]
-  salaryFrom?: number
-  salaryTo?: number
-}
-
-type WhereCondition = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  AND: Array<Record<string, any>>
-  salaryRanges?: {
-    some: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      AND?: Array<Record<string, any>>
-      contractTypeId?: {
-        in: number[]
-      }
-    }
-  }
-}
-
 export const getOfferList = async (
   query: string = '',
   page: number = 1,
@@ -173,4 +149,28 @@ function buildWhereCondition(
   }
 
   return whereCondition
+}
+
+type FilterOptions = {
+  contractType: number[]
+  technology: number[]
+  operatingMode: number[]
+  typeOfWork: number[]
+  experience: number[]
+  salaryFrom?: number
+  salaryTo?: number
+}
+
+type WhereCondition = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  AND: Array<Record<string, any>>
+  salaryRanges?: {
+    some: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      AND?: Array<Record<string, any>>
+      contractTypeId?: {
+        in: number[]
+      }
+    }
+  }
 }
