@@ -12,9 +12,7 @@ type FilterOptions = {
 
 type WhereCondition = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  OR?: Array<Record<string, any>>
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  AND?: Array<Record<string, any>>
+  AND: Array<Record<string, any>>
   salaryRanges?: {
     some: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -119,40 +117,39 @@ function buildWhereCondition(
   query: string,
   filters: FilterOptions
 ): WhereCondition {
-  const whereCondition: WhereCondition = {}
+  const whereCondition: WhereCondition = { AND: [] }
 
   if (query.trim() !== '') {
-    whereCondition.AND = whereCondition.AND || []
     whereCondition.AND.push({ title: { contains: query } })
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const conditionArrays: Array<Record<string, any>> = [
-    filters.contractType.length > 0
-      ? [
-          {
-            salaryRanges: {
-              some: { contractTypeId: { in: filters.contractType } },
-            },
-          },
-        ]
-      : [],
-    filters.technology.length > 0
-      ? [
-          {
-            OR: [
-              { mustHaveTech: { some: { id: { in: filters.technology } } } },
-              {
-                niceToHaveTech: { some: { id: { in: filters.technology } } },
-              },
-            ],
-          },
-        ]
-      : [],
-    filters.experience.map((id) => ({ experienceId: id })),
-    filters.typeOfWork.map((id) => ({ typeOfWorkId: id })),
-    filters.operatingMode.map((id) => ({ operatingModeId: id })),
-  ]
+  if (filters.contractType.length > 0) {
+    whereCondition.AND.push({
+      salaryRanges: { some: { contractTypeId: { in: filters.contractType } } },
+    })
+  }
+
+  if (filters.technology.length > 0) {
+    // Dla każdej technologii tworzymy warunek sprawdzający obecność w mustHaveTech lub niceToHaveTech
+    filters.technology.forEach((techId) => {
+      whereCondition.AND.push({
+        OR: [
+          { mustHaveTech: { some: { id: techId } } },
+          { niceToHaveTech: { some: { id: techId } } },
+        ],
+      })
+    })
+  }
+
+  filters.experience.forEach((id) =>
+    whereCondition.AND.push({ experienceId: id })
+  )
+  filters.typeOfWork.forEach((id) =>
+    whereCondition.AND.push({ typeOfWorkId: id })
+  )
+  filters.operatingMode.forEach((id) =>
+    whereCondition.AND.push({ operatingModeId: id })
+  )
 
   if (filters.salaryFrom !== undefined || filters.salaryTo !== undefined) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -164,7 +161,7 @@ function buildWhereCondition(
       salaryRangeCondition.salaryTo = { lte: filters.salaryTo }
     }
 
-    conditionArrays.push({
+    whereCondition.AND.push({
       salaryRanges: {
         some: {
           AND: [salaryRangeCondition],
@@ -174,14 +171,6 @@ function buildWhereCondition(
         },
       },
     })
-  }
-
-  const combinedConditions = conditionArrays
-    .flat()
-    .filter((condition) => Object.keys(condition).length > 0)
-
-  if (combinedConditions.length > 0) {
-    whereCondition.OR = combinedConditions
   }
 
   return whereCondition
