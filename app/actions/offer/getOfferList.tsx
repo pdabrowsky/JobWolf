@@ -130,7 +130,6 @@ function buildWhereCondition(
   }
 
   if (filters.technology.length > 0) {
-    // Dla każdej technologii tworzymy warunek sprawdzający obecność w mustHaveTech lub niceToHaveTech
     filters.technology.forEach((techId) => {
       whereCondition.AND.push({
         OR: [
