@@ -1,20 +1,46 @@
 import prisma from '@/lib/prisma'
 
-export const getOfferList = async (
-  query?: string,
-  page: number = 1,
-  pageSize: number = 10
-) => {
-  try {
-    let whereCondition = {}
+type FilterOptions = {
+  contractType: number[]
+  technology: number[]
+  operatingMode: number[]
+  typeOfWork: number[]
+  experience: number[]
+  salaryFrom?: number
+  salaryTo?: number
+}
 
-    if (query && query.trim() !== '') {
-      whereCondition = {
-        title: {
-          contains: query,
-        },
+type WhereCondition = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  OR?: Array<Record<string, any>>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  AND?: Array<Record<string, any>>
+  salaryRanges?: {
+    some: {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      AND?: Array<Record<string, any>>
+      contractTypeId?: {
+        in: number[]
       }
     }
+  }
+}
+
+export const getOfferList = async (
+  query: string = '',
+  page: number = 1,
+  filters: FilterOptions = {
+    contractType: [],
+    technology: [],
+    operatingMode: [],
+    typeOfWork: [],
+    experience: [],
+  }
+) => {
+  try {
+    const whereCondition: WhereCondition = buildWhereCondition(query, filters)
+
+    const pageSize = 10
 
     const skip = (page - 1) * pageSize
 
@@ -54,9 +80,7 @@ export const getOfferList = async (
       },
     })
 
-    const totalOffers = await prisma.offer.count({
-      where: whereCondition,
-    })
+    const totalOffers = await prisma.offer.count({ where: whereCondition })
 
     const hasNextPage = skip + offers.length < totalOffers
 
@@ -89,4 +113,76 @@ export const getOfferList = async (
       hasNextPage: false,
     }
   }
+}
+
+function buildWhereCondition(
+  query: string,
+  filters: FilterOptions
+): WhereCondition {
+  const whereCondition: WhereCondition = {}
+
+  if (query.trim() !== '') {
+    whereCondition.AND = whereCondition.AND || []
+    whereCondition.AND.push({ title: { contains: query } })
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const conditionArrays: Array<Record<string, any>> = [
+    filters.contractType.length > 0
+      ? [
+          {
+            salaryRanges: {
+              some: { contractTypeId: { in: filters.contractType } },
+            },
+          },
+        ]
+      : [],
+    filters.technology.length > 0
+      ? [
+          {
+            OR: [
+              { mustHaveTech: { some: { id: { in: filters.technology } } } },
+              {
+                niceToHaveTech: { some: { id: { in: filters.technology } } },
+              },
+            ],
+          },
+        ]
+      : [],
+    filters.experience.map((id) => ({ experienceId: id })),
+    filters.typeOfWork.map((id) => ({ typeOfWorkId: id })),
+    filters.operatingMode.map((id) => ({ operatingModeId: id })),
+  ]
+
+  if (filters.salaryFrom !== undefined || filters.salaryTo !== undefined) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const salaryRangeCondition: Record<string, any> = {}
+    if (filters.salaryFrom !== undefined) {
+      salaryRangeCondition.salaryFrom = { gte: filters.salaryFrom }
+    }
+    if (filters.salaryTo !== undefined) {
+      salaryRangeCondition.salaryTo = { lte: filters.salaryTo }
+    }
+
+    conditionArrays.push({
+      salaryRanges: {
+        some: {
+          AND: [salaryRangeCondition],
+          ...(filters.contractType.length > 0 && {
+            contractTypeId: { in: filters.contractType },
+          }),
+        },
+      },
+    })
+  }
+
+  const combinedConditions = conditionArrays
+    .flat()
+    .filter((condition) => Object.keys(condition).length > 0)
+
+  if (combinedConditions.length > 0) {
+    whereCondition.OR = combinedConditions
+  }
+
+  return whereCondition
 }
