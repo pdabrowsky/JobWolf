@@ -7,9 +7,9 @@ export type SearchFiltersFormProps = {
 }
 
 export type FilterOptionsSet = {
-  experienceOptions: CheckboxOption[]
-  typeOfWorkOptions: CheckboxOption[]
-  operatingModeOptions: CheckboxOption[]
-  contractTypeOptions: CheckboxOption[]
-  technologyOptions: TechSelectorOption[]
+  experience: CheckboxOption[]
+  typeOfWork: CheckboxOption[]
+  operatingMode: CheckboxOption[]
+  contractType: CheckboxOption[]
+  technology: TechSelectorOption[]
 }

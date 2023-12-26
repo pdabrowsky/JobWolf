@@ -1,8 +1,8 @@
 import { PostJobForm } from '@/components/organisms/PostJobForm'
-import { getAllJobFormOptions } from '../actions/offer/getFormData'
+import { getFilltersOptions } from '../actions/offer/getFilterOptions'
 
 const ProfilePage = async () => {
-  const options = await getAllJobFormOptions()
+  const options = await getFilltersOptions()
   return (
     <div className="flex justify-center my-10 lg:my-20 px-5">
       <PostJobForm selectOptions={options} />

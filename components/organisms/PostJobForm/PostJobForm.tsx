@@ -105,7 +105,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               <DropdownSelect
                 label="Operating mode"
                 name={field.name}
-                options={selectOptions.operatingModes}
+                options={selectOptions.operatingMode}
                 errors={errors}
                 placeholder="Select operating mode"
                 onChange={(value) => field.onChange(value)}
@@ -121,7 +121,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               <DropdownSelect
                 label="Experience"
                 name={field.name}
-                options={selectOptions.experiences}
+                options={selectOptions.experience}
                 errors={errors}
                 placeholder="Select experience"
                 onChange={(value) => field.onChange(value)}
@@ -135,7 +135,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               <DropdownSelect
                 label="Type of work"
                 name={field.name}
-                options={selectOptions.typesOfWork}
+                options={selectOptions.typeOfWork}
                 errors={errors}
                 placeholder="Select type of work"
                 onChange={(value) => field.onChange(value)}
@@ -151,7 +151,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               label="Must Have Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
-              technologies={selectOptions.techOptions}
+              technologies={selectOptions.technology}
               errors={errors}
             />
           )}
@@ -164,7 +164,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               label="Nice To Have Technologies"
               name={field.name}
               onChange={(selected) => field.onChange(selected)}
-              technologies={selectOptions.techOptions}
+              technologies={selectOptions.technology}
               errors={errors}
             />
           )}
@@ -174,7 +174,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           control={control}
           formErrors={errors}
           register={register}
-          contractTypes={selectOptions.contractTypes}
+          contractTypes={selectOptions.contractType}
         />
         <TextArea
           label="Description"

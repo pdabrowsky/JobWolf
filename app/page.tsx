@@ -4,15 +4,15 @@ import { OffersList } from '@/components/molecules/OfferList'
 import { pluralize } from '@/lib/helpers'
 import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 import { SearchFilters } from '@/components/organisms/SearchFilters'
-import { getFilterOptions } from './actions/offer/getFilltersOptions'
 import { transformQueryParamToArray } from '@/components/organisms/SearchFilters/SearchFiltersForm/SearchFiltersForm.helpers'
+import { getFilltersOptions } from './actions/offer/getFilterOptions'
 
 const Home = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  const filterOptions = await getFilterOptions()
+  const filterOptions = await getFilltersOptions()
 
   const search =
     typeof searchParams.search === 'string' ? searchParams.search : undefined

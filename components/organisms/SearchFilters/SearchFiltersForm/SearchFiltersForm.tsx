@@ -101,7 +101,7 @@ export const SearchFiltersForm = ({
             name={field.name}
             initialOptions={field.value}
             onChange={(selected) => field.onChange(selected)}
-            technologies={filterOptions.technologyOptions}
+            technologies={filterOptions.technology}
             errors={errors}
           />
         )}
@@ -113,7 +113,7 @@ export const SearchFiltersForm = ({
           <CheckboxGroup
             name={field.name}
             label="Type of employment"
-            options={filterOptions.contractTypeOptions}
+            options={filterOptions.contractType}
             control={control}
           />
         )}
@@ -125,7 +125,7 @@ export const SearchFiltersForm = ({
           <CheckboxGroup
             name={field.name}
             label="Experience"
-            options={filterOptions.experienceOptions}
+            options={filterOptions.experience}
             control={control}
           />
         )}
@@ -137,7 +137,7 @@ export const SearchFiltersForm = ({
           <CheckboxGroup
             name={field.name}
             label="Type of work"
-            options={filterOptions.typeOfWorkOptions}
+            options={filterOptions.typeOfWork}
             control={control}
           />
         )}
@@ -149,7 +149,7 @@ export const SearchFiltersForm = ({
           <CheckboxGroup
             name={field.name}
             label="Operating mode"
-            options={filterOptions.operatingModeOptions}
+            options={filterOptions.operatingMode}
             control={control}
           />
         )}
