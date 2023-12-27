@@ -25,17 +25,19 @@ const CandidateProfileSchema = z.object({
   githubUrl: z
     .string()
     .trim()
+    .max(80, 'Entry is too long')
     .url('Please enter a valid URL')
     .optional()
     .or(z.literal('')),
   portfolioUrl: z
     .string()
     .trim()
+    .max(80, 'Entry is too long')
     .url('Please enter a valid URL')
     .optional()
     .or(z.literal('')),
-  fileName: z.string().optional(),
-  fileUrl: z.string().optional(),
+  fileName: z.string().max(60, '').optional(),
+  fileUrl: z.string().max(180, '').optional(),
 })
 
 type CandidateProfileFormInput = z.infer<typeof CandidateProfileSchema>

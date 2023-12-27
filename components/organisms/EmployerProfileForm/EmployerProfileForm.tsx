@@ -17,19 +17,19 @@ import { Checkbox } from '@/components/atoms/Checkbox'
 import { useState } from 'react'
 
 const EmployerProfileSchema = z.object({
-  name: z.string().min(1, 'Field is required'),
-  city: z.string().min(1, 'Field is required'),
-  address: z.string().min(1, 'Field is required'),
+  name: z.string().min(1, 'Field is required').max(80, 'Entry is too long'),
+  city: z.string().min(1, 'Field is required').max(60, 'Entry is too long'),
+  address: z.string().min(1, 'Field is required').max(80, 'Entry is too long'),
   description: z.string().max(500).min(1, 'Field is required'),
-  phone: z.string().min(1, 'Field is required'),
+  phone: z.string().min(5, 'Field is too short').max(15, 'Entry is too long'),
   website: z
     .string()
-    .min(1, 'Field is required')
+    .max(80, 'Entry is too long')
     .url()
     .optional()
     .or(z.literal('')),
-  logoName: z.string().optional(),
-  logoUrl: z.string().optional(),
+  logoName: z.string().max(60, 'Logo name is too long'),
+  logoUrl: z.string().max(180, 'Logo url is too long'),
   acceptDeclaration: z
     .boolean()
     .refine((val) => val === true, 'You must accept declaration'),
@@ -95,34 +95,34 @@ export const EmployerProfileForm = ({
       <h2 className="text-[22px] mb-8 font-medium">My Profile</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <TextField
-          label="Company Name"
+          label="Company Name*"
           placeholder="Enter company name"
           errors={errors}
           {...register('name')}
         />
         <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <TextField
-            label="City"
+            label="City*"
             placeholder="Enter city"
             errors={errors}
             {...register('city')}
           />
           <TextField
-            label="Address"
+            label="Address*"
             placeholder="Enter address"
             errors={errors}
             {...register('address')}
           />
         </div>
         <TextArea
-          label="Company Description"
+          label="Company Description*"
           rows={6}
           placeholder="Describe your company"
           errors={errors}
           {...register('description')}
         />
         <TextField
-          label="Phone"
+          label="Phone*"
           placeholder="Enter phone number"
           errors={errors}
           {...register('phone')}
@@ -136,7 +136,7 @@ export const EmployerProfileForm = ({
         <FileDropzone
           fileName={logoName}
           name="logo"
-          label="Company Logo"
+          label="Company Logo*"
           fileUrl={logoUrl}
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB
