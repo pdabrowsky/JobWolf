@@ -16,7 +16,6 @@ import { CandidateProfileData } from '../actions/candidate/profile/types'
 
 type ProfilePageProps = { searchParams: { tab: string } }
 
-// TODO Refactor tab types
 const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
   const session = await getServerSession(authOptions)
   const { tab } = searchParams
@@ -33,7 +32,7 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
   }
 
   return (
-    <div className="flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 lg:gap-4 mt-10 lg:mt-20 px-5">
+    <div className="flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 lg:gap-4 my-10 lg:my-16 px-5">
       <Sidebar activeTab={tab === 'settings' ? 'settings' : 'profile'} />
       {tab === 'settings' ? (
         <ChangePasswordForm />

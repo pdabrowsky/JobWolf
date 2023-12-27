@@ -10,7 +10,7 @@ const RegisterPage = ({ searchParams }: RegisterPageProps) => {
   if (role !== UserRole.Candidate && role !== UserRole.Employer) notFound()
 
   return (
-    <div className="w-full flex justify-center pt-[100px] px-5">
+    <div className="w-full flex justify-center py-[100px] px-5">
       <RegisterForm role={role} />
     </div>
   )
