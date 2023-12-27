@@ -14,6 +14,7 @@ import { EmployerProfileFormProps } from './EmployerProfileForm.types'
 import { FileDropzone } from '@/components/molecules/FileDropzone'
 import { useEdgeStore } from '@/lib/edgestore'
 import { Checkbox } from '@/components/atoms/Checkbox'
+import { useState } from 'react'
 
 const EmployerProfileSchema = z.object({
   name: z.string().min(1, 'Field is required'),
@@ -41,6 +42,7 @@ export const EmployerProfileForm = ({
 }: EmployerProfileFormProps) => {
   const { data: session } = useSession()
   const { edgestore } = useEdgeStore()
+  const [isUploading, setIsUploading] = useState(false)
 
   const {
     register,
@@ -72,6 +74,7 @@ export const EmployerProfileForm = ({
 
   const onFileUpload = async (file?: File) => {
     if (file) {
+      setIsUploading(true)
       const res = await edgestore.publicFiles.upload({
         file: file,
         options: {
@@ -80,6 +83,7 @@ export const EmployerProfileForm = ({
       })
       setValue('logoUrl', res.url)
       setValue('logoName', file.name)
+      setIsUploading(false)
     } else {
       setValue('logoName', '')
       setValue('logoUrl', '')
@@ -136,6 +140,9 @@ export const EmployerProfileForm = ({
           fileUrl={logoUrl}
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB
+            accept: {
+              ['image/*']: ['.png', '.jpg', '.jpeg', '.webp', '.svg'],
+            },
           }}
           onChange={(file) => {
             onFileUpload(file)
@@ -150,7 +157,7 @@ export const EmployerProfileForm = ({
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"
-          disabled={isSubmitting || !isDirty}
+          disabled={isSubmitting || !isDirty || isUploading}
         >
           Save
         </Button>
