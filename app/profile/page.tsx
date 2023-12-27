@@ -32,7 +32,7 @@ const ProfilePage = async ({ searchParams }: ProfilePageProps) => {
   }
 
   return (
-    <div className="flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 lg:gap-4 my-10 lg:my-16 px-5">
+    <div className="flex justify-center items-center lg:items-start flex-col lg:flex-row gap-5 lg:gap-4 my-10 lg:my-20 px-5">
       <Sidebar activeTab={tab === 'settings' ? 'settings' : 'profile'} />
       {tab === 'settings' ? (
         <ChangePasswordForm />
