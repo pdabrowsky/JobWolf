@@ -5,6 +5,7 @@ import { Card } from '../Card'
 import { OfferCardProps } from './OfferCard.types'
 import Image from 'next/image'
 import { TechItem } from '../TechItem'
+import { cn } from '@/lib/utils'
 
 export const OfferCard = ({
   id,
@@ -13,9 +14,10 @@ export const OfferCard = ({
   employerLogoUrl,
   salaryRange,
   technologies,
+  className,
 }: OfferCardProps) => {
   return (
-    <Link href={`/offer?id=${id}`} className="w-full">
+    <Link href={`/offer?id=${id}`} className={cn('w-full', className)}>
       <Card className="flex justify-between gap-4 items-center p-4 w-full">
         <div className="flex items-center">
           <div className="relative w-10 h-10 lg:w-14 lg:h-14">

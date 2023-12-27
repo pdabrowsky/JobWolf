@@ -93,7 +93,7 @@ function buildWhereCondition(
   query: string,
   filters: FilterOptions
 ): WhereCondition {
-  const whereCondition: WhereCondition = { AND: [] }
+  const whereCondition: WhereCondition = { AND: [], isOpen: true }
 
   if (query.trim() !== '') {
     whereCondition.AND.push({ title: { contains: query } })
@@ -164,6 +164,7 @@ type FilterOptions = {
 type WhereCondition = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   AND: Array<Record<string, any>>
+  isOpen?: boolean
   salaryRanges?: {
     some: {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
