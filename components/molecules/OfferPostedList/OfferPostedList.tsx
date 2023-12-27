@@ -17,9 +17,9 @@ export const OfferPostedList = ({
   const [offerList, setOfferList] = useState(offers)
   const router = useRouter()
 
-  const handleEditClick = (id: string) => {
-    console.log('edit', id)
-  }
+  // const handleEditClick = (id: string) => {
+  //   console.log('edit', id)
+  // }
   const handleDeleteClick = async (id: string) => {
     const res = await updateOfferStatus(id, false)
 
@@ -51,7 +51,7 @@ export const OfferPostedList = ({
             />
             <OfferPostedActions
               id={offer.id}
-              onEditClick={handleEditClick}
+              // onEditClick={handleEditClick}
               onDeleteClick={offer.isOpen ? handleDeleteClick : undefined}
               onCandidatesClick={handleCadidatesClick}
             />
