@@ -1,4 +1,5 @@
 'use client'
+
 import { UserRole } from '@/app/actions/types'
 import { DropdownMenu } from '@/components/atoms/Dropdown'
 import { IconButton } from '@/components/atoms/IconButton'
@@ -22,15 +23,16 @@ const dropdownOptions = [
 export const Navbar = () => {
   const { data: session } = useSession()
   const isEmployer = session?.user?.role === UserRole.Employer
+  const isCandidate = session?.user?.role === UserRole.Candidate
 
   return (
-    <nav className="flex items-center justify-between h-14 lg:h-16 w-full border-b border-darkLight px-5 lg:px-8">
+    <nav className="flex items-center justify-between h-14 lg:h-16 w-full border-b border-darkLight px-3 md:px-5 lg:px-8">
       <Logo className="h-6 lg:h-7" />
-      <ul className="flex items-center gap-5 lg:gap-8 text-[12px] lg:text-[14px] lg:mr-3">
+      <ul className="flex items-center gap-4 md:gap-5 lg:gap-8 text-[12px] lg:text-[14px] lg:mr-3">
         <li>
           <Link href={routes.HOME}>Offers</Link>
         </li>
-        {isEmployer ? (
+        {isEmployer && (
           <>
             <li>
               <Link href={routes.POST_JOB}>Post a job</Link>
@@ -39,19 +41,20 @@ export const Navbar = () => {
               <Link href={routes.POSTED_OFFERS}>My offers</Link>
             </li>
           </>
-        ) : (
-          <>
-            <li>
-              <Link href={routes.FAVORITES}>Favorite offers</Link>
-            </li>
-          </>
+        )}
+        {isCandidate && (
+          <li>
+            <Link href={routes.FAVORITES}>Favorite offers</Link>
+          </li>
         )}
         <li>
           {session ? (
             <DropdownMenu options={dropdownOptions}>
               <IconButton
                 aria-label="dropdown menu"
-                icon={<ProfileIcon className="w-8 h-8 text-gold" />}
+                icon={
+                  <ProfileIcon className="w-7 h-7 md:w-8 md:h-8 text-gold" />
+                }
               />
             </DropdownMenu>
           ) : (
