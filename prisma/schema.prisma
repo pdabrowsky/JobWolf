@@ -16,9 +16,9 @@ model Candidate {
   lastName                 String?         @db.VarChar(80)
   phone                    String?         @db.VarChar(15)
   description              String?         @db.Text
-  githubUrl                String?         @db.VarChar(100)
-  portfolioUrl             String?         @db.VarChar(100)
-  fileName                 String?         @db.VarChar(100)
+  githubUrl                String?         @db.VarChar(80)
+  portfolioUrl             String?         @db.VarChar(80)
+  fileName                 String?         @db.VarChar(60)
   fileUrl                  String?         @db.VarChar(180)
   resetPasswordToken       String?         @unique @db.VarChar(80)
   resetPasswordTokenExpiry DateTime?
@@ -31,12 +31,12 @@ model Employer {
   email                    String    @unique @db.VarChar(80)
   password                 String    @db.VarChar(80)
   companyName              String?   @db.VarChar(80)
-  city                     String?   @db.VarChar(80)
+  city                     String?   @db.VarChar(60)
   address                  String?   @db.VarChar(80)
   description              String?   @db.VarChar(500)
   phone                    String?   @db.VarChar(15)
-  website                  String?   @db.VarChar(100)
-  logoName                 String?   @db.VarChar(100)
+  website                  String?   @db.VarChar(80)
+  logoName                 String?   @db.VarChar(60)
   logoUrl                  String?   @db.VarChar(180)
   resetPasswordToken       String?   @unique @db.VarChar(80)
   resetPasswordTokenExpiry DateTime?
@@ -45,9 +45,9 @@ model Employer {
 
 model Offer {
   id              String          @id @default(uuid())
-  title           String          @db.VarChar(100)
+  title           String          @db.VarChar(80)
   description     String          @db.Text
-  city            String          @db.VarChar(80)
+  city            String          @db.VarChar(60)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   employerId      String          @db.VarChar(36)
@@ -108,9 +108,9 @@ model Application {
   candidateLastName     String? @db.VarChar(80)
   candidatePhone        String? @db.VarChar(15)
   candidateDescription  String? @db.Text
-  candidateGithubUrl    String? @db.VarChar(100)
-  candidatePortfolioUrl String? @db.VarChar(100)
-  candidateFileName     String? @db.VarChar(100)
+  candidateGithubUrl    String? @db.VarChar(80)
+  candidatePortfolioUrl String? @db.VarChar(80)
+  candidateFileName     String? @db.VarChar(60)
   candidateFileUrl      String? @db.VarChar(180)
 
   @@index([candidateId])
