@@ -12,7 +12,7 @@ const PostedOffers = async () => {
     notFound()
   }
 
-  const data = await getEmployerOffers(session.user.email)
+  const { hasNextPage, offers } = await getEmployerOffers(session.user.email)
 
   const getOffers = async (page: number) => {
     'use server'
@@ -24,12 +24,16 @@ const PostedOffers = async () => {
       <h1 className="text-[16px] mr-auto lg:m-auto lg:text-2xl font-semibold lg:min-w-[800px]">
         My offers
       </h1>
-      <OfferPostedList
-        offers={data.offers}
-        className="lg:min-w-[800px]"
-        getOffers={getOffers}
-        defaultHasNextPage={data.hasNextPage}
-      />
+      {offers.length ? (
+        <OfferPostedList
+          offers={offers}
+          className="lg:min-w-[800px]"
+          getOffers={getOffers}
+          defaultHasNextPage={hasNextPage}
+        />
+      ) : (
+        <p className="mx-auto">No posted offers</p>
+      )}
     </div>
   )
 }
