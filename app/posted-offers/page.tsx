@@ -12,7 +12,12 @@ const PostedOffers = async () => {
     notFound()
   }
 
-  const offers = await getEmployerOffers(session.user.email)
+  const data = await getEmployerOffers(session.user.email)
+
+  const getOffers = async (page: number) => {
+    'use server'
+    return await getEmployerOffers(session.user.email as string, page)
+  }
 
   return (
     <div className="flex flex-col gap-12 items-center justify-center my-12 w-full px-4">
@@ -20,9 +25,10 @@ const PostedOffers = async () => {
         My offers
       </h1>
       <OfferPostedList
-        offers={offers}
-        employerEmail={session.user.email}
+        offers={data.offers}
         className="lg:min-w-[800px]"
+        getOffers={getOffers}
+        defaultHasNextPage={data.hasNextPage}
       />
     </div>
   )

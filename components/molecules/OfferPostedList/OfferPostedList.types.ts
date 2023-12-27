@@ -1,7 +1,15 @@
 import { OfferCardProps } from '@/components/atoms/OfferCard'
 
 export type OfferPostedListProps = {
-  offers: (OfferCardProps & { isOpen?: boolean })[]
+  offers: OffersType
   className?: string
-  employerEmail: string
+  defaultHasNextPage?: boolean
+  getOffers: (page: number) => Promise<OfferData>
 }
+
+export type OfferData = {
+  offers: OffersType
+  hasNextPage: boolean
+}
+
+export type OffersType = (OfferCardProps & { isOpen?: boolean })[]
