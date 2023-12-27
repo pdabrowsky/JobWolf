@@ -21,8 +21,8 @@ const CandidateProfileSchema = z.object({
     .min(1, 'Field is required')
     .max(80, 'Entry is too long'),
   lastName: z.string().min(1, 'Field is required').max(80, 'Entry is too long'),
-  phone: z.string().min(5, 'Field is too short').max(15, 'Entry is too long'),
-  description: z.string(),
+  phone: z.string().min(5, 'Entry is too short').max(15, 'Entry is too long'),
+  description: z.string().optional().or(z.literal('')),
   githubUrl: z
     .string()
     .trim()
@@ -102,19 +102,19 @@ export const CandidateProfileForm = ({
       <h2 className="text-[22px] mb-8 font-medium">My Profile</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <TextField
-          label="Name"
+          label="Name*"
           placeholder="Your first name"
           errors={errors}
           {...register('firstName')}
         />
         <TextField
-          label="Last Name"
+          label="Last Name*"
           placeholder="Your last name"
           errors={errors}
           {...register('lastName')}
         />
         <TextField
-          label="Phone"
+          label="Phone*"
           errors={errors}
           placeholder="Your phone number"
           {...register('phone')}

@@ -19,6 +19,8 @@ export const OfferDetails = ({
   description,
   typeOfWork,
   salaryRanges,
+  hasApplied,
+  isProfileFilled,
 }: OfferDetailsProps) => {
   return (
     <div className="flex flex-col gap-4 lg:flex-row">
@@ -46,7 +48,12 @@ export const OfferDetails = ({
         />
         <OfferDescription description={description} />
       </main>
-      <OfferApplySidebarFrom salary={salaryRanges} offerId={id} />
+      <OfferApplySidebarFrom
+        salary={salaryRanges}
+        offerId={id}
+        hasApplied={hasApplied}
+        isProfileFilled={isProfileFilled}
+      />
     </div>
   )
 }

@@ -7,6 +7,7 @@ export const getOffer = async (
 ): Promise<OfferDetailsProps | null> => {
   try {
     let isAddedToFavourites = false
+    let hasApplied = false
 
     if (candidateEmail) {
       const favorite = await prisma.favoriteOffer.findFirst({
@@ -18,6 +19,16 @@ export const getOffer = async (
         },
       })
       isAddedToFavourites = !!favorite
+
+      const application = await prisma.application.findFirst({
+        where: {
+          offerId: id,
+          candidate: {
+            email: candidateEmail,
+          },
+        },
+      })
+      hasApplied = !!application
     }
 
     const offer = await prisma.offer.findUnique({
@@ -42,6 +53,7 @@ export const getOffer = async (
     return {
       ...offer,
       isAddedToFavourites,
+      hasApplied,
       salaryRanges: offer.salaryRanges.map((salaryRange) => ({
         salaryFrom: salaryRange.salaryFrom,
         salaryTo: salaryRange.salaryTo,

@@ -5,6 +5,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { ChatAI } from '@/components/organisms/ChatAI'
 import { UserRole } from '../actions/types'
+import { getCandidateProfile } from '../actions/candidate/profile'
 
 const OfferPage = async ({
   searchParams,
@@ -13,6 +14,7 @@ const OfferPage = async ({
 }) => {
   const session = await getServerSession(authOptions)
   const isCandidate = session?.user?.role === UserRole.Candidate
+  let isProfileFilled = false
 
   const offerId =
     typeof searchParams.id === 'string' ? searchParams.id : undefined
@@ -22,9 +24,17 @@ const OfferPage = async ({
   const offer = await getOffer(offerId, session?.user?.email)
   if (!offer) notFound()
 
+  // Check if candidate profile is filled
+  if (session?.user?.email && isCandidate) {
+    const { data } = await getCandidateProfile(session?.user?.email)
+    if (data?.firstName || data?.lastName || data?.phone) {
+      isProfileFilled = true
+    }
+  }
+
   return (
     <div className="flex justify-center my-10 lg:my-20 px-5">
-      <OfferDetails {...offer} />
+      <OfferDetails {...offer} isProfileFilled={isProfileFilled} />
       {isCandidate && <ChatAI offerDetails={offer} />}
     </div>
   )
