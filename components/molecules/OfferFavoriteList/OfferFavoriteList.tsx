@@ -31,7 +31,12 @@ export const OfferFavoriteList = ({
   }
 
   return (
-    <ul className={cn('flex flex-col gap-4', className)}>
+    <ul
+      className={cn(
+        'flex flex-col gap-4 w-full md:w-fit md:max-w-[800px]',
+        className
+      )}
+    >
       {offerList.length !== 0 ? (
         offerList.map((offer) => (
           <li key={offer.id} className="flex items-center gap-2 lg:gap-4">

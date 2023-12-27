@@ -15,7 +15,7 @@ const FavoritesPage = async () => {
   const offers = await getFavoriteOffers(session.user.email)
 
   return (
-    <div className="flex flex-col gap-12 items-center justify-center my-12 w-full mx-4">
+    <div className="flex flex-col gap-12 items-center justify-center my-12 w-full px-4">
       <h1 className="text-[16px] mr-auto lg:m-auto lg:text-2xl font-semibold lg:min-w-[800px]">
         Favorite offers
       </h1>
