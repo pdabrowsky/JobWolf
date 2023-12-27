@@ -18,7 +18,7 @@ const PostedOfferCandidatesPage = async ({
   const candidates = await getOfferCandidates(offerId, search)
 
   return (
-    <div className="flex flex-col gap-12 items-center justify-center pt-12 w-full px-4">
+    <div className="flex flex-col gap-12 items-center justify-center py-12 w-full px-4">
       <h1 className="text-[16px] mr-auto lg:m-auto lg:text-2xl font-semibold lg:min-w-[800px]">
         Applicants for this position
       </h1>

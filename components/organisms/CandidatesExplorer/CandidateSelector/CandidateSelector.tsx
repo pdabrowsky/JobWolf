@@ -13,13 +13,13 @@ export const CandidateSelector = ({
   return (
     <Card
       className={cn(
-        'p-3 flex flex-col gap-3 w-full lg:max-w-[300px]',
+        'p-3 flex flex-col gap-3 w-full lg:max-w-[300px] h-fit',
         className
       )}
     >
       <h2>Select Candidate</h2>
       <Search aria-label="Search Candidates" />
-      <ul className="max-h-[300px] overflow-auto list-none">
+      <ul className="list-none h-[200px] md:h-[250px] overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-track-darkGray scrollbar-thumb-neutral-800">
         {candidates.length === 0 && (
           <p className="text-sm p-2">No candidates found</p>
         )}
