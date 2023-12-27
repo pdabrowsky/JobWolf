@@ -11,11 +11,9 @@ export const getOfferCandidates = async (
         OR: Array<{
           firstName?: {
             contains: string
-            mode: 'insensitive'
           }
           lastName?: {
             contains: string
-            mode: 'insensitive'
           }
         }>
       }
@@ -29,13 +27,11 @@ export const getOfferCandidates = async (
           {
             firstName: {
               contains: candidateName,
-              mode: 'insensitive',
             },
           },
           {
             lastName: {
               contains: candidateName,
-              mode: 'insensitive',
             },
           },
         ],

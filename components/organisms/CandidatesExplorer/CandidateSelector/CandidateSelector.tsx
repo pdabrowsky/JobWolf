@@ -2,6 +2,7 @@ import { Card } from '@/components/atoms/Card'
 import { InfoIcon } from '@/icons'
 import { cn } from '@/lib/utils'
 import { CandidateSelectorProps } from '.'
+import { Search } from '@/components/atoms/Search'
 
 export const CandidateSelector = ({
   candidates,
@@ -17,8 +18,11 @@ export const CandidateSelector = ({
       )}
     >
       <h2>Select Candidate</h2>
-      {/* <Search aria-label="Search Candidates" search="" /> */}
+      <Search aria-label="Search Candidates" />
       <ul className="max-h-[300px] overflow-auto list-none">
+        {candidates.length === 0 && (
+          <p className="text-sm p-2">No candidates found</p>
+        )}
         {candidates.map((candidate) => (
           <li
             key={candidate.id}
