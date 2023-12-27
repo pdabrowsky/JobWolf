@@ -23,21 +23,21 @@ export const OfferPostedList = ({
   }
 
   return (
-    <div className={cn('flex flex-col gap-4', className)}>
+    <ul className={cn('flex flex-col gap-4', className)}>
       {offerList.length !== 0 ? (
         offerList.map((offer) => (
-          <ul key={offer.id} className="flex items-center gap-2 lg:gap-4">
+          <li key={offer.id} className="flex items-center gap-2 lg:gap-4">
             <OfferCard {...offer} />
             <OfferPostedActions
               onEditClick={handleEditClick}
               onDeleteClick={handleDeleteClick}
               onCandidatesClick={handleCadidatesClick}
             />
-          </ul>
+          </li>
         ))
       ) : (
         <p>No offers</p>
       )}
-    </div>
+    </ul>
   )
 }

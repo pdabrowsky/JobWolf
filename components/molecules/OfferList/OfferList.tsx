@@ -40,7 +40,9 @@ export const OffersList = ({
   return (
     <ul className={cn('flex flex-col gap-4', className)}>
       {offerList.map((offer) => (
-        <OfferCard key={offer.id} {...offer} />
+        <li key={offer.id}>
+          <OfferCard {...offer} />
+        </li>
       ))}
       {hasNextPage ? (
         <Spinner ref={ref} />
