@@ -13,7 +13,7 @@ export const sendEmail = async (
         pass: process.env.NODEMAILER_PASSWORD,
       },
       tls: {
-        rejectUnauthorized: false, // TODO SECURE! Error: self-signed certificate in certificate chain
+        rejectUnauthorized: false,
       },
     })
 
