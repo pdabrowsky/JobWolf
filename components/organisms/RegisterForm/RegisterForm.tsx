@@ -20,10 +20,12 @@ const RegisterSchema = z
     email: z
       .string()
       .email('Invalid email address')
-      .min(1, 'Field is required'),
+      .min(1, 'Field is required')
+      .max(80, 'Email is too long'),
     password: z
       .string()
-      .min(8, 'Password should be at least 8 characters long'),
+      .min(8, 'Password should be at least 8 characters long')
+      .max(20, 'Password is too long'),
     confirmPassword: z.string().min(1, 'Field is required'),
     acceptTerms: z
       .boolean()

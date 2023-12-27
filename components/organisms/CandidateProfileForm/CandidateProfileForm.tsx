@@ -15,10 +15,13 @@ import { FileDropzone } from '@/components/molecules/FileDropzone'
 import { useEdgeStore } from '@/lib/edgestore'
 
 const CandidateProfileSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  phone: z.string(),
-  description: z.string().max(200),
+  firstName: z
+    .string()
+    .min(1, 'Field is required')
+    .max(80, 'Entry is too long'),
+  lastName: z.string().min(1, 'Field is required').max(80, 'Entry is too long'),
+  phone: z.string().min(5, 'Field is too short').max(15, 'Entry is too long'),
+  description: z.string(),
   githubUrl: z
     .string()
     .trim()
@@ -48,7 +51,7 @@ export const CandidateProfileForm = ({
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<CandidateProfileFormInput>({
     resolver: zodResolver(CandidateProfileSchema),
     defaultValues: defaultData,
@@ -145,7 +148,7 @@ export const CandidateProfileForm = ({
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isDirty}
         >
           Save
         </Button>

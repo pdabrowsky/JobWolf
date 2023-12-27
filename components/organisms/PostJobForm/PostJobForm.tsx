@@ -16,7 +16,7 @@ import { postOffer } from '@/app/actions/offer/postOffer'
 import { SalaryRange } from '../SalaryRange'
 
 const PostJobSchema = z.object({
-  title: z.string().min(1, 'Required'),
+  title: z.string().min(1, 'Required').max(80, 'Entry is too long'),
   description: z.string().min(1, 'Required'),
   operatingMode: z.number().min(1, 'Required'),
   experience: z.number().min(1, 'Required'),

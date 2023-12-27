@@ -16,7 +16,8 @@ const RegisterSchema = z
   .object({
     password: z
       .string()
-      .min(8, 'Password should be at least 8 characters long'),
+      .min(8, 'Password should be at least 8 characters long')
+      .max(20, 'Password is too long'),
     confirmPassword: z.string().min(1, 'Field is required'),
   })
   .refine((data) => data.password === data.confirmPassword, {

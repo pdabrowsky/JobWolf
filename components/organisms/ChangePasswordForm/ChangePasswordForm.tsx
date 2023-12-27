@@ -16,7 +16,8 @@ const RegisterSchema = z
     currentPassword: z.string().min(1, 'Field is required'),
     newPassword: z
       .string()
-      .min(8, 'Password should be at least 8 characters long'),
+      .min(8, 'Password should be at least 8 characters long')
+      .max(20, 'Password is too long'),
     confirmNewPassword: z.string().min(1, 'Field is required'),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
@@ -32,7 +33,7 @@ export const ChangePasswordForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
     reset,
     setError,
   } = useForm<FormInput>({
@@ -94,7 +95,7 @@ export const ChangePasswordForm = () => {
         <Button
           type="submit"
           className="mx-auto mt-10 lg:mt-14 font-semibold px-8"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isDirty}
         >
           Change password
         </Button>

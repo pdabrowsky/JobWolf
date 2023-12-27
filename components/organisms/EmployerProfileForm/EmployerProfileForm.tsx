@@ -47,7 +47,7 @@ export const EmployerProfileForm = ({
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isDirty },
   } = useForm<EmployerProfileFormInput>({
     resolver: zodResolver(EmployerProfileSchema),
     defaultValues: defaultData,
@@ -150,7 +150,7 @@ export const EmployerProfileForm = ({
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"
-          disabled={isSubmitting}
+          disabled={isSubmitting || !isDirty}
         >
           Save
         </Button>
