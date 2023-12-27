@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { ChatAI } from '@/components/organisms/ChatAI'
+import { UserRole } from '../actions/types'
 
 const OfferPage = async ({
   searchParams,
@@ -11,7 +12,7 @@ const OfferPage = async ({
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
   const session = await getServerSession(authOptions)
-  const isCandidate = session?.user?.role === 'Candidate'
+  const isCandidate = session?.user?.role === UserRole.Candidate
 
   const offerId =
     typeof searchParams.id === 'string' ? searchParams.id : undefined
