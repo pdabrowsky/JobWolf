@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react'
 import { CandidateProfileFormProps } from './CandidateProfileForm.types'
 import { FileDropzone } from '@/components/molecules/FileDropzone'
 import { useEdgeStore } from '@/lib/edgestore'
+import { useState } from 'react'
 
 const CandidateProfileSchema = z.object({
   firstName: z
@@ -47,6 +48,7 @@ export const CandidateProfileForm = ({
 }: CandidateProfileFormProps) => {
   const { data: session } = useSession()
   const { edgestore } = useEdgeStore()
+  const [isUploading, setIsUploading] = useState(false)
 
   const {
     register,
@@ -79,6 +81,7 @@ export const CandidateProfileForm = ({
 
   const onFileUpload = async (file?: File) => {
     if (file) {
+      setIsUploading(true)
       const res = await edgestore.publicFiles.upload({
         file: file,
         options: {
@@ -87,6 +90,7 @@ export const CandidateProfileForm = ({
       })
       setValue('fileUrl', res.url)
       setValue('fileName', file.name)
+      setIsUploading(false)
     } else {
       setValue('fileName', '')
       setValue('fileUrl', '')
@@ -150,7 +154,7 @@ export const CandidateProfileForm = ({
         <Button
           type="submit"
           className="mx-auto mt-6 font-semibold px-8"
-          disabled={isSubmitting || !isDirty}
+          disabled={isSubmitting || !isDirty || isUploading}
         >
           Save
         </Button>
