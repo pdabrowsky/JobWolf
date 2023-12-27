@@ -5,21 +5,25 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { OfferPostedListProps } from '.'
 import { OfferPostedActions } from './OfferPostedActions'
+import { useRouter } from 'next/navigation'
+import { routes } from '@/constants/routes'
 
 export const OfferPostedList = ({
   offers,
   className,
 }: OfferPostedListProps) => {
   const [offerList] = useState(offers)
+  const router = useRouter()
 
-  const handleEditClick = () => {
-    console.log('edit')
+  const handleEditClick = (id: string) => {
+    console.log('edit', id)
   }
-  const handleDeleteClick = () => {
-    console.log('delete')
+  const handleDeleteClick = (id: string) => {
+    console.log('delete', id)
   }
-  const handleCadidatesClick = () => {
+  const handleCadidatesClick = (id: string) => {
     console.log('candidates')
+    router.push(`${routes.OFFER_CANDIDATES}?offer=${id}`)
   }
 
   return (
@@ -29,6 +33,7 @@ export const OfferPostedList = ({
           <li key={offer.id} className="flex items-center gap-2 lg:gap-4">
             <OfferCard {...offer} />
             <OfferPostedActions
+              id={offer.id}
               onEditClick={handleEditClick}
               onDeleteClick={handleDeleteClick}
               onCandidatesClick={handleCadidatesClick}

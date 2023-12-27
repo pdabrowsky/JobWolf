@@ -1,5 +1,6 @@
 export type OfferPostedActionsProps = {
-  onEditClick: () => void
-  onDeleteClick: () => void
-  onCandidatesClick: () => void
+  id: string
+  onEditClick: (id: string) => void
+  onDeleteClick: (id: string) => void
+  onCandidatesClick: (id: string) => void
 }

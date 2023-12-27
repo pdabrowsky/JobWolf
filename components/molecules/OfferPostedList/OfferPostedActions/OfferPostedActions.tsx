@@ -2,6 +2,7 @@ import { EditIcon, GroupIcon, TrashIcon } from '@/icons'
 import { OfferPostedActionsProps } from '.'
 
 export const OfferPostedActions = ({
+  id,
   onEditClick,
   onDeleteClick,
   onCandidatesClick,
@@ -11,17 +12,17 @@ export const OfferPostedActions = ({
       <EditIcon
         className="w-5 h-5 lg:w-6 lg:h-6 cursor-pointer"
         role="button"
-        onClick={onEditClick}
+        onClick={() => onEditClick(id)}
       />
       <TrashIcon
         className="w-5 h-5 lg:w-6 lg:h-6 cursor-pointer"
         role="button"
-        onClick={onDeleteClick}
+        onClick={() => onDeleteClick(id)}
       />
       <GroupIcon
         className="w-5 h-5 lg:w-6 lg:h-6 cursor-pointer"
         role="button"
-        onClick={onCandidatesClick}
+        onClick={() => onCandidatesClick(id)}
       />
     </div>
   )

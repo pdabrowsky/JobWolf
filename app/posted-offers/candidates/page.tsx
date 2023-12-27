@@ -19,7 +19,11 @@ const PostedOfferCandidatesPage = async ({
       <h1 className="text-[16px] mr-auto lg:m-auto lg:text-2xl font-semibold lg:min-w-[800px]">
         Applicants for this position
       </h1>
-      <CandidatesExplorer candidates={candidates} />
+      {candidates.length ? (
+        <CandidatesExplorer candidates={candidates} />
+      ) : (
+        <h2>No candidates found</h2>
+      )}
     </div>
   )
 }
