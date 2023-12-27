@@ -29,7 +29,9 @@ export const CandidateDetails = ({
       </strong>
       <DetailSection title="Contact info">
         <p className="text-sm truncate">{candidate.phone}</p>
-        <p className="text-sm">{candidate.email}</p>
+        <a href={`mailto:${candidate.email}`} className="text-sm w-fit">
+          {candidate.email}
+        </a>
       </DetailSection>
       <DetailSection title="About candidate">
         <p className="text-sm">{candidate.description}</p>
