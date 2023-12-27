@@ -9,6 +9,7 @@ import { ChatIcon, SendIcon } from '@/icons'
 import { useChat } from 'ai/react'
 import { TextField } from '@/components/atoms/TextField'
 import { Message } from './Message'
+import { Spinner } from '@/components/atoms/Spinner'
 
 export const ChatAI = ({ className, offerDetails }: ChatAIProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -24,6 +25,13 @@ export const ChatAI = ({ className, offerDetails }: ChatAIProps) => {
       body: {
         jobDetails: `title: ${offerDetails.title}, experience: ${offerDetails.experience.name}, must have technologies: ${mustHaveTechNames}, nice to have technologies: ${niceToHaveTechNames}`,
       },
+      initialMessages: [
+        {
+          id: '1',
+          content: `Hi there! I'm your virtual assistant for the interview regarding the ${offerDetails.title} position. Would you like to discuss a specific topic, or shall we start with a question related to the job offer?`,
+          role: 'assistant',
+        },
+      ],
     })
 
   return (
@@ -71,7 +79,11 @@ export const ChatAI = ({ className, offerDetails }: ChatAIProps) => {
               disabled={isLoading}
               className="absolute px-2 right-0 top-1/2 transform -translate-y-1/2 h-full"
             >
-              <SendIcon className="w-6 h-6" />
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <SendIcon className="w-6 h-6 mb-[1px]" />
+              )}
             </button>
           </form>
         </>
