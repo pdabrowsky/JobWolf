@@ -69,28 +69,29 @@ export const OfferPostedList = ({
   }
 
   return (
-    <ul className={cn('flex flex-col gap-4', className)}>
-      {offerList.length !== 0 ? (
-        <>
-          {offerList.map((offer) => (
-            <li key={offer.id} className="flex items-center gap-2 lg:gap-4">
-              <OfferCard
-                {...offer}
-                className={cn(!offer.isOpen && 'opacity-50')}
-              />
-              <OfferPostedActions
-                id={offer.id}
-                // onEditClick={handleEditClick}
-                onDeleteClick={offer.isOpen ? handleDeleteClick : undefined}
-                onCandidatesClick={handleCadidatesClick}
-              />
-            </li>
-          ))}
-          {hasNextPage && <Spinner ref={ref} />}
-        </>
-      ) : (
-        <p>No offers</p>
-      )}
-    </ul>
+    <>
+      <ul className={cn('flex flex-col gap-4', className)}>
+        {!!offerList.length && (
+          <>
+            {offerList.map((offer) => (
+              <li key={offer.id} className="flex items-center gap-2 lg:gap-4">
+                <OfferCard
+                  {...offer}
+                  className={cn(!offer.isOpen && 'opacity-60')}
+                />
+                <OfferPostedActions
+                  id={offer.id}
+                  // onEditClick={handleEditClick}
+                  onDeleteClick={offer.isOpen ? handleDeleteClick : undefined}
+                  onCandidatesClick={handleCadidatesClick}
+                />
+              </li>
+            ))}
+          </>
+        )}
+      </ul>
+      {hasNextPage && <Spinner ref={ref} />}
+      {offerList.length === 0 && <p className="py-5 text-center">No offers</p>}
+    </>
   )
 }

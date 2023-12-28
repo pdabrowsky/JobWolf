@@ -63,6 +63,7 @@ export const SalaryRange = ({
 
             <button
               type="button"
+              aria-label="Remove salary range"
               className={cn('md:mb-1 p-1', {
                 'cursor-default': fields.length <= 1,
                 'text-gold': fields.length > 1,

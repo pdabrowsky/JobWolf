@@ -38,17 +38,19 @@ export const OffersList = ({
   }, [hasNextPage, isInView, loadMoreMovies])
 
   return (
-    <ul className={cn('flex flex-col gap-4', className)}>
-      {offerList.map((offer) => (
-        <li key={offer.id}>
-          <OfferCard {...offer} />
-        </li>
-      ))}
+    <>
+      <ul className={cn('flex flex-col gap-4', className)}>
+        {offerList.map((offer) => (
+          <li key={offer.id}>
+            <OfferCard {...offer} />
+          </li>
+        ))}
+      </ul>
       {hasNextPage ? (
         <Spinner ref={ref} />
       ) : (
-        <p className="mx-auto py-5">No more offers</p>
+        <p className="py-5 text-center">No more offers</p>
       )}
-    </ul>
+    </>
   )
 }
