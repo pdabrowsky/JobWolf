@@ -1,5 +1,5 @@
 import { OfferDetails } from '@/components/organisms/OfferDetails'
-import { getOffer } from '../actions/offer/getOffer'
+import { getOfferDetails } from '../actions/offer/getOfferDetails'
 import { notFound } from 'next/navigation'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
@@ -21,7 +21,7 @@ const OfferPage = async ({
 
   if (!offerId) notFound()
 
-  const offer = await getOffer(offerId, session?.user?.email)
+  const offer = await getOfferDetails(offerId, session?.user?.email)
   if (!offer) notFound()
 
   // Check if candidate profile is filled

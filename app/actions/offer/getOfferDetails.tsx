@@ -1,7 +1,7 @@
 import { OfferDetailsProps } from '@/components/organisms/OfferDetails'
 import prisma from '@/lib/prisma'
 
-export const getOffer = async (
+export const getOfferDetails = async (
   id: string,
   candidateEmail?: string | null
 ): Promise<OfferDetailsProps | null> => {
