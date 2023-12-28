@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { UserRole } from '../actions/types'
 import { getEmployerOffers } from '../actions/offer/getEmployerOffers'
 import { OfferPostedList } from '@/components/molecules/OfferPostedList'
+import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 
 const PostedOffers = async () => {
   const session = await getServerSession(authOptions)
@@ -34,6 +35,7 @@ const PostedOffers = async () => {
       ) : (
         <p className="mx-auto">No posted offers</p>
       )}
+      <BackToTopButton />
     </div>
   )
 }
