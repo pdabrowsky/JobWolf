@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '@/lib/prisma'
-import { CustomResponse } from '../types'
+import { CustomResponse } from '../../types'
 
 export const toggleFavoriteOffer = async (favoriteData: {
   candidateEmail: string

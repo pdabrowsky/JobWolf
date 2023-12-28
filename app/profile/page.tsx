@@ -5,14 +5,14 @@ import { notFound, redirect } from 'next/navigation'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { ChangePasswordForm } from '@/components/organisms/ChangePasswordForm'
 import { CandidateProfileForm } from '@/components/organisms/CandidateProfileForm'
-import { getCandidateProfile } from '../actions/candidate/profile'
+import { getCandidateProfile } from '../actions/profile/candidate'
 import { UserRole } from '../actions/types'
 import { EmployerProfileForm } from '@/components/organisms/EmployerProfileForm'
 import {
   EmployerProfileData,
   getEmployerProfile,
-} from '../actions/employer/profile'
-import { CandidateProfileData } from '../actions/candidate/profile/types'
+} from '../actions/profile/employer'
+import { CandidateProfileData } from '../actions/profile/candidate/types'
 
 type ProfilePageProps = { searchParams: { tab: string } }
 

@@ -1,4 +1,4 @@
-import { getOfferCandidates } from '@/app/actions/offer/getOfferCandidates'
+import { getOfferCandidates } from '@/app/actions/offer/employer/getOfferCandidates'
 import { CandidatesExplorer } from '@/components/organisms/CandidatesExplorer'
 import { notFound } from 'next/navigation'
 

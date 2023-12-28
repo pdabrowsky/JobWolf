@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import { CompanyIcon, LocationIcon, StarIcon } from '@/icons'
 import { UserRole } from '@/app/actions/types'
 import { useSession } from 'next-auth/react'
-import { toggleFavoriteOffer } from '@/app/actions/offer/toggleFavoriteOffer'
+import { toggleFavoriteOffer } from '@/app/actions/offer/candidate/toggleFavoriteOffer'
 import { toast } from 'react-toastify'
 import { useState } from 'react'
 

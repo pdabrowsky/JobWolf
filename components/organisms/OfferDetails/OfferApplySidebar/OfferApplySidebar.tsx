@@ -3,7 +3,7 @@
 import { useSession } from 'next-auth/react'
 import { OfferApplySidebarProps } from '.'
 import { Button } from '@/components/atoms/Button'
-import { applyForOffer } from '@/app/actions/offer/applyForOffer'
+import { applyForOffer } from '@/app/actions/offer/candidate/applyForOffer'
 import { toast } from 'react-toastify'
 import { UserRole } from '@/app/actions/types'
 import { Tooltip } from 'react-tooltip'

@@ -12,7 +12,7 @@ import { TechSelector } from '@/components/molecules/TechSelector'
 import { PostJobFormProps } from './PostJobForm.types'
 import { toast } from 'react-toastify'
 import { useSession } from 'next-auth/react'
-import { postOffer } from '@/app/actions/offer/postOffer'
+import { postOffer } from '@/app/actions/offer/employer/postOffer'
 import { SalaryRange } from '../SalaryRange'
 
 const PostJobSchema = z.object({

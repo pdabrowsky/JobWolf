@@ -1,4 +1,4 @@
-import { getFavoriteOffers } from '../actions/offer/getFavoriteOffers'
+import { getFavoriteOffers } from '../actions/offer/candidate/getFavoriteOffers'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { notFound } from 'next/navigation'

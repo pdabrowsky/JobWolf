@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth'
 import { UserRole } from '../actions/types'
 import { notFound } from 'next/navigation'
 import { authOptions } from '../api/auth/[...nextauth]/route'
-import { getEmployerProfile } from '../actions/employer/profile'
+import { getEmployerProfile } from '../actions/profile/employer'
 import { routes } from '@/constants/routes'
 import Link from 'next/link'
 

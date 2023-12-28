@@ -5,7 +5,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { ChatAI } from '@/components/organisms/ChatAI'
 import { UserRole } from '../actions/types'
-import { getCandidateProfile } from '../actions/candidate/profile'
+import { getCandidateProfile } from '../actions/profile/candidate'
 
 const OfferPage = async ({
   searchParams,

@@ -1,4 +1,4 @@
-import { CandidateProfileData } from '@/app/actions/candidate/profile/types'
+import { CandidateProfileData } from '@/app/actions/profile/candidate/types'
 
 export type CandidateProfileFormProps = {
   defaultData?: CandidateProfileData

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import { useState } from 'react'
 import { StarIcon } from '@/icons'
 import { toast } from 'react-toastify'
-import { toggleFavoriteOffer } from '@/app/actions/offer/toggleFavoriteOffer'
+import { toggleFavoriteOffer } from '@/app/actions/offer/candidate/toggleFavoriteOffer'
 
 export const OfferFavoriteList = ({
   offers,

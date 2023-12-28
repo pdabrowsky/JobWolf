@@ -2,7 +2,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '../api/auth/[...nextauth]/route'
 import { notFound } from 'next/navigation'
 import { UserRole } from '../actions/types'
-import { getEmployerOffers } from '../actions/offer/getEmployerOffers'
+import { getEmployerOffers } from '../actions/offer/employer/getEmployerOffers'
 import { OfferPostedList } from '@/components/molecules/OfferPostedList'
 import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 
