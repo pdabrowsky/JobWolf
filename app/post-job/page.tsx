@@ -1,5 +1,5 @@
 import { PostJobForm } from '@/components/organisms/PostJobForm'
-import { getFilltersOptions } from '../actions/offer/getFilterOptions'
+import { getSelectOptions } from '../actions/offer/getSelectOptions'
 import { getServerSession } from 'next-auth'
 import { UserRole } from '../actions/types'
 import { notFound } from 'next/navigation'
@@ -24,7 +24,7 @@ const PostJobPage = async () => {
     data?.logoUrl
 
   let options
-  if (isProfileFilled) options = await getFilltersOptions()
+  if (isProfileFilled) options = await getSelectOptions()
 
   return (
     <div className="flex justify-center my-10 lg:my-20 px-5">

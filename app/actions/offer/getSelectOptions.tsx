@@ -4,7 +4,7 @@ import { CheckboxOption } from '@/components/molecules/CheckboxGroup'
 import { FilterOptionsSet } from '@/components/organisms/SearchFilters/SearchFiltersForm/SearchFiltersForm.types'
 import prisma from '@/lib/prisma'
 
-export const getFilltersOptions = async (): Promise<FilterOptionsSet> => {
+export const getSelectOptions = async (): Promise<FilterOptionsSet> => {
   try {
     const [
       operatingModes,

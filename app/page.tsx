@@ -5,14 +5,14 @@ import { pluralize } from '@/lib/helpers'
 import { BackToTopButton } from '@/components/atoms/BackToTopButton'
 import { SearchFilters } from '@/components/organisms/SearchFilters'
 import { transformQueryParamToArray } from '@/components/organisms/SearchFilters/SearchFiltersForm/SearchFiltersForm.helpers'
-import { getFilltersOptions } from './actions/offer/getFilterOptions'
+import { getSelectOptions } from './actions/offer/getSelectOptions'
 
 const Home = async ({
   searchParams,
 }: {
   searchParams: { [key: string]: string | string[] | undefined }
 }) => {
-  const filterOptions = await getFilltersOptions()
+  const filterOptions = await getSelectOptions()
 
   const search =
     typeof searchParams.search === 'string' ? searchParams.search : undefined
