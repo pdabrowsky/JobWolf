@@ -34,14 +34,14 @@ export const SalaryRange = ({
         <div key={field.id}>
           <div className="flex flex-wrap md:flex-nowrap gap-3 items-end">
             <TextField
-              label="From"
+              label="From*"
               type="number"
               {...register(`salaryRange.${index}.from`, {
                 setValueAs: (value) => (value === '' ? '' : Number(value)),
               })}
             />
             <TextField
-              label="To"
+              label="To*"
               type="number"
               {...register(`salaryRange.${index}.to`, {
                 setValueAs: (value) => (value === '' ? '' : Number(value)),
@@ -52,7 +52,7 @@ export const SalaryRange = ({
               control={control}
               render={({ field }) => (
                 <DropdownSelect
-                  label="Contract type"
+                  label="Contract type*"
                   name={field.name}
                   options={contractTypes}
                   placeholder="Select contract type"

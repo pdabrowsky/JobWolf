@@ -94,7 +94,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
         <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <TextField
             label="Title"
-            placeholder="Enter job title"
+            placeholder="Enter job title*"
             errors={errors}
             {...register('title')}
           />
@@ -103,7 +103,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
             control={control}
             render={({ field }) => (
               <DropdownSelect
-                label="Operating mode"
+                label="Operating mode*"
                 name={field.name}
                 options={selectOptions.operatingMode}
                 errors={errors}
@@ -119,7 +119,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
             control={control}
             render={({ field }) => (
               <DropdownSelect
-                label="Experience"
+                label="Experience*"
                 name={field.name}
                 options={selectOptions.experience}
                 errors={errors}
@@ -133,7 +133,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
             control={control}
             render={({ field }) => (
               <DropdownSelect
-                label="Type of work"
+                label="Type of work*"
                 name={field.name}
                 options={selectOptions.typeOfWork}
                 errors={errors}
@@ -148,7 +148,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           control={control}
           render={({ field }) => (
             <TechSelector
-              label="Must Have Technologies"
+              label="Must Have Technologies*"
               name={field.name}
               initialOptions={field.value}
               onChange={(selected) => field.onChange(selected)}
@@ -162,7 +162,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           control={control}
           render={({ field }) => (
             <TechSelector
-              label="Nice To Have Technologies"
+              label="Nice To Have Technologies*"
               name={field.name}
               initialOptions={field.value}
               onChange={(selected) => field.onChange(selected)}
@@ -179,8 +179,8 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
           contractTypes={selectOptions.contractType}
         />
         <TextArea
-          label="Description"
-          rows={8}
+          label="Description*"
+          rows={10}
           placeholder="Provide offer description"
           errors={errors}
           {...register('description')}
