@@ -19,6 +19,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
             'bg-darkLight border  border-borderMid text-gray resize-none px-1.5 py-1.5 text-[14px] lg:text-[16px] rounded-md outline-none placeholder:text-gray placeholder:text-opacity-30 focus:shadow-none focus:ring-0 hover:border-borderLight focus:border-borderLight transition-all scrollbar-thin scrollbar-thumb-rounded-full scrollbar-track-darkGray scrollbar-thumb-neutral-900'
           )}
           id={name}
+          spellCheck="false"
           name={name}
           ref={ref}
           {...rest}

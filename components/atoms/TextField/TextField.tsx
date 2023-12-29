@@ -25,6 +25,7 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
             className
           )}
           id={name}
+          spellCheck="false"
           type={type}
           name={name}
           ref={ref}
