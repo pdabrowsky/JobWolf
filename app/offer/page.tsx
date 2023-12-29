@@ -27,7 +27,7 @@ const OfferPage = async ({
   // Check if candidate profile is filled
   if (session?.user?.email && isCandidate) {
     const { data } = await getCandidateProfile(session?.user?.email)
-    if (data?.firstName || data?.lastName || data?.phone) {
+    if (data?.firstName && data?.lastName && data?.phone && data?.fileUrl) {
       isProfileFilled = true
     }
   }
