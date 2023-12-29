@@ -46,9 +46,8 @@ export const OffersList = ({
           </li>
         ))}
       </ul>
-      {hasNextPage ? (
-        <Spinner ref={ref} />
-      ) : (
+      {hasNextPage && <Spinner ref={ref} />}
+      {!hasNextPage && page > 1 && (
         <p className="py-5 text-center">No more offers</p>
       )}
     </>
