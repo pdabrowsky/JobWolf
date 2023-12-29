@@ -1,3 +1,5 @@
+'use server'
+
 import { OfferData } from '@/components/molecules/OfferPostedList'
 import prisma from '@/lib/prisma'
 

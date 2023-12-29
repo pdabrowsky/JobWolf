@@ -1,3 +1,5 @@
+'use server'
+
 import { OfferDetailsProps } from '@/components/organisms/OfferDetails'
 import prisma from '@/lib/prisma'
 

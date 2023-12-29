@@ -1,3 +1,5 @@
+'use server'
+
 import prisma from '@/lib/prisma'
 
 export const getFavoriteOffers = async (candidateEmail: string) => {
