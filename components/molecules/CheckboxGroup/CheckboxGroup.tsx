@@ -20,7 +20,7 @@ export const CheckboxGroup = ({
 
   return (
     <div className="flex flex-col gap-2">
-      <label className="text-lg font-medium">{label}</label>
+      <label className="text-[13px] lg:text-[15px]">{label}</label>
       {options.map((option) => (
         <Checkbox
           key={option.value}
