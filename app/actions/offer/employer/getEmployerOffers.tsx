@@ -24,6 +24,9 @@ export const getEmployerOffers = async (
       where: {
         employerId: employer.id,
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
       skip: skip,
       take: pageSize,
       include: {
