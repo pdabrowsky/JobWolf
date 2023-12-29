@@ -20,7 +20,7 @@ const PostedOfferCandidatesPage = async ({
   return (
     <div className="flex flex-col gap-12 items-center justify-center py-12 w-full px-4">
       <h1 className="text-[16px] mr-auto lg:m-auto lg:text-2xl font-semibold lg:min-w-[800px]">
-        Applicants for this position
+        Candidates for this position
       </h1>
       {!candidates.length && !search ? (
         <h2>No candidates found</h2>
