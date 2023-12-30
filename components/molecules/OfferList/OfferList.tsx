@@ -39,7 +39,7 @@ export const OffersList = ({
 
   return (
     <>
-      <ul className={cn('flex flex-col gap-4', className)}>
+      <ul className={cn('flex flex-col gap-4 pb-5', className)}>
         {offerList.map((offer) => (
           <li key={offer.id}>
             <OfferCard {...offer} />
@@ -48,7 +48,7 @@ export const OffersList = ({
       </ul>
       {hasNextPage && <Spinner ref={ref} />}
       {!hasNextPage && page > 1 && (
-        <p className="py-5 text-center">No more offers</p>
+        <p className="text-center">No more offers</p>
       )}
     </>
   )
