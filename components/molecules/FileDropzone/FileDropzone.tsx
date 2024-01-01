@@ -22,6 +22,7 @@ export const FileDropzone = React.forwardRef<
       disabled,
       onChange,
       name,
+      errorMessageForm,
       label,
     },
     ref
@@ -66,7 +67,6 @@ export const FileDropzone = React.forwardRef<
         className,
       ]
     )
-
     // error validation messages
     const errorMessage = React.useMemo(() => {
       if (fileRejections[0]) {
@@ -123,7 +123,9 @@ export const FileDropzone = React.forwardRef<
           </div>
         )}
 
-        <div className="mt-1 text-xs text-red-500">{errorMessage}</div>
+        <div className="mt-1 text-xs text-red-500">
+          {errorMessage || errorMessageForm}
+        </div>
       </div>
     )
   }

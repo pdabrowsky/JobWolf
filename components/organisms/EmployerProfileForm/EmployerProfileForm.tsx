@@ -28,8 +28,14 @@ const EmployerProfileSchema = z.object({
     .url()
     .optional()
     .or(z.literal('')),
-  logoName: z.string().max(60, 'Logo name is too long'),
-  logoUrl: z.string().max(180, 'Logo url is too long'),
+  logoName: z
+    .string()
+    .min(1, 'Field is required')
+    .max(60, 'Logo name is too long'),
+  logoUrl: z
+    .string()
+    .min(1, 'Field is required')
+    .max(180, 'Logo url is too long'),
   acceptDeclaration: z
     .boolean()
     .refine((val) => val === true, 'You must accept declaration'),
@@ -138,6 +144,7 @@ export const EmployerProfileForm = ({
           name="logo"
           label="Company Logo*"
           fileUrl={logoUrl}
+          errorMessageForm={errors.logoName?.message || errors.logoUrl?.message}
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB
             accept: {

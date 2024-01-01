@@ -37,8 +37,8 @@ const CandidateProfileSchema = z.object({
     .url('Please enter a valid URL')
     .optional()
     .or(z.literal('')),
-  fileName: z.string().max(60, '').optional(),
-  fileUrl: z.string().max(180, '').optional(),
+  fileName: z.string().min(1, 'Field is required').max(60, ''),
+  fileUrl: z.string().min(1, 'Field is required').max(180, ''),
 })
 
 type CandidateProfileFormInput = z.infer<typeof CandidateProfileSchema>
@@ -140,9 +140,12 @@ export const CandidateProfileForm = ({
         />
         <FileDropzone
           name="cv"
-          label="Upload CV or other file"
+          label="Upload CV or other file*"
           fileName={fileName}
           fileUrl={fileUrl}
+          errorMessageForm={
+            errors?.fileName?.message || errors?.fileUrl?.message
+          }
           dropzoneOptions={{
             maxSize: 1024 * 1024 * 5, // 5MB
           }}
