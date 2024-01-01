@@ -61,7 +61,7 @@ export const LoginForm = () => {
   }, [router, status])
 
   return (
-    <Card className="max-w-[600px] w-full flex flex-col py-[90px] px-8 lg:px-24">
+    <Card className="max-w-[600px] w-full flex flex-col py-[86px] px-6 lg:px-24">
       <h2 className="text-gold text-[26px] mx-auto mb-10 lg:mb-14 font-medium">
         Login
       </h2>
