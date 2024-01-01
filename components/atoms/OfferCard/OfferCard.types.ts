@@ -6,6 +6,7 @@ export type OfferCardProps = {
   salaryRange?: salaryRange
   employerLogoUrl: string
   isFavorite?: boolean
+  isPostedByMe?: boolean
   className?: string
 }
 

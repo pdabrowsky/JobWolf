@@ -11,7 +11,8 @@ export const getOfferList = async (
     operatingMode: [],
     typeOfWork: [],
     experience: [],
-  }
+  },
+  employerEmail?: string | false
 ) => {
   try {
     const whereCondition: WhereCondition = buildWhereCondition(query, filters)
@@ -27,6 +28,7 @@ export const getOfferList = async (
       include: {
         employer: {
           select: {
+            email: true,
             logoUrl: true,
             logoName: true,
             companyName: true,
@@ -63,6 +65,10 @@ export const getOfferList = async (
     return {
       offers: offers.map((offer) => {
         const firstSalaryRange = offer.salaryRanges[0] || null
+        const isPostedByMe = employerEmail
+          ? offer.employer.email === employerEmail
+          : false
+
         return {
           id: offer.id,
           title: offer.title,
@@ -76,6 +82,7 @@ export const getOfferList = async (
                 contractTypeName: firstSalaryRange.contractType?.name,
               }
             : undefined,
+          isPostedByMe: isPostedByMe,
         }
       }),
       totalOffers,

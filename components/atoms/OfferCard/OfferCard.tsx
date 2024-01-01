@@ -6,6 +6,7 @@ import { OfferCardProps } from './OfferCard.types'
 import Image from 'next/image'
 import { TechItem } from '../TechItem'
 import { cn } from '@/lib/utils'
+import { Tooltip } from 'react-tooltip'
 
 export const OfferCard = ({
   id,
@@ -14,11 +15,12 @@ export const OfferCard = ({
   employerLogoUrl,
   salaryRange,
   technologies,
+  isPostedByMe,
   className,
 }: OfferCardProps) => {
   return (
     <Link href={`/offer?id=${id}`} className={cn('w-full', className)}>
-      <Card className="flex justify-between gap-4 items-center p-4 w-full">
+      <Card className="relative flex justify-between gap-4 items-center p-4 w-full">
         <div className="flex items-center">
           <div className="relative w-10 h-10 lg:w-14 lg:h-14">
             <Image
@@ -52,6 +54,16 @@ export const OfferCard = ({
             ))}
           </div>
         </div>
+        {isPostedByMe && (
+          <div
+            className="p-2 absolute top-0.5 right-0.5"
+            data-tooltip-id="card"
+            data-tooltip-content="Offer Posted by Me"
+          >
+            <span className="block rounded-full bg-gold w-1 h-1 pointer-events-none" />
+            <Tooltip id="card" />
+          </div>
+        )}
       </Card>
     </Link>
   )
