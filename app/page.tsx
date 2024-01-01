@@ -25,10 +25,9 @@ const Home = async ({
   const search =
     typeof searchParams.search === 'string' ? searchParams.search : undefined
 
-  const { offers, totalOffers, hasNextPage } = await getOfferList(
-    search,
-    1,
-    {
+  const getOffers = async (page = 1) => {
+    'use server'
+    const filters = {
       experience: transformQueryParamToArray(searchParams.experience),
       typeOfWork: transformQueryParamToArray(searchParams.typeOfWork),
       contractType: transformQueryParamToArray(searchParams.contractType),
@@ -36,29 +35,11 @@ const Home = async ({
       technology: transformQueryParamToArray(searchParams.techStack),
       salaryFrom: Number(searchParams.salaryFrom) || undefined,
       salaryTo: Number(searchParams.salaryTo) || undefined,
-    },
-    employerEmail
-  )
-
-  const getOffers = async (page: number) => {
-    'use server'
-
-    const offers = await getOfferList(
-      search,
-      page,
-      {
-        experience: transformQueryParamToArray(searchParams.experience),
-        typeOfWork: transformQueryParamToArray(searchParams.typeOfWork),
-        contractType: transformQueryParamToArray(searchParams.contractType),
-        operatingMode: transformQueryParamToArray(searchParams.operatingMode),
-        technology: transformQueryParamToArray(searchParams.technology),
-        salaryFrom: Number(searchParams.salaryFrom) || undefined,
-        salaryTo: Number(searchParams.salaryTo) || undefined,
-      },
-      employerEmail
-    )
-    return offers
+    }
+    return await getOfferList(search, page, filters, employerEmail)
   }
+
+  const { offers, totalOffers, hasNextPage } = await getOffers()
 
   return (
     <div className="min-h-screen py-12 flex flex-col items-center w-full px-4">
