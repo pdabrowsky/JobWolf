@@ -28,7 +28,7 @@ export const Navbar = () => {
   return (
     <nav className="flex items-center justify-between h-14 lg:h-16 w-full border-b border-darkLight px-3 md:px-5 lg:px-8">
       <Logo className="h-6 lg:h-7" />
-      <ul className="flex items-center gap-4 md:gap-5 lg:gap-8 text-[12px] lg:text-[14px] lg:mr-3">
+      <ul className="flex items-center gap-4 md:gap-5 lg:gap-8 text-[13px] lg:text-[15px] lg:mr-3">
         <li>
           <Link href={routes.HOME}>Offers</Link>
         </li>
@@ -60,7 +60,7 @@ export const Navbar = () => {
           ) : (
             <Link
               href={routes.LOGIN}
-              className="rounded-lg px-4 lg:px-5 py-1.5 bg-gold text-dark text-[12px] lg:text-[14px] font-medium transition-all hover:bg-opacity-80"
+              className="rounded-lg px-4 lg:px-5 py-1.5 bg-gold text-dark text-[13px] lg:text-[15px] font-medium transition-all hover:bg-opacity-80"
             >
               Login
             </Link>
