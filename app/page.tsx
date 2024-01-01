@@ -47,7 +47,7 @@ const Home = async ({
         <Search className="max-w-[500px] w-full" />
         <SearchFilters filterOptions={filterOptions} />
       </div>
-      <div>
+      <div className="w-full lg:max-w-[850px]">
         <div className="mb-4 flex">
           {offers.length ? (
             <p className="text-[14px] lg:text-[16px] text-gold font-semibold">
