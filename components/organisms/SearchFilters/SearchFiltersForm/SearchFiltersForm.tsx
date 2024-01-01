@@ -46,6 +46,7 @@ export const SearchFiltersForm = ({
     register,
     handleSubmit,
     control,
+    reset,
     formState: { errors },
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
@@ -59,6 +60,18 @@ export const SearchFiltersForm = ({
       operatingMode: transformQueryParamToArray(parsedQuery.operatingMode),
     },
   })
+
+  const onReset = () => {
+    reset({
+      salaryFrom: undefined,
+      salaryTo: undefined,
+      techStack: [],
+      experience: [],
+      typeOfWork: [],
+      contractType: [],
+      operatingMode: [],
+    })
+  }
 
   const onSubmit: SubmitHandler<SearchFilters> = async (data) => {
     const search = searchParams.get('search')
@@ -157,6 +170,13 @@ export const SearchFiltersForm = ({
       <Button type="submit" className="mx-auto mt-6 font-semibold px-8">
         Apply
       </Button>
+      <button
+        className="text-gold absolute top-4 left-20 p-1.5 text-sm"
+        type="button"
+        onClick={onReset}
+      >
+        Clear Filters
+      </button>
     </form>
   )
 }
