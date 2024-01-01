@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use server'
 
 import prisma from '@/lib/prisma'
@@ -108,10 +109,31 @@ function buildWhereCondition(
     whereCondition.AND.push({ title: { contains: query } })
   }
 
-  if (filters.contractType.length > 0) {
-    whereCondition.AND.push({
-      salaryRanges: { some: { contractTypeId: { in: filters.contractType } } },
-    })
+  const orConditions: Record<string, any>[] = []
+
+  const addOrCondition = (
+    filterArray: number[],
+    fieldName: string,
+    isRelation: boolean = false
+  ) => {
+    if (filterArray.length > 0) {
+      const condition: Record<string, any> = {}
+      if (isRelation) {
+        condition[fieldName] = { some: { contractTypeId: { in: filterArray } } }
+      } else {
+        condition[fieldName] = { in: filterArray }
+      }
+      orConditions.push(condition)
+    }
+  }
+
+  addOrCondition(filters.contractType, 'salaryRanges', true)
+  addOrCondition(filters.experience, 'experienceId')
+  addOrCondition(filters.typeOfWork, 'typeOfWorkId')
+  addOrCondition(filters.operatingMode, 'operatingModeId')
+
+  if (orConditions.length > 0) {
+    whereCondition.AND.push({ OR: orConditions })
   }
 
   if (filters.technology.length > 0) {
@@ -125,18 +147,7 @@ function buildWhereCondition(
     })
   }
 
-  filters.experience.forEach((id) =>
-    whereCondition.AND.push({ experienceId: id })
-  )
-  filters.typeOfWork.forEach((id) =>
-    whereCondition.AND.push({ typeOfWorkId: id })
-  )
-  filters.operatingMode.forEach((id) =>
-    whereCondition.AND.push({ operatingModeId: id })
-  )
-
   if (filters.salaryFrom !== undefined || filters.salaryTo !== undefined) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const salaryRangeCondition: Record<string, any> = {}
     if (filters.salaryFrom !== undefined) {
       salaryRangeCondition.salaryFrom = { gte: filters.salaryFrom }
@@ -149,9 +160,6 @@ function buildWhereCondition(
       salaryRanges: {
         some: {
           AND: [salaryRangeCondition],
-          ...(filters.contractType.length > 0 && {
-            contractTypeId: { in: filters.contractType },
-          }),
         },
       },
     })
@@ -171,12 +179,10 @@ type FilterOptions = {
 }
 
 type WhereCondition = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   AND: Array<Record<string, any>>
   isOpen?: boolean
   salaryRanges?: {
     some: {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       AND?: Array<Record<string, any>>
       contractTypeId?: {
         in: number[]
