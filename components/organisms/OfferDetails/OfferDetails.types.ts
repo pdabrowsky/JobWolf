@@ -8,6 +8,7 @@ export type OfferDetailsProps = {
   isAddedToFavourites?: boolean
   hasApplied?: boolean
   isProfileFilled?: boolean
+  isOpen?: boolean
   employer: {
     id: string
     email: string

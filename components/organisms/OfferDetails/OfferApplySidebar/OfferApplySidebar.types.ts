@@ -2,6 +2,7 @@ export type OfferApplySidebarProps = {
   salary: OfferApplySidebarSalary[]
   offerId: string
   hasApplied?: boolean
+  isOpen?: boolean
   isProfileFilled?: boolean
 }
 

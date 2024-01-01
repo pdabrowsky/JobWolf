@@ -19,6 +19,7 @@ export const OfferDetails = ({
   description,
   typeOfWork,
   salaryRanges,
+  isOpen,
   hasApplied,
   isProfileFilled,
 }: OfferDetailsProps) => {
@@ -53,6 +54,7 @@ export const OfferDetails = ({
         offerId={id}
         hasApplied={hasApplied}
         isProfileFilled={isProfileFilled}
+        isOpen={isOpen}
       />
     </div>
   )

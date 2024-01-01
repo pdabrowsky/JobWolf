@@ -13,6 +13,7 @@ export const OfferApplySidebarFrom = ({
   salary,
   offerId,
   hasApplied,
+  isOpen,
   isProfileFilled,
 }: OfferApplySidebarProps) => {
   const { data: session } = useSession()
@@ -47,18 +48,21 @@ export const OfferApplySidebarFrom = ({
         <div className="w-full flex justify-center">
           <Button
             onClick={() => handleApply(candidateEmail)}
-            disabled={hasAppliedState || !isProfileFilled}
+            disabled={hasAppliedState || !isProfileFilled || isOpen === false}
             data-tooltip-id="apply"
             data-tooltip-content={
-              hasAppliedState
-                ? 'Already applied'
-                : 'Please fill your profile first'
+              (hasAppliedState && 'Already applied') ||
+              (!isProfileFilled && 'Please fill your profile first') ||
+              (isOpen === false && 'Recruitment has ended') ||
+              ''
             }
             className="px-8 mt-4 font-bold"
           >
             Apply
           </Button>
-          {!!(hasAppliedState || !isProfileFilled) && <Tooltip id="apply" />}
+          {!!(hasAppliedState || !isProfileFilled || isOpen === false) && (
+            <Tooltip id="apply" />
+          )}
         </div>
       )}
     </aside>
