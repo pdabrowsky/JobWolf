@@ -1,8 +1,7 @@
 import { Card } from '@/components/atoms/Card'
 import { OfferAttributeItemProps, OfferEmploymentDetailsProps } from '.'
 import { CompasIcon } from '@/icons/CompasIcon'
-import { SpeedIcon } from '@/icons'
-import { StarIcon } from 'lucide-react'
+import { SpeedIcon, StarIcon } from '@/icons'
 
 const OfferAttributeItem = ({
   icon,

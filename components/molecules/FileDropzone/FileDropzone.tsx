@@ -1,12 +1,13 @@
 'use client'
 
-import { UploadCloudIcon, X } from 'lucide-react'
+import { UploadCloudIcon } from 'lucide-react'
 import { getDownloadUrl } from '@edgestore/react/utils'
 import * as React from 'react'
 import { useDropzone } from 'react-dropzone'
 import { cn } from '@/lib/utils'
 import { DropzoneInputProps } from './FileDropzone.types'
 import { ERROR_MESSAGES, dropzoneVariants } from './FileDropzone.config'
+import { CloseIcon } from '@/icons'
 
 export const FileDropzone = React.forwardRef<
   HTMLInputElement,
@@ -117,7 +118,7 @@ export const FileDropzone = React.forwardRef<
                 void onChange?.(undefined)
               }}
             >
-              <X width={16} height={16} className="text-gray-500" />
+              <CloseIcon width={16} height={16} className="text-gray-500" />
             </div>
           </div>
         )}
