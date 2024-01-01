@@ -55,6 +55,7 @@ export const SalaryRange = ({
                   label="Contract type*"
                   name={field.name}
                   options={contractTypes}
+                  selectedOption={field.value}
                   placeholder="Select contract type"
                   onChange={(value) => field.onChange(value)}
                 />

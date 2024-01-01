@@ -2,10 +2,7 @@ import React, { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { FieldError } from 'react-hook-form'
-import {
-  DropdownSelectOption,
-  DropdownSelectProps,
-} from './DropdownSelect.types'
+import { DropdownSelectProps } from './DropdownSelect.types'
 import { ErrorMessage } from '../ErrorMessage'
 import { ArrowDownIcon } from '@/icons'
 
@@ -17,11 +14,13 @@ export const DropdownSelect = ({
   errors,
   onChange,
   placeholder,
-  initialOption,
+  selectedOption,
   ...rest
 }: DropdownSelectProps) => {
   const [isFocused, setIsFocused] = useState(false)
-  const [selectedOption, setSelectedOption] = useState(initialOption || null)
+  const selectedLabel =
+    options.find((option) => option.value === selectedOption)?.label || ''
+
   const onFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     e.preventDefault()
     setIsFocused(true)
@@ -32,10 +31,9 @@ export const DropdownSelect = ({
     setIsFocused(false)
   }
 
-  const handleSelect = (option: DropdownSelectOption) => {
-    if (option.value === selectedOption?.value) return
-    onChange?.(option.value)
-    setSelectedOption(option)
+  const handleSelect = (option: number) => {
+    if (option === selectedOption) return
+    onChange(option)
   }
   const error = name ? (errors?.[name] as FieldError) || undefined : undefined
 
@@ -49,7 +47,7 @@ export const DropdownSelect = ({
           readOnly
           id={name}
           name={name}
-          value={selectedOption?.label || ''}
+          value={selectedLabel || ''}
           placeholder={placeholder}
           onFocus={onFocus}
           onBlur={onBlur}
@@ -76,7 +74,7 @@ export const DropdownSelect = ({
                   transition: { duration: 0.25, delay: 0.1 },
                 }}
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
-                onClick={() => handleSelect(option)}
+                onClick={() => handleSelect(option.value)}
                 className="block text-[12px] lg:text-[13px] px-4 py-2 hover:bg-hoverDark transition-all rounded-md cursor-pointer"
               >
                 {option.label}

@@ -106,6 +106,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
                 label="Operating mode*"
                 name={field.name}
                 options={selectOptions.operatingMode}
+                selectedOption={field.value}
                 errors={errors}
                 placeholder="Select operating mode"
                 onChange={(value) => field.onChange(value)}
@@ -121,6 +122,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               <DropdownSelect
                 label="Experience*"
                 name={field.name}
+                selectedOption={field.value}
                 options={selectOptions.experience}
                 errors={errors}
                 placeholder="Select experience"
@@ -135,6 +137,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
               <DropdownSelect
                 label="Type of work*"
                 name={field.name}
+                selectedOption={field.value}
                 options={selectOptions.typeOfWork}
                 errors={errors}
                 placeholder="Select type of work"
