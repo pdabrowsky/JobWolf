@@ -112,7 +112,7 @@ export const SearchFiltersForm = ({
           <TechSelector
             label="Technology stack"
             name={field.name}
-            initialOptions={field.value}
+            selectedTechs={field.value}
             onChange={(selected) => field.onChange(selected)}
             technologies={filterOptions.technology}
             errors={errors}

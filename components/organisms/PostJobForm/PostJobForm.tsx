@@ -150,7 +150,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
             <TechSelector
               label="Must Have Technologies*"
               name={field.name}
-              initialOptions={field.value}
+              selectedTechs={field.value}
               onChange={(selected) => field.onChange(selected)}
               technologies={selectOptions.technology}
               errors={errors}
@@ -164,7 +164,7 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
             <TechSelector
               label="Nice To Have Technologies*"
               name={field.name}
-              initialOptions={field.value}
+              selectedTechs={field.value}
               onChange={(selected) => field.onChange(selected)}
               technologies={selectOptions.technology}
               errors={errors}

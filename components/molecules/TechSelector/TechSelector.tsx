@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { TechItemCheckbox } from '@/components/atoms/TechItemCheckbox'
 import { TechSelectorProps } from './TechSelector.types'
 import { cn } from '@/lib/utils'
@@ -12,20 +12,16 @@ export const TechSelector = ({
   onChange,
   technologies,
   errors,
-  initialOptions,
+  selectedTechs,
 }: TechSelectorProps & {
   onChange: (value: number[]) => void
-  initialOptions?: number[]
+  selectedTechs?: number[]
 }) => {
-  const [selectedTechs, setSelectedTechs] = useState<number[]>(
-    initialOptions || []
-  )
-
   const handleSelect = (tech: number) => {
-    const newSelectedTechs = selectedTechs.includes(tech)
+    const newSelectedTechs = selectedTechs?.includes(tech)
       ? selectedTechs.filter((t) => t !== tech)
-      : [...selectedTechs, tech]
-    setSelectedTechs(newSelectedTechs)
+      : [...(selectedTechs || []), tech]
+
     onChange(newSelectedTechs)
   }
 
@@ -45,7 +41,7 @@ export const TechSelector = ({
           <TechItemCheckbox
             key={tech.value}
             name={tech.label}
-            isSelected={selectedTechs.includes(tech.value)}
+            isSelected={selectedTechs?.includes(tech.value) || false}
             onToggle={() => handleSelect(tech.value)}
           />
         ))}
