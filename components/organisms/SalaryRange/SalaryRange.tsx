@@ -78,8 +78,7 @@ export const SalaryRange = ({
 
           <ErrorMessage
             error={
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              (formErrors?.salaryRange as any)?.contractType ||
+              formErrors?.salaryRange?.[index]?.contractType ||
               formErrors?.salaryRange?.[index]?.from ||
               formErrors?.salaryRange?.[index]?.to ||
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
