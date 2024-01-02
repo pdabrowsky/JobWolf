@@ -46,6 +46,7 @@ export const OfferHeader = ({
           src={logoUrl}
           alt={`${companyName} logo`}
           fill
+          sizes="(max-width: 1024px) 40px, 80px"
           style={{ objectFit: 'contain' }}
         />
       </div>

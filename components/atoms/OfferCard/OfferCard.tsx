@@ -27,6 +27,7 @@ export const OfferCard = ({
               src={employerLogoUrl}
               alt={`${companyName} logo`}
               fill
+              sizes="(max-width: 1024px) 40px, 56px"
               style={{ objectFit: 'contain' }}
             />
           </div>
