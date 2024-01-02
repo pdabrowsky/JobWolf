@@ -32,7 +32,7 @@ export const OfferEmploymentDetails = ({
         label="Experience"
         value={experience}
         icon={
-          <StarIcon className="w-12 h-12 p-2.5 rounded-lg text-gold bg-darkGold" />
+          <StarIcon className="w-12 h-12 p-2.5 rounded-lg text-gold bg-darkGold fill-darkGold" />
         }
       />
       <OfferAttributeItem
