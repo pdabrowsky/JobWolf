@@ -47,6 +47,7 @@ export const SearchFiltersForm = ({
     handleSubmit,
     control,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<SearchFilters>({
     resolver: zodResolver(PostJobSchema),
@@ -62,9 +63,9 @@ export const SearchFiltersForm = ({
   })
 
   const onReset = () => {
+    setValue('salaryFrom', undefined)
+    setValue('salaryTo', undefined)
     reset({
-      salaryFrom: undefined,
-      salaryTo: undefined,
       techStack: [],
       experience: [],
       typeOfWork: [],
