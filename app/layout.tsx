@@ -6,6 +6,7 @@ import { Navbar } from '@/components/molecules/Navbar'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import { ToastContainerWrapper } from '@/components/atoms/ToastContainer'
 import { EdgeStoreProvider } from '../lib/edgestore'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 export const metadata: Metadata = {
   title: 'JobWolf',
@@ -26,6 +27,7 @@ export default async function RootLayout({
       <body className="bg-dark text-gray font-sans">
         <SessionProvider session={session}>
           <EdgeStoreProvider>
+            <SpeedInsights />
             <Navbar />
             {children}
             <ToastContainerWrapper />
