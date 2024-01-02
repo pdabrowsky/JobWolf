@@ -77,7 +77,8 @@ export const OfferPostedList = ({
                 />
                 <OfferPostedActions
                   id={offer.id}
-                  onDeleteClick={offer.isOpen ? handleDeleteClick : undefined}
+                  onDeleteClick={handleDeleteClick}
+                  isOfferOpen={!!offer.isOpen}
                   onCandidatesClick={handleCadidatesClick}
                 />
               </li>
