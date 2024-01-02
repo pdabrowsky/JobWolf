@@ -66,7 +66,7 @@ export const OfferPostedList = ({
 
   return (
     <>
-      <ul className={cn('flex flex-col gap-4', className)}>
+      <ul className={cn('flex flex-col gap-4 w-full lg:w-fit', className)}>
         {!!offerList.length && (
           <>
             {offerList.map((offer) => (
