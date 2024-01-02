@@ -62,7 +62,11 @@ export const getEmployerOffers = async (
       },
     })
 
-    const totalOffers = await prisma.offer.count()
+    const totalOffers = await prisma.offer.count({
+      where: {
+        employerId: employer.id,
+      },
+    })
 
     const hasNextPage = skip + offers.length < totalOffers
 
