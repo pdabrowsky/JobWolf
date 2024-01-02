@@ -93,8 +93,8 @@ export const PostJobForm = ({ selectOptions }: PostJobFormProps) => {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="flex flex-col gap-4 md:flex-row md:gap-3">
           <TextField
-            label="Title"
-            placeholder="Enter job title*"
+            label="Title*"
+            placeholder="Enter job title"
             errors={errors}
             {...register('title')}
           />
